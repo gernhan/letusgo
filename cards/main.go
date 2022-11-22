@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 const someConst = 12
 
@@ -24,6 +26,20 @@ func main() {
 
 	cards = newDeck()
 	cards.print()
+	fmt.Println(cards.toString())
+
+	fmt.Println("-----slice-----")
+	hand, remainingCards := deal(cards, 2)
+	hand.print()
+	remainingCards.print()
+
+	fmt.Println("-----Write to File and Read from File-----")
+	cards.saveToFile("newFile")
+	newCards := newDeck()
+	newCards.newDeckFromFile("newFile")
+	newCards.shuffle()
+	newCards.print()
+
 }
 
 func i2S(input interface{}) string {
