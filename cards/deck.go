@@ -5,20 +5,31 @@ import (
 	"math/rand"
 	"os"
 	"strings"
+	"time"
 )
 
 type deck []string
 
+func newDeckFromFile(fileName string) (deck, error) {
+	inByte, err := os.ReadFile(fileName)
+	if err != nil {
+		return nil, err
+	}
+
+	s := strings.Split(string(inByte), ",")
+	return s, nil
+}
+
 func newDeck() deck {
 	cards := deck{}
 	cardSuits := deck{"Spades", "Diamonds", "Hearts"}
-	cardValues := deck{"Ace", "Two", "Three", "Four"}
+	cardValues := deck{"Ace", "Two", "Three", "Four", "Five"}
 	for _, suit := range cardSuits {
 		for _, value := range cardValues {
 			cards = append(cards, value+" of "+suit)
 		}
 	}
-	return []string{}
+	return cards
 }
 
 func (d deck) print() {
@@ -40,19 +51,12 @@ func (d deck) saveToFile(fileName string) error {
 	return err
 }
 
-func (d deck) newDeckFromFile(fileName string) (deck, error) {
-	inByte, err := os.ReadFile(fileName)
-	if err != nil {
-		return nil, err
-	}
-
-	s := strings.Split(string(inByte), ",")
-	return s, nil
-}
-
 func (d deck) shuffle() {
+	source := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(source)
+
 	for i := range d {
-		newPosition := rand.Intn(len(d) - 1)
+		newPosition := r.Intn(len(d) - 1)
 		d[i], d[newPosition] = d[newPosition], d[i]
 	}
 }

@@ -35,11 +35,9 @@ func main() {
 
 	fmt.Println("-----Write to File and Read from File-----")
 	cards.saveToFile("newFile")
-	newCards := newDeck()
-	newCards.newDeckFromFile("newFile")
+	newCards, _ := newDeckFromFile("newFile")
 	newCards.shuffle()
 	newCards.print()
-
 }
 
 func i2S(input interface{}) string {
