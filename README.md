@@ -1,14 +1,43 @@
-**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
-
-When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
-
-*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
-
 ---
+## Difference between authentication and authorization
+* Authentication
+  * Determine who you are
+  * Verifies that no-one is impersonating you
+  * Three ways to authenticate
+    * Who you are (biometrics)
+    * What you have (eg, atm card, key, phone)
+    * What you know (username, password)
+  * Two-factor authentication
+* Authorization
+    * Says what you are allowed to do
+    * The name of http header used for authorization
 
-## Edit a file
-
-You’ll start by editing this README file to learn how to edit a file in Bitbucket.
+## Http Basic Authentication
+* Basic Authentication part of specification of http
+    * Send username/password with every request
+    * Use authorization header and keyword basic
+        * Put username & password together
+        * Convert them to base64
+            * put generic binary data into printable form
+            * base64 is reversible
+              * Never use with http; only https
+        * use basic authentication
+## Storing password
+* Never store passwords
+* Instead, store one-way encryption "hash" values of password
+* For added security
+  * Hash on the client
+  * Hash That again on the server
+* Hashing algorithms
+  * Bcrypt
+  * Scrypt - new choice
+## Bearer tokens and Hmac
+* Bearer tokens
+  * Added to http spec with Oauth2
+  * Uses authorization header and keyword 'Bearer'
+* To prevent faked bearer tokens, use cryptographic "signing"
+  * Cryptographic signing is a way the prove that the value was created by a certain person
+  * [Hmac](https://godoc.org/crypto/hmac)
 
 1. Click **Source** on the left side.
 2. Click the README.md link from the list of files.
