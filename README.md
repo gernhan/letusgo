@@ -29,7 +29,7 @@
   * Hash on the client
   * Hash That again on the server
 * Hashing algorithms
-  * Bcrypt
+  * [Bcrypt](https://godoc.org/golang.org/x/crypto/bcrypt) - current choice
   * Scrypt - new choice
 ## Bearer tokens and Hmac
 * Bearer tokens
@@ -39,6 +39,22 @@
   * Cryptographic signing is a way the prove that the value was created by a certain person
   * [Hmac](https://godoc.org/crypto/hmac)
 
+## Discussion
+* Cryptography
+  * Large field
+* Hashing
+  * MD5 - don't use
+  * SHA
+  * BCrypt
+  * SCrypt
+* Signing
+  * Symmetric key
+    * HMAC
+  * Asymmetric key
+    * RSA
+    * ECDSA - better than RSA; faster; smaller keys
+    * Private key to sign (encrypt) / public key to verify (decrypt)
+  * JWT
 1. Click **Source** on the left side.
 2. Click the README.md link from the list of files.
 3. Click the **Edit** button.
