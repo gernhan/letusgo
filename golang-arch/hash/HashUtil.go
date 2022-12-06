@@ -5,7 +5,6 @@ import (
 	"crypto/sha512"
 	"encoding/base64"
 	"fmt"
-	. "golang-arch/dto"
 	"golang.org/x/crypto/bcrypt"
 	"log"
 )
