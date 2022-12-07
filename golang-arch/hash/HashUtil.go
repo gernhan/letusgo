@@ -31,6 +31,23 @@ func testHashing() {
 	log.Println("Logged in!")
 }
 
+func testSignature() {
+	const msg = "This is a test for signing"
+	signature, err := signMessage(msg)
+	if err != nil {
+		log.Fatalln("cannot generate signature")
+	}
+	rightPerson, err := checkSignature(msg, signature)
+	if err != nil {
+		return
+	}
+	if rightPerson {
+		fmt.Println("Right person")
+	} else {
+		fmt.Println("Wrong person")
+	}
+}
+
 func signMessage(msg string) (string, error) {
 	h := hmac.New(sha512.New, []byte(KEY))
 	_, err := h.Write([]byte(msg))
