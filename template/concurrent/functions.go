@@ -1,6 +1,8 @@
 package concurrent
 
-import "sync"
+import (
+	"sync"
+)
 
 func SupplyAsync(handler func() (interface{}, error)) *Future {
 	wg := sync.WaitGroup{}
@@ -15,6 +17,10 @@ func SupplyAsync(handler func() (interface{}, error)) *Future {
 	return NewFuture(&data, &err, &wg)
 }
 
+func SupplyAsyncWithPool(handler func() (interface{}, error), pool *ThreadPool) *Future {
+	return pool.Submit(handler)
+}
+
 func RunAsync(handler func() error) *Future {
 	wg := sync.WaitGroup{}
 	wg.Add(1)
@@ -25,4 +31,8 @@ func RunAsync(handler func() error) *Future {
 		err = handler()
 	}()
 	return NewFuture(nil, &err, &wg)
+}
+
+func RunAsyncWithPool(handler func() error, pool *ThreadPool) *Future {
+	return pool.SubmitAndReturnErrorOnly(handler)
 }

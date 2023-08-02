@@ -124,3 +124,77 @@ func WaitAllOfList(futures List) AllResults {
 	}
 	return result
 }
+
+func (f *Future) thenSupplyAsync(handler func(interface{}) (interface{}, error)) *Future {
+	wg := sync.WaitGroup{}
+	wg.Add(1)
+	var data interface{}
+	var err error
+
+	go func() {
+		defer wg.Done()
+		f.wg.Wait()
+		if f.Error() == nil {
+			data, err = handler(f.Data())
+		} else {
+			data, err = nil, f.Error()
+		}
+	}()
+	return NewFuture(&data, &err, &wg)
+}
+
+func (f *Future) thenSupplyAsyncWithPool(handler func(interface{}) (interface{}, error), pool *ThreadPool) *Future {
+	wg := sync.WaitGroup{}
+	wg.Add(1)
+	var data interface{}
+	var err error
+	pool.semaphore.Acquire()
+	defer pool.semaphore.Release()
+
+	go func() {
+		defer wg.Done()
+		f.wg.Wait()
+		if f.Error() == nil {
+			data, err = handler(f.Data())
+		} else {
+			data, err = nil, f.Error()
+		}
+	}()
+	return NewFuture(&data, &err, &wg)
+}
+
+func (f *Future) thenRunAsync(handler func() error) *Future {
+	wg := sync.WaitGroup{}
+	wg.Add(1)
+	var err error
+
+	go func() {
+		defer wg.Done()
+		f.wg.Wait()
+		if f.Error() == nil {
+			err = handler()
+		} else {
+			err = f.Error()
+		}
+	}()
+	return NewFuture(nil, &err, &wg)
+}
+
+func (f *Future) thenRunAsyncWithPool(handler func() error, pool *ThreadPool) *Future {
+	wg := sync.WaitGroup{}
+	wg.Add(1)
+	var err error
+	pool.semaphore.Acquire()
+	defer pool.semaphore.Release()
+
+	go func() {
+		defer wg.Done()
+		f.wg.Wait()
+		if f.Error() == nil {
+			err = handler()
+		} else {
+			err = f.Error()
+		}
+	}()
+	return NewFuture(nil, &err, &wg)
+}

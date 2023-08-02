@@ -6,6 +6,20 @@ import (
 )
 
 func TestConcurrentList(t *testing.T) {
+	list, listSize := getConcurrentList()
+
+	if list.Size() != listSize {
+		t.Errorf("Expected list size %d, actual: %v", listSize, list.Size())
+	}
+	for i := 0; i < listSize; i++ {
+		_, err := list.Get(i)
+		if err != nil {
+			t.Errorf("Error getting value at index %d: %v", i, err)
+		}
+	}
+}
+
+func getConcurrentList() (*List, int) {
 	list := NewConcurrentList()
 
 	var wg sync.WaitGroup
@@ -18,14 +32,5 @@ func TestConcurrentList(t *testing.T) {
 		}(i)
 	}
 	wg.Wait()
-
-	if list.Size() != listSize {
-		t.Errorf("Expected list size %d, actual: %v", listSize, list.Size())
-	}
-	for i := 0; i < listSize; i++ {
-		_, err := list.Get(i)
-		if err != nil {
-			t.Errorf("Error getting value at index %d: %v", i, err)
-		}
-	}
+	return list, listSize
 }

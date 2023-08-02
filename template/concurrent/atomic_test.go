@@ -19,6 +19,9 @@ func TestAtomicInteger(t *testing.T) {
 				*a = *a + 1
 			})
 			return nil
+		}).thenRunAsync(func() error {
+			log.Printf("")
+			return nil
 		}))
 	}
 

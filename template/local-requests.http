@@ -17,7 +17,7 @@ Content-Type: application/json
     "batchSize": 500
 }
 
-### update 5M users
+### update 5M users normal way
 PUT http://localhost:9872/api/normal-update-batch
 keep-alive: true
 Content-Type: application/json

@@ -5,13 +5,13 @@ import (
 	"sync/atomic"
 	"testing"
 
-	cc "github.com/gernhan/template/concurrent"
+	"github.com/gernhan/template/concurrent"
 	"github.com/gernhan/template/tools"
 )
 
 func TestDataBatchProcessor(t *testing.T) {
 	bufferThreshold := 10
-	collector := *cc.NewConcurrentList()
+	collector := *concurrent.NewConcurrentList()
 	ig := tools.NewInputGenerator()
 	counter := int64(0)
 
@@ -32,12 +32,13 @@ func TestDataBatchProcessor(t *testing.T) {
 	)
 
 	nThreads := 103
-	futures := cc.EmptyMultiFutures()
+	tp := concurrent.NewThreadPool(3)
+	futures := concurrent.EmptyMultiFutures()
 	for i := 0; i < nThreads; i++ {
-		futures.AddFuture(cc.RunAsync(func() error {
+		futures.AddFuture(concurrent.RunAsyncWithPool(func() error {
 			_, err := dataBatchProcessor.handle(ig.GenerateString(4))
 			return err
-		}))
+		}, tp))
 	}
 
 	result := futures.Result()
@@ -58,13 +59,14 @@ func TestDataBatchProcessor(t *testing.T) {
 
 func TestDataBatchProcessorIfHandlerIsConcurrent(t *testing.T) {
 	bufferThreshold := 10
-	collector := *cc.NewConcurrentList()
+	collector := *concurrent.NewConcurrentList()
 	ig := tools.NewInputGenerator()
 
+	tp := concurrent.NewThreadPool(3)
 	dataBatchProcessor := NewDataBatchProcessor(
 		bufferThreshold,
 		func(dataCollection []interface{}) (interface{}, error) {
-			return cc.SupplyAsync(func() (interface{}, error) {
+			return tp.Submit(func() (interface{}, error) {
 				for _, data := range dataCollection {
 					collector.Add(data)
 				}
@@ -77,27 +79,30 @@ func TestDataBatchProcessorIfHandlerIsConcurrent(t *testing.T) {
 
 	items := 102
 
-	multiFutures := cc.EmptyMultiFutures()
+	handleFlows := concurrent.EmptyMultiFutures()
 	for i := 0; i < items; i++ {
-		f := cc.RunAsync(func() error {
+		f := concurrent.RunAsync(func() error {
 			_, err := dataBatchProcessor.handle(ig.GenerateString(3))
 			return err
 		})
-		multiFutures.AddFuture(f)
+		handleFlows.AddFuture(f)
 	}
 
-	result := multiFutures.Result()
+	f := handleFlows.ToFuture()
+	f.Wait()
+	result := f.Data().(*concurrent.AllResults)
 	if !result.IsSucceed {
 		err := result.Failures[0].Err
 		t.Errorf("Caught error %v", err)
 	}
+
 	_, err := dataBatchProcessor.handleLastBatch()
 	if err != nil {
 		t.Errorf("Caught error %v", err)
 	}
 
 	for value := range dataBatchProcessor.Results().Values() {
-		future := value.(*cc.Future)
+		future := value.(*concurrent.Future)
 		future.Wait()
 		log.Printf("future %v, data %v", future, future.Data())
 	}
