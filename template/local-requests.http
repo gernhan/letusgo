@@ -1,0 +1,29 @@
+### insert 5M users
+POST http://localhost:9872/api/insert-batch
+Content-Type: application/json
+
+{
+    "userCount": 5000000,
+    "batchSize": 500
+}
+
+### update 5M users
+PUT http://localhost:9872/api/update-batch
+keep-alive: true
+Content-Type: application/json
+
+{
+    "userCount": 5000000,
+    "batchSize": 500
+}
+
+### update 5M users
+PUT http://localhost:9872/api/normal-update-batch
+keep-alive: true
+Content-Type: application/json
+
+{
+    "userCount": 5000000,
+    "batchSize": 500
+}
+
