@@ -1,0 +1,4180 @@
+<?xml version="1.0" encoding="ISO-8859-2"?>
+<!-- edited with XMLSpy v2005 sp1 U (http://www.xmlspy.com) by o2 (o2 (Germany) GmbH & Co. OHG) -->
+<!-- edited with XML Spy v4.4 U (http://www.xmlspy.com) by labersack (labersack) -->
+<!-- edited with XMLSPY v5 rel. 4 U (http://www.xmlspy.com) by o2 (O2 Germany GmbH & Co. OHG) -->
+<xs:schema xmlns="MAGIC" xmlns:fw="http://www.formware.de/fox" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="MAGIC" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+  <xs:import namespace="http://www.formware.de/fox" schemaLocation="../xsd/fox.xsd"/>
+	<xs:element name="PSI">
+		<xs:annotation>
+			<xs:documentation>Root Element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="O2_BANK">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="O2_BLZ">
+								<xs:annotation>
+									<xs:appinfo>O2 bank code : IBEG_XML.text for path PSI/O2_BANK/BLZ</xs:appinfo>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:pattern value="\d{8}"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="O2_B_NAM" type="xs:string">
+								<xs:annotation>
+									<xs:appinfo>O2 bank name : IBEG_XML.text for path PSI/O2_BANK/B_NAM</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="O2_B_KTO">
+								<xs:annotation>
+									<xs:appinfo>O2 bank account number : IBEG_XML.text for path PSI/O2_BANK/B_KTO</xs:appinfo>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:pattern value="\d+"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="O2_BLZ_SP">
+								<xs:annotation>
+									<xs:documentation>O2 BLZ for Service provider invoice</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="O2_B_NAM_SP">
+								<xs:annotation>
+									<xs:documentation>O2 bank name for Service Provider invoice</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="O2_B_KTO_SP">
+								<xs:annotation>
+									<xs:documentation>O2 bank account number for  Service Provider invoice</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="O2_CRED_ID" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>O2 creditor Id Implemented for the SEPA</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="O2_IBAN" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>O2 Bank IBAN number Implemented for the SEPA</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="O2_BIC" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>O2 Bank BIC number Implemented for the SEPA</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="FORMAT" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ABSCHNITT" minOccurs="4" maxOccurs="6">
+								<xs:complexType>
+									<xs:choice maxOccurs="unbounded">
+										<xs:element name="KOPF" type="INFOType" minOccurs="0">
+											<xs:annotation>
+												<xs:appinfo>header line for each section
+IBEG_XML.text for Path  PSI/FORMAT/ABSCHNITT/KOPF for all IBEG_XML.id
+Attributes :
+ID =  IBEG_XML.id</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="SPA" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:appinfo>Headline for each column ( For sections in form of a table e.g section 2b )
+IBEG_XML.text for Path  PSI/FORMAT/ABSCHNITT/SPA for all IBEG_XML.id
+Attributes :
+ID =  IBEG_XML.id</xs:appinfo>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:complexContent>
+													<xs:extension base="fw:FOXType">
+														<xs:attribute name="ID" type="xs:int" use="optional"/>
+													</xs:extension>
+												</xs:complexContent>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="FUSS" type="INFOType" minOccurs="0">
+											<xs:annotation>
+												<xs:appinfo>header line for each section
+IBEG_XML.text for Path  PSI/FORMAT/ABSCHNITT/KOPF for all IBEG_XML.id
+Attributes :
+ID =  IBEG_XML.id</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="TPC" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Text for Third Party Gross Charges</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:choice>
+									<xs:attribute name="ID" type="xs:string" use="optional"/>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="KUN_ZUS">
+								<xs:complexType>
+									<xs:choice maxOccurs="unbounded">
+										<xs:element name="F_DAT" type="xs:string">
+											<xs:annotation>
+												<xs:appinfo>Description of due (RAITT)</xs:appinfo>
+												<xs:documentation>external id</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="A_NUM" type="xs:string">
+											<xs:annotation>
+												<xs:appinfo>Description of billing account number (RAITT)</xs:appinfo>
+												<xs:documentation>external id</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="K_NUM" type="xs:string">
+											<xs:annotation>
+												<xs:appinfo>Description of customer number (RAITT)</xs:appinfo>
+												<xs:documentation>external id</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="M_NUM" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:appinfo>Description of Mobile Phone Number: IBEG_XML.text for PATH</xs:appinfo>
+												<xs:appinfo>Description of Mobile Phone Number: IBEG_XML.text for PATH</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="K_ZST" minOccurs="0" maxOccurs="2">
+											<xs:annotation>
+												<xs:appinfo>Description of additional customer information (called Kundenzusatzt) : IBEG_XML.text for PATH
+Attribute:
+ID = IBEG_XML.id</xs:appinfo>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:simpleContent>
+													<xs:extension base="xs:string">
+														<xs:attribute name="ID" type="xs:int" use="required"/>
+													</xs:extension>
+												</xs:simpleContent>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="ANZ_NUM" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:appinfo>Number of All MSISDN Shown only if it is more then 3. </xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="RV_NUM" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>frame_contract_number</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="UST_NUM" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:appinfo>TAX Number</xs:appinfo>
+												<xs:appinfo>Tax Number</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="SUB_NUM">
+											<xs:annotation>
+												<xs:documentation>SubscriptionID: for HW only layout !</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:choice>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="ZAH_ZUS">
+								<xs:complexType>
+									<xs:choice maxOccurs="unbounded">
+										<xs:element name="ZIE_DAT" type="xs:string">
+											<xs:annotation>
+												<xs:appinfo>Payment due date for the invoice : IBEG_XML.text for PATH</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:choice>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="REC_ZUS">
+								<xs:complexType>
+									<xs:choice maxOccurs="unbounded">
+										<xs:element name="R_DAT" type="xs:string">
+											<xs:annotation>
+												<xs:appinfo>Description of bill date : IBEG_XML.text for PATH</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="R_NUM" type="xs:string">
+											<xs:annotation>
+												<xs:appinfo>Description of  invoice number : IBEG_XML.text for PATH</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="REC_PER" type="xs:string">
+											<xs:annotation>
+												<xs:appinfo>Description of  invoice from and to date : IBEG_XML.text for PATH</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="R_BIS" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:appinfo>Description of end of billing period  : IBEG_XML.text for PATH</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="R_VON" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:appinfo>Description of begin of billing period : IBEG_XML.text für den PATH</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="LZ" type="xs:string">
+											<xs:annotation>
+												<xs:appinfo>Description of billing period / Leistungszeitraum (RAITT)</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="VORMONAT">
+											<xs:complexType>
+												<xs:choice maxOccurs="unbounded">
+													<xs:element name="KOPF">
+														<xs:complexType>
+															<xs:complexContent>
+																<xs:extension base="INFOType">
+																	<xs:attribute name="ABSCHNITT" type="xs:int" use="required"/>
+																</xs:extension>
+															</xs:complexContent>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="GES">
+														<xs:annotation>
+															<xs:appinfo>Description of open amount from the previous month : Headline of the section : IBEG_XML.text for PATH</xs:appinfo>
+														</xs:annotation>
+														<xs:complexType>
+															<xs:complexContent>
+																<xs:extension base="INFOType">
+																	<xs:attribute name="ABSCHNITT" type="xs:int" use="required"/>
+																</xs:extension>
+															</xs:complexContent>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="GUT">
+														<xs:annotation>
+															<xs:appinfo>Description of assets amount from the previous month : Headline of the section : IBEG_XML.text for PATH</xs:appinfo>
+														</xs:annotation>
+														<xs:complexType>
+															<xs:complexContent>
+																<xs:extension base="fw:FOXType">
+																	<xs:attribute name="ABSCHNITT" type="xs:int" use="optional"/>
+																</xs:extension>
+															</xs:complexContent>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="VOR_GES" type="fw:FOXType">
+														<xs:annotation>
+															<xs:appinfo>Description of  total amount from the previous month : IBEG_XML.text für den PATH</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="EIN_ZAH_GES" type="fw:FOXType">
+														<xs:annotation>
+															<xs:appinfo>Description of  total payments received : IBEG_XML.text für den PATH</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="VOR_GUN_GES" type="fw:FOXType">
+														<xs:annotation>
+															<xs:appinfo>Description of  adjustments from the previous month : IBEG_XML.text for PATH</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="VOR_MWS" type="fw:FOXType">
+														<xs:annotation>
+															<xs:appinfo>Description of Tax of adjusteed amounts from the previous month : IBEG_XML.text for PATH</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="VOR_OFF" type="fw:FOXType">
+														<xs:annotation>
+															<xs:appinfo>Description of Open amount from previous month (last line) : IBEG_XML.text for PATH</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+												</xs:choice>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="AKTUELL">
+											<xs:complexType>
+												<xs:choice maxOccurs="unbounded">
+													<xs:element name="KOPF" type="fw:FOXType"/>
+													<xs:element name="GES" type="INFOType">
+														<xs:annotation>
+															<xs:appinfo>Description of total amount from the billing period (Section head line) : IBEG_XML.text for PATH</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="AKT_GGB" type="BELTypeBesch">
+														<xs:annotation>
+															<xs:appinfo>Description of Recurring charges Grundgebühren from the billing period : IBEG_XML.text for PATH</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="AKT_ZSL" type="BELTypeBesch">
+														<xs:annotation>
+															<xs:appinfo>Description of Savings related to recurring charges from the billing period : IBEG_XML.text for PATH</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="AKT_VER" type="BELTypeBesch">
+														<xs:annotation>
+															<xs:appinfo>Description of usage charges from the billing period  : IBEG_XML.text for PATH</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="AKT_SON_RAB" type="fw:FOXType">
+														<xs:annotation>
+															<xs:appinfo>Description of other savings from the billing period : IBEG_XML.text for PATH</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="AKT_GUN_GES" type="fw:FOXType">
+														<xs:annotation>
+															<xs:appinfo>Description of total Adjustments from the billing period  : IBEG_XML.text for PATH</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="AKT_GES_N" type="fw:FOXType">
+														<xs:annotation>
+															<xs:appinfo>Description of total new charges from the billing period  : IBEG_XML.text for PATH</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="AKT_MWS" type="fw:FOXType">
+														<xs:annotation>
+															<xs:appinfo>Description of TAx of new charges from the billing period  : IBEG_XML.text for PATH</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="AKT_GES_B" type="fw:FOXType">
+														<xs:annotation>
+															<xs:appinfo>Description of total amount on the invoice : IBEG_XML.text for PATH</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="AKT_RAB" type="BELTextType"/>
+													<xs:element name="AKT_GES_TPC" type="fw:FOXType">
+														<xs:annotation>
+															<xs:appinfo>Description of total new charges from the billing period  : IBEG_XML.text for PATH</xs:appinfo>
+															<xs:documentation>Total of Third Party Gross Charges</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+												</xs:choice>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="R_GES" type="INFOType">
+											<xs:annotation>
+												<xs:appinfo>Description of total gross amount on the invoice (if positiv)  : IBEG_XML.text for PATH</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="R_GUT" type="INFOType">
+											<xs:annotation>
+												<xs:appinfo>Description of total gross amount on the invoice if negativ (credits)  : IBEG_XML.text for PATH</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="R_UEB">
+											<xs:annotation>
+												<xs:documentation>Depends on the layout type values are:
+
+RCS 		= RECHNUNG
+HW_ONLY	=Zahlungsbeleg
+BCS		=RECHNUNG
+SP		=Abrechnungsbeleg
+</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="G_TAX" type="xs:string">
+											<xs:annotation>
+												<xs:appinfo>Field to store the Global TAX rate at an account level (introduced with R19.3 SR-87101)</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:choice>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="KTO_BEL">
+								<xs:complexType>
+									<xs:choice maxOccurs="unbounded">
+										<xs:element name="KTO">
+											<xs:complexType>
+												<xs:choice maxOccurs="unbounded">
+													<xs:element name="NAM" type="fw:FOXType">
+														<xs:annotation>
+															<xs:appinfo>Header for account info on page 1  : IBEG_XML.text for PATH</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="EIN_ZAH" type="ZUSType">
+														<xs:annotation>
+															<xs:appinfo>Head line for received payments in section 2  : IBEG_XML.text for PATH</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="KOR_ZUS">
+														<xs:complexType>
+															<xs:choice maxOccurs="unbounded">
+																<xs:element name="VOR_GUN" type="ZUSType">
+																	<xs:annotation>
+																		<xs:appinfo>Head line for Adjustment from the previous month in section 2  : IBEG_XML.text for PATH</xs:appinfo>
+																	</xs:annotation>
+																</xs:element>
+																<xs:element name="AKT_GUN" type="ZUSType">
+																	<xs:annotation>
+																		<xs:appinfo>Head line for Adjustment from the current billing period in section 2  : IBEG_XML.text for PATH</xs:appinfo>
+																	</xs:annotation>
+																</xs:element>
+															</xs:choice>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="GGB_ZUS" type="ZUSType">
+														<xs:annotation>
+															<xs:appinfo>Head line for Recurring charges from the current billing period in section 2  : IBEG_XML.text for PATH</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="ZSL_ZUS" type="ZUSType">
+														<xs:annotation>
+															<xs:appinfo>Head line for Non-recurring charges from the current billing period in section 2 : IBEG_XML.text for PATH</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="RAB_ZUS" type="ZUSType">
+														<xs:annotation>
+															<xs:appinfo>Head line for Savings from the current billing period in section 2   : IBEG_XML.text for PATH</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GES_KTO" type="fw:FOXType">
+														<xs:annotation>
+															<xs:documentation>Total amount of all depts of the account </xs:documentation>
+															<xs:appinfo>Sum of KTO/*/GES</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GES_KTO_BRU" type="fw:FOXType">
+														<xs:annotation>
+															<xs:documentation>Total amount of all depts of the account </xs:documentation>
+															<xs:appinfo>Sum of KTO/*/GES</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="KOPF" type="fw:FOXType"/>
+													<xs:element name="BET" type="fw:FOXType"/>
+													<xs:element name="BET_BRU" type="fw:FOXType"/>
+													<xs:element name="RAB_BET" type="fw:FOXType"/>
+												</xs:choice>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="GES_KTO_BEL" type="fw:FOXType"/>
+										<xs:element name="GES_KTO_BEL_BRU" type="fw:FOXType"/>
+									</xs:choice>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="DW_BEL">
+								<xs:annotation>
+									<xs:appinfo>RAITT</xs:appinfo>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:choice maxOccurs="unbounded">
+										<xs:element name="DW">
+											<xs:complexType>
+												<xs:choice maxOccurs="unbounded">
+													<xs:element name="NAM" type="fw:FOXType">
+														<xs:annotation>
+															<xs:appinfo>Header for account info on page 1  : IBEG_XML.text for PATH</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="EIN_ZAH" type="ZUSType">
+														<xs:annotation>
+															<xs:appinfo>Head line for received payments in section 2  : IBEG_XML.text for PATH</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="KOR_ZUS">
+														<xs:complexType>
+															<xs:choice maxOccurs="unbounded">
+																<xs:element name="VOR_GUN" type="ZUSType">
+																	<xs:annotation>
+																		<xs:appinfo>Head line for Adjustment from the previous month in section 2  : IBEG_XML.text for PATH</xs:appinfo>
+																	</xs:annotation>
+																</xs:element>
+																<xs:element name="AKT_GUN" type="ZUSType">
+																	<xs:annotation>
+																		<xs:appinfo>Head line for Adjustment from the current billing period in section 2  : IBEG_XML.text for PATH</xs:appinfo>
+																	</xs:annotation>
+																</xs:element>
+															</xs:choice>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="GGB_ZUS" type="ZUSType">
+														<xs:annotation>
+															<xs:appinfo>Head line for Recurring charges from the current billing period in section 2  : IBEG_XML.text for PATH</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="ZSL_ZUS" type="ZUSType">
+														<xs:annotation>
+															<xs:appinfo>Head line for Non-recurring charges from the current billing period in section 2 : IBEG_XML.text for PATH</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="RAB_ZUS" type="ZUSType">
+														<xs:annotation>
+															<xs:appinfo>Head line for Savings from the current billing period in section 2   : IBEG_XML.text for PATH</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GES_DW" type="fw:FOXType">
+														<xs:annotation>
+															<xs:documentation>Total amount of all depts of the account </xs:documentation>
+															<xs:appinfo>Sum of DW/*/GES</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GES_DW_BRU" type="fw:FOXType">
+														<xs:annotation>
+															<xs:documentation>Total amount of all depts of the account </xs:documentation>
+															<xs:appinfo>Sum of DW/*/GES</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="KOPF" type="fw:FOXType"/>
+													<xs:element name="BET" type="fw:FOXType"/>
+													<xs:element name="BET_BRU" type="fw:FOXType"/>
+													<xs:element name="RAB_BET" type="fw:FOXType"/>
+												</xs:choice>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="GES_DW_BEL" type="fw:FOXType"/>
+										<xs:element name="GES_DW_BEL_BRU" type="fw:FOXType"/>
+									</xs:choice>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="SI_BEL">
+								<xs:complexType>
+									<xs:choice maxOccurs="unbounded">
+										<xs:element name="SI">
+											<xs:complexType>
+												<xs:choice maxOccurs="unbounded">
+													<xs:element name="S_NUM" type="fw:FOXType">
+														<xs:annotation>
+															<xs:appinfo>
+																Description
+																of the
+																Service
+																Number
+																on SI
+																level :
+																IBEG_XML.text
+																for PATH
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="K_ZST" minOccurs="0" maxOccurs="2">
+														<xs:annotation>
+															<xs:appinfo>
+																Description
+																of the
+																Additional
+																Information
+																(called
+																Kundenzusatzt)
+																on SI
+																level :
+																IBEG_XML.text
+																for PATH
+																Attributes:
+																ID =
+																IBEG_XML.id
+															</xs:appinfo>
+														</xs:annotation>
+														<xs:complexType>
+															<xs:complexContent>
+																<xs:extension base="fw:FOXType">
+																	<xs:attribute name="ID" type="xs:int" use="optional"/>
+																</xs:extension>
+															</xs:complexContent>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="KOR_ZUS">
+														<xs:complexType>
+															<xs:choice maxOccurs="unbounded">
+																<xs:element name="VOR_GUN" type="ZUSType">
+																	<xs:annotation>
+																		<xs:appinfo>
+																			Headline
+																			for
+																			Adjustments
+																			from
+																			previous
+																			month
+																			in
+																			section
+																			3
+																			:
+																			IBEG_XML.text
+																			for
+																			PATH
+																		</xs:appinfo>
+																	</xs:annotation>
+																</xs:element>
+																<xs:element name="AKT_GUN" type="ZUSType">
+																	<xs:annotation>
+																		<xs:appinfo>
+																			Headline
+																			for
+																			Adjustments
+																			from
+																			the
+																			current
+																			billing
+																			period
+																			in
+																			section
+																			3
+																			:
+																			IBEG_XML.text
+																			for
+																			PATH
+																		</xs:appinfo>
+																	</xs:annotation>
+																</xs:element>
+															</xs:choice>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="GGB_ZUS" type="ZUSType">
+														<xs:annotation>
+															<xs:appinfo>
+																Headline
+																for
+																Recurring
+																charges
+																from the
+																current
+																billing
+																period
+																in
+																section
+																3 :
+																IBEG_XML.text
+																for PATH
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="ZSL_ZUS" type="ZUSType">
+														<xs:annotation>
+															<xs:appinfo>
+																Headline
+																for
+																Non-recurring
+																charges
+																from the
+																current
+																billing
+																period
+																in
+																section
+																3 :
+																IBEG_XML.text
+																for PATH
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="VER_ZUS" type="ZUSType">
+														<xs:annotation>
+															<xs:appinfo>
+																Headline
+																for
+																usage
+																charges
+																from the
+																current
+																billing
+																period
+																in
+																section
+																:
+																IBEG_XML.text
+																for PATH
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="RAB_ZUS" type="ZUSType">
+														<xs:annotation>
+															<xs:appinfo>
+																Head
+																line for
+																savings
+																from the
+																current
+																billing
+																period
+																in
+																section
+																3 :
+																IBEG_XML.text
+																for PATH
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GES_SI" type="fw:FOXType">
+														<xs:annotation>
+															<xs:documentation>
+																Total
+																amount
+																for this
+																SI
+																without
+																past
+																adjustments
+															</xs:documentation>
+															<xs:appinfo>
+																Sum
+																SI/*/GES
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GES_SI_MIT_VOR_GUN" type="fw:FOXType">
+														<xs:annotation>
+															<xs:documentation>
+																Total
+																amount
+																for this
+																SI with
+																past
+																Adjustments
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="BET" type="fw:FOXType"/>
+													<xs:element name="RAB_BET" type="fw:FOXType"/>
+													<xs:element name="NAM_EVN_FLN" type="fw:FOXType">
+														<xs:annotation>
+															<xs:documentation>
+																String
+																containing
+																heading
+																for
+																fixed
+																line
+																number
+																in EVN
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GES_TPC" type="Betrag2nachKomma">
+														<xs:annotation>
+															<xs:documentation>
+																Heading
+																for
+																Third
+																Party
+																Gross
+																Charges
+																in
+																section
+																2
+															</xs:documentation>
+															<xs:appinfo>
+																Sum
+																SI/*/GES
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="TPC" type="Betrag2nachKomma">
+														<xs:annotation>
+															<xs:documentation>
+																Heading
+																for
+																Third
+																Party
+																Gross
+																Charges
+																in
+																section
+																4
+															</xs:documentation>
+															<xs:appinfo>
+																Sum
+																SI/*/GES
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="TPSP_EVN" type="fw:FOXType">
+														<xs:annotation>
+															<xs:documentation>
+																3 rd
+																Party
+																Contacts
+																Information,
+																fix text
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="TPC_ZUS">
+														<xs:annotation>
+															<xs:documentation> For 3rd party messages static text</xs:documentation>
+														</xs:annotation>
+														<xs:complexType>
+															<xs:choice>
+																<xs:element name="SERVICE" type="fw:FOXType"/>
+																<xs:element name="DETAIL" type="fw:FOXType"/>
+															</xs:choice>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="GES_KTO_RAB_BET" type="xs:anySimpleType">
+														<xs:annotation>
+															<xs:documentation>
+																discounts
+																amount
+																from
+																farme
+																contract
+															</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GES_SI_MIT_KTO_RAB" type="fw:FOXType"/>
+													<xs:element name="ABBR_EVN">
+														<xs:annotation>
+															<xs:documentation>
+																EVN
+																abbreviations
+															</xs:documentation>
+														</xs:annotation>
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="ABBR_NAM">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="INFO" type="INFOType" maxOccurs="unbounded">
+																				<xs:annotation>
+																					<xs:documentation>
+																						Value
+																						to
+																						be
+																						populated
+																						for
+																						ID's
+																						which
+																						are
+																						linked
+																						to
+																						RECHNUNG/ABBR_EVN/ABBR_NAM,
+																						EVN
+																						Abbreviations
+																					</xs:documentation>
+																				</xs:annotation>
+																			</xs:element>
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+												</xs:choice>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="GES_SI_BEL" type="fw:FOXType"/>
+										<xs:element name="CONT_DAT_BEL">
+											<xs:complexType>
+												<xs:choice maxOccurs="unbounded">
+													<xs:element name="TRAV">
+														<xs:complexType>
+															<xs:simpleContent>
+																<xs:extension base="xs:string">
+																	<xs:attribute name="ID" type="xs:int" use="required"/>
+																</xs:extension>
+															</xs:simpleContent>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="KOPF" minOccurs="0">
+														<xs:complexType>
+															<xs:complexContent>
+																<xs:extension base="fw:FOXType">
+																	<xs:attribute name="ID" type="xs:int" use="optional"/>
+																</xs:extension>
+															</xs:complexContent>
+														</xs:complexType>
+													</xs:element>
+												</xs:choice>
+												<xs:attribute name="ID"/>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="CONT_PAK_DAT">
+											<xs:complexType>
+												<xs:choice maxOccurs="unbounded">
+													<xs:element name="TRAV">
+														<xs:complexType>
+															<xs:simpleContent>
+																<xs:extension base="xs:string">
+																	<xs:attribute name="ID" type="xs:int" use="required"/>
+																</xs:extension>
+															</xs:simpleContent>
+														</xs:complexType>
+													</xs:element>
+												</xs:choice>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="PROD_GRP">
+											<xs:complexType>
+												<xs:choice>
+													<xs:element name="NAM" minOccurs="0" maxOccurs="unbounded">
+														<xs:annotation>
+															<xs:documentation>Used to configure the name of product for different languages </xs:documentation>
+														</xs:annotation>
+														<xs:complexType>
+															<xs:simpleContent>
+																<xs:extension base="xs:string">
+																	<xs:attribute name="ID" type="xs:int" use="required"/>
+																</xs:extension>
+															</xs:simpleContent>
+														</xs:complexType>
+													</xs:element>
+												</xs:choice>
+											</xs:complexType>
+										</xs:element>
+									</xs:choice>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="ABS_Z" type="INFOType">
+								<xs:annotation>
+									<xs:appinfo>Line on Section 1 specifying the sender : IBEG_XML.text for PATH
+Attribute:
+BRAND_ID : BILL_MESSAGE.message_id
+</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="INFO" type="INFOType" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:appinfo>Texts on all sections of the invoice are referenced from the element RECHNUNG :						
+BILL_MESSAGE.bill_messages_text, single lines are separated by BR 
+Attribute:
+ID : BILL_MESSAGE.message_id
+BRAND_ID : BILL_MESSAGE.message_id
+</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="MWS_ZUS">
+								<xs:complexType>
+									<xs:choice>
+										<xs:element name="NAM" type="INFOType"/>
+										<xs:element name="KOPF" minOccurs="0">
+											<xs:complexType>
+												<xs:complexContent>
+													<xs:extension base="fw:FOXType">
+														<xs:attribute name="ID" type="xs:int" use="optional"/>
+													</xs:extension>
+												</xs:complexContent>
+											</xs:complexType>
+										</xs:element>
+									</xs:choice>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="ADR_ZUS">
+								<xs:complexType>
+									<xs:choice maxOccurs="unbounded">
+										<xs:element name="V_ADR" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:appinfo>Address of contract partner (in the documentation mostly called Vertragsnehmer)
+FIR = CMF_JOIN.cust_company
+ANR = CMF_JOIN.cust_name_pre
+TIT = CMF_JOIN.cust_title
+V_NAM = CMF_JOIN.cust_fname
+M_NAM = CMF_JOIN.cust_minit
+N_NAM = CMF_JOIN.cust_lname
+G_NAM = CMF_JOIN.cust_name_generation
+NIE = CMF_JOIN.cust_site
+ABT = CMF_JOIN.cust_department
+ADR_1 = CMF.cust_address1
+ADR_2 = CMF.cust_address2
+ADR_3 = CMF.cust_address3
+STA = CMF.cust_city
+PLZ = CMF.cust_zip
+LAN = display_value (COUNTRY_CODE_VALUES)  of  CMF.bill_country_code
+</xs:appinfo>
+												<xs:documentation>Contract address</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="CORR_ADR" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:appinfo>CD-ROM invoice and dispatch control
+Attributes:
+For ID = 1 - Addresse from CMF_JOIN (only if populated in the data base. Otherwise element is omitted)
+
+
+
+Retail :
+ 
+ID=1
+A1 = 1 : IF bill_disp_meth != 20 AND (CD-Adress not empty) AND (Bill is not Final Bill)
+A2A = 1 : IF A1 = 1 AND ANZ_SI gt 1
+A2B = 0
+A2C = 1 : IF A1 = 1 AND ANZ_SI = 1
+A3 = A2A
+EVN = 1 : IF  A1 = 1 AND CMF_JOIN.electronic_postal_evn_code in (1,3)
+
+ID = 2 : 
+The same but 
+EVN = 1 : IF  A1 = 1 AND CMF_JOIN.evn_postal_evn_code in (1,3)
+
+MAGIC : 
+The same but extended evn_codes :
+A2A=1 : IF A1 = 1 AND CMF_JOIN.electronic_postal_evn_code ge 2
+A2B=1 : IF A1 = 1 AND CMF_JOIN.electronic_postal_evn_code ge 2 AND ANZ_SI ge 2
+A2C=0 
+A3=1 : IF A1 = 1 AND CMF_JOIN.electronic_postal_evn_code ge 3
+EVN=1: IF A1 = 1 AND CMF_JOIN.electronic_postal_evn_code ge 4
+
+Sub-Elements:
+FIR   = CMF_JOIN.electronic_company_name
+TIT   = CMF_JOIN.electronic_title
+V_NAM = CMF_JOIN.electronic_first_name
+N_NAM = CMF_JOIN.electronic_last_name
+NIE = CMF_JOIN.electronic_site
+ABT = CMF_JOIN.electronic_department
+ADR_1 = CMF_JOIN.electronic_address1
+ADR_2 = CMF_JOIN.electronic_address2
+ADR_3 = CMF_JOIN.electronic_address3
+STA   = CMF_JOIN.electronic_city
+PLZ   = CMF_JOIN.electronic_postal_code
+LAN   = display_value (COUNTRY_CODE_VALUES) of CMF_JOIN.electronic_country
+
+
+For ID = 2 - Address from CMF_JOIN  (only if populated in the data base. Otherwise element is omitted)
+
+The same logic as for ID=1 but use the CMF_JOIN.evn_postal_evn_code 
+
+
+Sub-Elements:
+FIR   = CMF_JOIN.evn_company_name
+TIT   = CMF_JOIN.evn_title
+V_NAM = CMF_JOIN.evn_first_name
+N_NAM = CMF_JOIN.evn_last_name
+NIE = CMF_JOIN.evn_site
+ABT = CMF_JOIN.evn_department
+ADR_1 = CMF_JOIN.evn_address1
+ADR_2 = CMF_JOIN.evn_address2
+ADR_3 = CMF_JOIN.evn_address3
+STA   = CMF_JOIN.evn_city
+PLZ   = CMF_JOIN.evn_postal_code
+LAN   = display_value (COUNTRY_CODE_VALUES) von CMF_JOIN.evn_country
+</xs:appinfo>
+												<xs:documentation>Corrospondence address</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:choice>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+						<xs:attribute name="FORM_LANG" type="xs:int">
+							<xs:annotation>
+								<xs:appinfo>FORMAT Language 1-German 2- Turkish</xs:appinfo>
+							</xs:annotation>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="RECHNUNG" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ARCHIVE">
+								<xs:annotation>
+									<xs:appinfo>Control of the Archiving 
+Attributes:
+
+Retail : 
+A1=1
+A2A = 1 : IF ANZ_SI gt 1
+A2B = 0
+A2C = 1 IF ANZ_SI = 1
+A3 = A2A 
+EVN = 1 : IF bill_fmt_opt = 1 AND bill_disp_meth != 20 
+CSV = 1 : IF EVN = 1 AND (CMF_JOIN.frame_contract_number != NULL OR (E-mail address not empty))
+ONLINE = 1 : IF bill_disp_meth != 20 AND (Bill is not Final Bill)
+ZUGRIFF = 0 : IF bill_disp_meth = 20
+
+Magic : The same but A2C = 0, A2B = 1, A2A = 1, A3 = 1
+
+
+ </xs:appinfo>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:attribute name="A1" type="xs:int" use="optional" default="0"/>
+									<xs:attribute name="A2A" type="xs:int" use="optional" default="0"/>
+									<xs:attribute name="A2B" type="xs:int" use="optional" default="0"/>
+									<xs:attribute name="A2C" type="xs:int" use="optional" default="0"/>
+									<xs:attribute name="A2D"/>
+									<xs:attribute name="A3" type="xs:int" use="optional" default="0"/>
+									<xs:attribute name="A3A"/>
+									<xs:attribute name="A3B"/>
+									<xs:attribute name="EVN" type="xs:int" use="optional" default="0"/>
+									<xs:attribute name="CSV" type="xs:int" use="optional" default="0"/>
+									<xs:attribute name="ONLINE" type="xs:int" use="required"/>
+									<xs:attribute name="ZUGRIFF" type="xs:int"/>
+									<xs:attribute name="BM" type="xs:int" use="optional">
+										<xs:annotation>
+											<xs:documentation>Control flaf for Bill manager ( 1- send 0 - not send) = CMF_JOIN.paper_formatcode</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="ADR_ZUS">
+								<xs:complexType>
+									<xs:choice maxOccurs="unbounded">
+										<xs:element name="V_ADR" minOccurs="0">
+											<xs:annotation>
+												<xs:appinfo>Address of contract partner (in the documentation mostly called Vertragsnehmer)
+FIR = CMF_JOIN.cust_company
+ANR = CMF_JOIN.cust_name_pre
+TIT = CMF_JOIN.cust_title
+V_NAM = CMF_JOIN.cust_fname
+M_NAM = CMF_JOIN.cust_minit
+N_NAM = CMF_JOIN.cust_lname
+G_NAM = CMF_JOIN.cust_name_generation
+NIE = CMF_JOIN.cust_site
+ABT = CMF_JOIN.cust_department
+ADR_1 = CMF.cust_address1
+ADR_2 = CMF.cust_address2
+ADR_3 = CMF.cust_address3
+STA = CMF.cust_city
+PLZ = CMF.cust_zip
+LAN = display_value (COUNTRY_CODE_VALUES)  of  CMF.bill_country_code
+</xs:appinfo>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:complexContent>
+													<xs:extension base="P_AdrType"/>
+												</xs:complexContent>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="R_ADR" maxOccurs="2">
+											<xs:annotation>
+												<xs:appinfo>Paper invoice address and dispatch control 
+Attribute:
+For ID = 1 - Address from  CMF
+
+Retail : 
+
+HAUPT = 1
+A1 = 1 : IF CMF_JOIN.paper_hold_code = 0  AND  bill_disp_meth != 20 AND (Bill is not Final Bill)
+A2A = 1 : IF A1 = 1 AND ANZ_SI gt 1
+A2B = 0
+A2C = 1 : IF A1 = 1 AND ANZ_SI = 1
+A3 = A2A
+EVN = 1 : IF A1 = 1 AND CMF_JOIN.paper_evn_code in (1,3)
+Z_VOR = 1 : IF CMF.pay_method = 1 AND REC_ZUS.R_GES != 0 AND A1=1
+
+Magic :
+
+HAUPT = 1
+A1 = 1 : IF bill_disp_meth != 20 AND (Bill is not Final Bill) AND CMF_JOIN.paper_evn_code ge 1 and CMF_JOIN.paper_hold_code = 0
+A2A = 1 : IF A1 = 1 AND CMF_JOIN.paper_evn_code ge 2
+A2B = A2A AND ANZ_SI gt1
+A2C = 0
+A3 = 1 : IF A1 = 1 AND CMF_JOIN.paper_evn_code ge 3
+EVN = 1 : IF A1 = 1 AND CMF_JOIN.paper_evn_code ge 4
+Z_VOR = 1 : IF CMF.pay_method = 1 AND REC_ZUS.R_GES != 0 AND A1=1
+
+
+
+Sub-Elements:
+
+FIR = CMF.bill_company
+ANR = CMF.bill_name_pre
+TIT = CMF.bill_title
+V_NAM = CMF.bill_fname
+M_NAM = CMF.bill_minit
+N_NAM = CMF.bill_lname
+G_NAM = CMF.bill_name_generation
+NIE = CMF_JOIN.bill_site
+ABT = CMF_JOIN.bill_department
+ADR_1 = CMF.bill_address1
+ADR_2 = CMF.bill_address2
+ADR_3 = CMF.bill_address3
+STA = CMF.bill_city
+PLZ = CMF.bill_zip
+LAN = display_value (COUNTRY_CODE_VALUES)  of CMF.bill_country_code
+
+
+ </xs:appinfo>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:complexContent>
+													<xs:extension base="P_AdrType">
+														<xs:attribute name="HAUPT" type="xs:boolean" use="optional" default="false">
+															<xs:annotation>
+																<xs:documentation>The address marked with the attribute HAUPT is the one printed on the invoice in all media. Exception : if the section 3 and EVN goes to the SI address this SI addresss is printed on the respective pages .</xs:documentation>
+															</xs:annotation>
+														</xs:attribute>
+													</xs:extension>
+												</xs:complexContent>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="CD_ADR" minOccurs="0" maxOccurs="2">
+											<xs:annotation>
+												<xs:appinfo>CD-ROM invoice and dispatch control
+Attributes:
+For ID = 1 - Addresse from CMF_JOIN (only if populated in the data base. Otherwise element is omitted)
+
+
+
+Retail :
+ 
+ID=1
+A1 = 1 : IF bill_disp_meth != 20 AND (CD-Adress not empty) AND (Bill is not Final Bill)
+A2A = 1 : IF A1 = 1 AND ANZ_SI gt 1
+A2B = 0
+A2C = 1 : IF A1 = 1 AND ANZ_SI = 1
+A3 = A2A
+EVN = 1 : IF  A1 = 1 AND CMF_JOIN.electronic_postal_evn_code in (1,3)
+
+ID = 2 : 
+The same but 
+EVN = 1 : IF  A1 = 1 AND CMF_JOIN.evn_postal_evn_code in (1,3)
+
+MAGIC : 
+The same but extended evn_codes :
+A2A=1 : IF A1 = 1 AND CMF_JOIN.electronic_postal_evn_code ge 2
+A2B=1 : IF A1 = 1 AND CMF_JOIN.electronic_postal_evn_code ge 2 AND ANZ_SI ge 2
+A2C=0 
+A3=1 : IF A1 = 1 AND CMF_JOIN.electronic_postal_evn_code ge 3
+EVN=1: IF A1 = 1 AND CMF_JOIN.electronic_postal_evn_code ge 4
+
+Sub-Elements:
+FIR   = CMF_JOIN.electronic_company_name
+TIT   = CMF_JOIN.electronic_title
+V_NAM = CMF_JOIN.electronic_first_name
+N_NAM = CMF_JOIN.electronic_last_name
+NIE = CMF_JOIN.electronic_site
+ABT = CMF_JOIN.electronic_department
+ADR_1 = CMF_JOIN.electronic_address1
+ADR_2 = CMF_JOIN.electronic_address2
+ADR_3 = CMF_JOIN.electronic_address3
+STA   = CMF_JOIN.electronic_city
+PLZ   = CMF_JOIN.electronic_postal_code
+LAN   = display_value (COUNTRY_CODE_VALUES) of CMF_JOIN.electronic_country
+
+
+For ID = 2 - Address from CMF_JOIN  (only if populated in the data base. Otherwise element is omitted)
+
+The same logic as for ID=1 but use the CMF_JOIN.evn_postal_evn_code 
+
+
+Sub-Elements:
+FIR   = CMF_JOIN.evn_company_name
+TIT   = CMF_JOIN.evn_title
+V_NAM = CMF_JOIN.evn_first_name
+N_NAM = CMF_JOIN.evn_last_name
+NIE = CMF_JOIN.evn_site
+ABT = CMF_JOIN.evn_department
+ADR_1 = CMF_JOIN.evn_address1
+ADR_2 = CMF_JOIN.evn_address2
+ADR_3 = CMF_JOIN.evn_address3
+STA   = CMF_JOIN.evn_city
+PLZ   = CMF_JOIN.evn_postal_code
+LAN   = display_value (COUNTRY_CODE_VALUES) von CMF_JOIN.evn_country
+</xs:appinfo>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:complexContent>
+													<xs:extension base="P_AdrType"/>
+												</xs:complexContent>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="E_ADR" minOccurs="0" maxOccurs="2">
+											<xs:annotation>
+												<xs:appinfo>Email-Invoice address and dispatch control 
+Attributes:
+For ID = 1 - Address from CMF_JOIN (only if populated in the data base. Otherwise element is omitted)
+
+Retail :
+
+NOTIFY = 1 : IF bill_disp_meth != 20 AND (E-Mail address not empty) AND (Bill is not Final Bill)
+
+Magic :
+The same
+
+
+
+Sub-Elements:
+ADR = CMF_JOIN.electronic_email_address
+
+For ID = 2 - Adresse from CMF_JOIN (only if populated in the data base. Otherwise element is omitted)
+The same logic as for ID=1
+
+
+Sub-Elements:
+ADR = CMF_JOIN.evn_email_address
+</xs:appinfo>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:complexContent>
+													<xs:extension base="E_ADRType"/>
+												</xs:complexContent>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="SMS_ADR" minOccurs="0">
+											<xs:annotation>
+												<xs:appinfo>
+display_value (MSISDN) for CMF_EXT_DATA
+IBEG_XML.text for Path  PSI/RECHNUNG/ADR_ZUS/SMS_ADR for all IBEG_XML.id
+Attributes:
+For ID = 1
+
+Retail :
+
+NOTIFY = 1 : IF (E-Mail address is empty)
+</xs:appinfo>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:complexContent>
+													<xs:extension base="SMS_AdrType"/>
+												</xs:complexContent>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="X400_ADR" minOccurs="0" maxOccurs="2">
+											<xs:annotation>
+												<xs:appinfo>X.400 Invoice address and dispatch control 
+Attributes:
+For ID = 1 - Adresse from CMF_JOIN (only if populated in the data base. Otherwise element is omitted)
+
+Retail :
+
+REC = 1 : IF bill_disp_meth != 20 AND (X.400 address not empty) AND (Bill is not Final Bill)
+EVN = 1 : IF REC = 1 AND CMF_JOIN.electronic_x400_evn_code in (1,3)
+
+Magic : The same but
+ID = 1 
+EVN = 1 : IF REC = 1 AND CMF_JOIN.electronic_x400_evn_code = 4
+
+
+
+Sub-Elements:
+LAN	= CMF_JOIN:electronic_x400_country
+ADMD	= CMF_JOIN.electronic_x400_admd
+L_NAM	= CMF_JOIN.electronic_x400_surname
+V_NAM	= CMF_JOIN.electronic_x400_givenname
+ORG	= CMF_JOIN.electronic_x400_organisation
+ORG_E1	= CMF_JOIN.electronic_x400_org_unit1
+ORG_E2	= CMF_JOIN.electronic_x400_org_unit2
+ORG_E3	= CMF_JOIN.electronic_x400_org_unit3
+ORG_E4	= CMF_JOIN.electronic_x400_org_unit4
+A_NAM	= CMF_JOIN.electronic_x400_common_name
+
+For ID = 2 - Adresse aus CMF_JOIN (only if populated in the data base. Otherwise element is omitted)
+
+Retail :
+REC = 1 : IF bill_disp_meth != 20 AND (X.400 address not empty) AND (Bill is not Final Bill)
+EVN = 1 : IF REC = 1 AND CMF_JOIN.evn_x400_evn_code in (1,3)
+
+Magic : The same but
+EVN = 1 : IF REC = 1 AND CMF_JOIN.evn _x400_evn_code = 4
+
+
+
+Sub-Elements:
+LAN	= CMF_JOIN:electronic_x400_country
+ADMD	= CMF_JOIN.electronic_x400_admd
+L_NAM	= CMF_JOIN.electronic_x400_surname
+V_NAM	= CMF_JOIN.electronic_x400_givenname
+ORG	= CMF_JOIN.electronic_x400_organisation
+ORG_E1	= CMF_JOIN.electronic_x400_org_unit1
+ORG_E2	= CMF_JOIN.electronic_x400_org_unit2
+ORG_E3	= CMF_JOIN.electronic_x400_org_unit3
+ORG_E4	= CMF_JOIN.electronic_x400_org_unit4
+A_NAM	= CMF_JOIN.electronic_x400_common_name
+</xs:appinfo>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:complexContent>
+													<xs:extension base="X400_ADRType"/>
+												</xs:complexContent>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="XRECH_ADR" minOccurs="0" maxOccurs="2">
+											<xs:annotation>
+												<xs:appinfo>
+Sub-Elements:
+X_LEITWEG
+X_EMAIL
+X_AUFTRAGNR
+X_LIEFERANT
+X_VERSAND
+</xs:appinfo>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:complexContent>
+													<xs:extension base="XRECH_ADRType"/>
+												</xs:complexContent>
+											</xs:complexType>
+										</xs:element>
+									</xs:choice>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="KUN_ZUS">
+								<xs:complexType>
+									<xs:choice maxOccurs="unbounded">
+										<xs:element name="K_NUM" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>Customer number (RAITT)</xs:documentation>
+												<xs:appinfo>External customer number from CIM</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="F_DAT" type="xs:string">
+											<xs:annotation>
+												<xs:appinfo>Description of due (RAITT)</xs:appinfo>
+												<xs:documentation>external id</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="LZ" type="xs:string">
+											<xs:annotation>
+												<xs:appinfo>Description of billing period / Leistungszeitraum (RAITT)</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="A_NUM" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>Billing account number (RAITT)</xs:documentation>
+												<xs:appinfo>External billing account number from CIM</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="RV_NUM" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Frame contract number: Attribut of customer account</xs:documentation>
+												<xs:appinfo>
+														CMF_JOIN.frame_contract_number
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="K_ZST" type="INFOType" minOccurs="0" maxOccurs="2">
+											<xs:annotation>
+												<xs:documentation>Additional Information : free text for further account level information</xs:documentation>
+												<xs:appinfo>
+For ID = 1 - only if field is populated
+CMF_JOIN.free_data1
+For ID = 2 - only if field is populated
+CMF_JOIN.free_data2
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="K_SEG">
+											<xs:annotation>
+												<xs:documentation>Customer segment: Attribute of customer account Kundenkonto (does not affect layout)</xs:documentation>
+												<xs:appinfo>
+display_value (ACCT_SEG_VALUES) for CMF.acct_seg_id
+</xs:appinfo>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:simpleContent>
+													<xs:extension base="xs:string"/>
+												</xs:simpleContent>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="K_BRAND" type="xs:int">
+											<xs:annotation>
+												<xs:documentation>Customer Brand : Attribute of customer brand 1 refers to o2, 2 refers to Blau and 72 Ay Yildiz (only for Retail layout)</xs:documentation>
+												<xs:appinfo>
+display_value (BRAND_ID) for CMF_EXT_DATA
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="K_KAT" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>Customer category : Attribute of customer account Kundenkonto (does not affect layout)</xs:documentation>
+												<xs:appinfo>
+display_value (ACCOUNT_CATEGORY_VALUES) for CMF.account_category
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="K_INFO_GRP" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>Message group : Attribute of customer account Kundenkonto (does not affect layout)</xs:documentation>
+												<xs:appinfo>
+display_value (MSG_GRP_ VALUES) for CMF.msg_grp_id
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="K_BEI_GRP" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>Bill inserts group : Attribute of customer account Kundenkonto (does not affect layout)</xs:documentation>
+												<xs:appinfo>
+display_value (INSERT_GRP_ID_VALUES) for CMF.insert_grp_id
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="K_MKT" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>Market code :  Attribute of customer account Kundenkonto (does not affect layout)</xs:documentation>
+												<xs:appinfo>
+display_value (MKT_CODE_VALUES) for CMF.mkt_code
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:choice>
+											<xs:element name="M_NUM" type="xs:string" maxOccurs="3">
+												<xs:annotation>
+													<xs:documentation>If the mobile phone number is not populated the whole line is suppressed by print shop t</xs:documentation>
+													<xs:appinfo>
+external_id (CUSTOMER_ID_EQUIP_MAP) of type DEFAULT_EXTERNAL_ID_TYPE for EMF.subscr_no
+only if there is only a single SI
+</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="ANZ_NUM" type="xs:string"/>
+										</xs:choice>
+										<xs:element name="SUB_NUM">
+											<xs:annotation>
+												<xs:documentation>Subscription ID:
+RCS: external_id type 2
+BCS: external_id_type 1</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="R_COPY" type="xs:int">
+											<xs:annotation>
+												<xs:appinfo>Number of invoices for Customer</xs:appinfo>
+												<xs:documentation>Number of invoices for Customer, 1= 1 Invoice with German, 2 = 2 Invoices German,Turkish</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="K_LANG" type="INFOType" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:appinfo>ID=1 for German, ID=2 for Turkish</xs:appinfo>
+												<xs:documentation>It will represent as Customer Invoice Language</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="UST_NUM" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:appinfo>TAX Number</xs:appinfo>
+												<xs:appinfo>Tax Number</xs:appinfo>
+												<xs:documentation>Extract from FREE_DATA12</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:choice>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="REC_ZUS">
+								<xs:complexType>
+									<xs:choice maxOccurs="unbounded">
+										<xs:element name="R_DAT" type="DatumType">
+											<xs:annotation>
+												<xs:documentation>Invoice date</xs:documentation>
+												<xs:appinfo>
+BILL_INVOICE.statement_date
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="E_DAT" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>preparation date</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="E_DTT" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>prep date</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="R_VON" type="DatumType">
+											<xs:annotation>
+												<xs:documentation>Begin of Bill period </xs:documentation>
+												<xs:appinfo>
+BILL_INVOICE.from_date
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="R_BIS" type="DatumType">
+											<xs:annotation>
+												<xs:documentation>End of Bill period Bis</xs:documentation>
+												<xs:appinfo>
+BILL_INVOICE.to_date
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="R_NUM" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>Invoice number</xs:documentation>
+												<xs:appinfo>
+BILL_INVOICE.bill_ref_no
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="R_TYP">
+											<xs:annotation>
+												<xs:documentation>Invoice type</xs:documentation>
+												<xs:appinfo>
+ERROR 		if BILL_INVOICE.prep_error_code 
+TEST		if ibeg_engine started with --test
+PROFORMA 	if BILL_INVOICE.prep_status = 4
+INTERIM		if BILL_INVOICE.interim_bill_flag
+KOPIE		if BILL_INVOICE.orig_bill_ref_no
+INITIAL		if BILL_INVOICE.special_code = -1
+FINAL		if BILL_INVOICE.special_code gt 1 and TotalAmountDue  negative
+PRODUCTION	else
+</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="FINAL"/>
+													<xs:enumeration value="INTERIM"/>
+													<xs:enumeration value="KOPIE"/>
+													<xs:enumeration value="PROFORMA"/>
+													<xs:enumeration value="INITIAL"/>
+													<xs:enumeration value="PRODUCTION"/>
+													<xs:enumeration value="TEST"/>
+													<xs:enumeration value="ERROR"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="EVN_TYP" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>Type of EVN : KOMPAKT or KOMFORT</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="R_UEB_Z" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Contains additional optional descriptions for the Bill header (e.g. Proforma, Test etc.)</xs:documentation>
+												<xs:appinfo>
+PROFORMA, TEST, DUPLIKAT, ERROR or none : depends on type of invoice
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="R_FMT" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>Invoice format option (not interpreted by print shop)</xs:documentation>
+												<xs:appinfo>
+display_value (BILL_FMT_OPT_VALUES) for CMF.bill_fmt_opt
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="R_VER" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>Bill Dispatch method (not interpreted by print shop)</xs:documentation>
+												<xs:appinfo>
+display_value (BILL_DISP_METH_VALUES) fo CMF.bill_disp_meth
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="R_EBE" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>Billing Level : Interpreted by print shop for grouping of EVN data over different accounts in a frame contract </xs:documentation>
+												<xs:appinfo>
+CMF_JOIN.billing_level_indicator
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="R_WAE" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>currency</xs:documentation>
+												<xs:appinfo>
+short_display (RATE_CURRENCY_VALUES) for CMF.currency_code
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="R_WAE_SYM" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>currency Symbol: for EUR ASCII value to be used : &#8364; </xs:documentation>
+												<xs:appinfo>
+short_display (RATE_CURRENCY_VALUES) for CMF.currency_code
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="VORMONAT" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Last month's summary</xs:documentation>
+												<xs:appinfo>
+attribute A1 = 1 Print the VORMONAT also on section A1; A1=0 do not print on section A1 (the total amount is 0, but print on second section)
+</xs:appinfo>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:choice maxOccurs="unbounded">
+													<xs:choice>
+														<xs:element name="GES" type="Betrag4nachKomma">
+															<xs:annotation>
+																<xs:documentation>amount given with 4 decimalplaces (precision 0.0001 EUR)</xs:documentation>
+																<xs:appinfo>GES = VOR_OFF = PastAdjustments + TaxAdjustments + Payments + BalanceBroughtFwd  which mean VOR_GUN_GES + VOR_MWS + EIN_ZAH_GES + VOR_GES
+</xs:appinfo>
+															</xs:annotation>
+														</xs:element>
+														<xs:element name="GUT" type="xs:string" minOccurs="0"/>
+													</xs:choice>
+													<xs:element name="VOR_GES" type="Betrag2nachKomma">
+														<xs:annotation>
+															<xs:documentation>amount given with 2 decimalplaces (precision 0.01 EUR)</xs:documentation>
+															<xs:appinfo>BalanceBroughtFwd:
+
+Sum of BILL_INVOICE_DETAIL.federal_tax [ type_code = 5, subtype_code = -1, open_item_id = 0 ]
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="EIN_ZAH_GES" type="Betrag2nachKomma" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>Payments</xs:documentation>
+															<xs:appinfo>Sum of BILL_INVOICE_DETAIL.amount [type_code = 1 und BMF_TRANS_DESCR.bmf_trans_category != 6 ] 
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="VOR_GUN_GES" type="Betrag4nachKomma" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>Past Adjustments</xs:documentation>
+															<xs:appinfo>Sum of BILL_INVOICE_DETAIL.amount [type_code = 4, billing_category = 2, ADJ_TRANS_DESCR.is_displayed_onbill = 1]
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="VOR_OFF" type="Betrag4nachKomma">
+														<xs:annotation>
+															<xs:appinfo>GES = VOR_OFF = PastAdjustments + TaxAdjustments + Payments + BalanceBroughtFwd  which mean VOR_GUN_GES + VOR_MWS + EIN_ZAH_GES + VOR_GES
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="INFO" type="INFOType" minOccurs="0" maxOccurs="unbounded">
+														<xs:annotation>
+															<xs:documentation>This info text contains the Tax in 2-decimal notation and the total amount in 4-decimal notation</xs:documentation>
+															<xs:appinfo>
+IBEG_XML.text for this PATH with  MWST and VOR_OFF as a parameter
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="INFOREF" type="INFOType" maxOccurs="unbounded">
+														<xs:annotation>
+															<xs:appinfo>
+IBEG_XML.text for this PATH with  MWST and VOR_OFF as a parameter				</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="VOR_MWS" minOccurs="0" maxOccurs="unbounded">
+														<xs:annotation>
+															<xs:documentation>Tax Adjustments:</xs:documentation>
+															<xs:appinfo>Sum of BILL_INVOICE_DETAIL.tax [type_code = 4, billing_category = 2, ADJ_TRANS_DESCR.is_displayed_onbill = 1]
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+												</xs:choice>
+												<xs:attribute name="A1" type="xs:int" use="required"/>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="AKTUELL">
+											<xs:annotation>
+												<xs:documentation>New charges</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:choice maxOccurs="unbounded">
+													<xs:element name="GES" type="Betrag4nachKomma">
+														<xs:annotation>
+															<xs:appinfo>
+AKT_GES_N
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="AKT_GES_BRU" type="Betrag2nachKomma">
+														<xs:annotation>
+															<xs:appinfo>
+AKT_GES_BRU
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="AKT_GGB" type="BELType" minOccurs="0">
+														<xs:annotation>
+															<xs:appinfo>
+BET = Sum of BILL_INVOICE_DETAIL.amount [type_code = 2]
+RAB_BET = Sum of BILL_INVOICE_DETAIL.discount [type_code = 2]
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="AKT_ZSL" type="BELType" minOccurs="0">
+														<xs:annotation>
+															<xs:appinfo>
+BET = Sum of BILL_INVOICE_DETAIL.amount [type_code = 3]
+RAB_BET = Sum of BILL_INVOICE_DETAIL.discount [type_code = 3]
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="AKT_VER" type="BELType" minOccurs="0">
+														<xs:annotation>
+															<xs:appinfo>
+BET = Sum of BILL_INVOICE_DETAIL.amount [type_code = 7]
+RAB_BET = Sum of BILL_INVOICE_DETAIL.discount [type_code = 7]
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="AKT_RAB" type="BELType" minOccurs="0"/>
+													<xs:element name="AKT_GUN_GES" type="Betrag4nachKomma" minOccurs="0">
+														<xs:annotation>
+															<xs:appinfo>
+Sum of BILL_INVOICE_DETAIL.amount [type_code = 4, billing_category = 1, ADJ_TRANS_DESCR.is_displayed_onbill = 1]
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="AKT_SON_RAB" type="Betrag4nachKomma" minOccurs="0">
+														<xs:annotation>
+															<xs:appinfo>
+Sum of BILL_INVOICE_DETAIL.amount [type_code = 5, subtype_code = -4 ][type_code = 6] - AKT_GGB/RAB_BET - AKT_ZSL/RAB_BET - AKT_VER/RAB_BET
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="AKT_GES_N" type="Betrag4nachKomma">
+														<xs:annotation>
+															<xs:appinfo>
+AKT_GGB/BET + AKT_ZSL/BET + AKT_VER/BET - AKT_GGB/RAB_BET - AKT_ZSL/RAB_BET - AKT_VER/RAB_BET - AKT_SON_RAB - AKT_GUN_GES
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="AKT_GES_B" type="Betrag4nachKomma">
+														<xs:annotation>
+															<xs:appinfo>
+Sum of BILL_INVOICE_DETAIL.tax [type_code = 5, subtype_code = -7]
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="INFO" type="INFOType" minOccurs="0" maxOccurs="unbounded">
+														<xs:annotation>
+															<xs:documentation>This info text contains the Tax in 2-decimal notation and the total amount in 4-decimal notation</xs:documentation>
+															<xs:appinfo>
+IBEG_XML.text for this PATH with MWST und VOR_OFF as a parameter
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="INFOREF" type="INFOType" maxOccurs="unbounded">
+														<xs:annotation>
+															<xs:appinfo>
+IBEG_XML.text for this PATH with  MWST and VOR_OFF as a parameter
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="AKT_MWS" minOccurs="0" maxOccurs="unbounded">
+														<xs:annotation>
+															<xs:appinfo>
+Sum of BILL_INVOICE_DETAIL.tax [type_code = 5, subtype_code = -7]
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="AKT_MWS_SAT_TPC" minOccurs="0" maxOccurs="unbounded">
+														<xs:annotation>
+															<xs:appinfo>
+Elemnt for tax % -> 0 for TPC
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GES_N" type="Betrag2nachKomma">
+														<xs:annotation>
+															<xs:appinfo>
+AKT_GGB/BET + AKT_ZSL/BET + AKT_VER/BET - AKT_GGB/RAB_BET - AKT_ZSL/RAB_BET - AKT_VER/RAB_BET - AKT_SON_RAB - AKT_GUN_GES
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GES_B" type="Betrag2nachKomma">
+														<xs:annotation>
+															<xs:appinfo>
+Sum of BILL_INVOICE_DETAIL.tax [type_code = 5, subtype_code = -7]
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="AKT_GES_TPC" type="Betrag2nachKomma">
+														<xs:annotation>
+															<xs:appinfo>
+AKT_GGB/BET + AKT_ZSL/BET + AKT_VER/BET - AKT_GGB/RAB_BET - AKT_ZSL/RAB_BET - AKT_VER/RAB_BET - AKT_SON_RAB - AKT_GUN_GES
+</xs:appinfo>
+															<xs:documentation>Total Third Party Gross Charges</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+												</xs:choice>
+											</xs:complexType>
+										</xs:element>
+										<xs:choice>
+											<xs:element name="R_GES" type="Betrag2nachKomma">
+												<xs:annotation>
+													<xs:appinfo>
+Sum of BILL_INVOICE_DETAIL.federal_tax [ type_code = 5, subtype_code = -1, open_item_id = 0 ] if positive
+</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="R_GUT" type="Betrag2nachKomma">
+												<xs:annotation>
+													<xs:appinfo>
+Sum of BILL_INVOICE_DETAIL.federal_tax [ type_code = 5, subtype_code = -1, open_item_id = 0 ] if negative
+</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+										</xs:choice>
+										<xs:element name="ZAH_KOR_GES">
+											<xs:annotation>
+												<xs:documentation>Total amount of displayed payments and Adjustment for BCS section 2d</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="R_NUM_RST" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>Invoice Number - comination of bill_ref_no and bill_ref_resets</xs:documentation>
+												<xs:appinfo>
+BILL_INVOICE.bill_ref_no
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="R_RST" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>bill_ref_resets</xs:documentation>
+												<xs:appinfo>
+BILL_INVOICE.bill_ref_no
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="B_GES" type="Betrag2nachKomma">
+											<xs:annotation>
+												<xs:documentation>total_amount_due</xs:documentation>
+												<xs:appinfo>total_amount_due</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:choice>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="R_INFO_TPC">
+								<xs:complexType>
+									<xs:sequence maxOccurs="unbounded">
+										<xs:element name="PROVIDER_CONTACT"/>
+										<xs:element name="PROVIDER_AMOUNT"/>
+										<xs:element name="CONTENT_PROVIDER">
+											<xs:complexType>
+												<xs:sequence maxOccurs="unbounded">
+													<xs:element name="TARGET_DESC"/>
+													<xs:element name="ANNOTATION"/>
+													<xs:element name="AMT"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="ZAH_ZUS">
+								<xs:complexType>
+									<xs:choice maxOccurs="unbounded">
+										<xs:element name="ZIE_DAT" type="DatumType">
+											<xs:annotation>
+												<xs:documentation>Payment due date</xs:documentation>
+												<xs:appinfo>
+BILL_INVOICE_DETAIL.payment_due_date
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="ZAH_ZIE" type="DatumType">
+											<xs:annotation>
+												<xs:documentation>invoice collection date</xs:documentation>
+												<xs:appinfo>
+BILL_INVOICE_DETAIL.payment_due_date
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="INFOREF" type="INFOType" minOccurs="0">
+											<xs:annotation>
+												<xs:appinfo>
+Payment info text : the ID references the respective message 
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="ART">
+											<xs:annotation>
+												<xs:appinfo>
+Description of BILL_INVOICE_DETAIL.pay_method
+</xs:appinfo>
+												<xs:documentation>Pay method : H=check payment, D=direct debit, C=Credit Card (future use)</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="C"/>
+													<xs:enumeration value="H"/>
+													<xs:enumeration value="D"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:choice maxOccurs="unbounded">
+											<xs:element name="BLZ">
+												<xs:annotation>
+													<xs:appinfo>
+CMF.cust_bank_sort_code
+</xs:appinfo>
+												</xs:annotation>
+												<xs:simpleType>
+													<xs:restriction base="xs:string">
+														<xs:pattern value="\d{8}"/>
+													</xs:restriction>
+												</xs:simpleType>
+											</xs:element>
+											<xs:element name="B_NAM">
+												<xs:annotation>
+													<xs:appinfo>
+CMF.cust_bank_acc_name
+</xs:appinfo>
+												</xs:annotation>
+												<xs:simpleType>
+													<xs:restriction base="xs:string">
+														<xs:maxLength value="56"/>
+													</xs:restriction>
+												</xs:simpleType>
+											</xs:element>
+											<xs:element name="B_KTO">
+												<xs:annotation>
+													<xs:appinfo>
+CMF.cust_bank_acc_num
+</xs:appinfo>
+												</xs:annotation>
+												<xs:simpleType>
+													<xs:restriction base="xs:string">
+														<xs:pattern value="\d+"/>
+													</xs:restriction>
+												</xs:simpleType>
+											</xs:element>
+											<xs:element name="CUST_IBAN" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>PAYMENT_PROFILE.cust_bank_iban</xs:appinfo>
+													<xs:documentation>Customer bank IBAN number</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="CUST_BIC" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>PAYMENT_PROFILE.cust_bank_bic</xs:appinfo>
+													<xs:documentation>Customer bank BIC number</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="MANDATE_ID" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>PAYMENT_PROFILE.mandate_id</xs:appinfo>
+													<xs:documentation>Customer DD Mandate id number</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+										</xs:choice>
+									</xs:choice>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="INFO" type="INFOType" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:appinfo>
+Info message, depends on BILL_MESSAGE
+</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="INFOREF" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:appinfo>
+Payment info text : the ID references the respective message 
+</xs:appinfo>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:attribute name="ID" type="xs:int" use="required"/>
+									<xs:attribute name="POS" type="xs:int" use="required"/>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="KTO_BEL" minOccurs="0">
+								<xs:complexType>
+									<xs:choice maxOccurs="unbounded">
+										<xs:element name="KTO">
+											<xs:complexType>
+												<xs:choice maxOccurs="unbounded">
+													<xs:element name="EIN_ZAH" minOccurs="0">
+														<xs:complexType>
+															<xs:choice maxOccurs="unbounded">
+																<xs:element name="GES" type="Betrag4nachKomma">
+																	<xs:annotation>
+																		<xs:appinfo>
+Sum of BILL_INVOICE_DETAIL.amount [type_code = 1]
+</xs:appinfo>
+																	</xs:annotation>
+																</xs:element>
+																<xs:element name="ZAH" type="R_ZahType" maxOccurs="unbounded">
+																	<xs:annotation>
+																		<xs:appinfo>
+For each  BILL_INVOICE_DETAIL with type_code = 1 and BMF_TRANS_DESCR.bmf_trans_category != 6
+BET = amount
+NAM = description_text for BMF_TRANS_DESCR.bmf_trans_type = subtype_code
+R_NAM = NAM - DAT
+DAT = trans_date
+</xs:appinfo>
+																	</xs:annotation>
+																</xs:element>
+															</xs:choice>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="KOR_ZUS" type="KOR_ZUSType" minOccurs="0">
+														<xs:annotation>
+															<xs:appinfo>
+VOR_GUN/GES = Sum of  VOR_GUN/KOR/BET
+AKT_GUN/GES = Sum of AKT_GUN/KOR/BET
+For each BILL_INVOICE_DETAIL [type_code = 4, billing_category = 2, ADJ_TRANS_DESCR.is_displayed_onbill = 1 and billing_level = 0]
+VOR_GUN/KOR/NAM = description_text for ADJ_TRANS_DESCR.adj_trans_type = subtype_code
+VOR_GUN/KOR/R_NAM = NAM - DAT
+VOR_GUN/KOR/BET = amount
+VOR_GUN/KOR/DAT = trans_date
+For each BILL_INVOICE_DETAIL [type_code = 4, billing_category = 1, ADJ_TRANS_DESCR.is_displayed_onbill = 1 und billing_level = 0]
+AKT_GUN/KOR/NAM = description_text for ADJ_TRANS_DESCR.adj_trans_type = subtype_code
+AKT_GUN/KOR/R_NAM = NAM - DAT
+AKT_GUN/KOR/BET = amount
+AKT_GUN/KOR/DAT = trans_date
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GGB_ZUS" type="GGB_ZUSType" minOccurs="0">
+														<xs:annotation>
+															<xs:appinfo>
+GES = Sum of GGB/BET
+RAB_BET = Sum of GGB/RAB_BET
+For each BILL_INVOICE_DETAIL [type_code = 2, billing_level = 0]
+GGB/NAM = display_value (COMPONENT_DEFINITION_VALUES) for component_id or description_text for PRODUCT_ELEMENT.element_id = subtype_code 
+GGB/R_NAM = NAM ( VON - BIS )
+GGB/BET = amount
+GGB/VON = from_date
+GGB/BIS = to_date
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="ZSL_ZUS" type="ZSL_ZUSType" minOccurs="0">
+														<xs:annotation>
+															<xs:appinfo>
+GES = Sum of ZSL/BET
+RAB_BET = Sum of ZSL/RAB_BET
+For each BILL_INVOICE_DETAIL [type_code = 3, billing_level = 0]
+ZSL/NAM = description_text for NRC_TRANS_DESCR.nrc_trans_type = subtype_code 
+ZSL/R_NAM = NAM - DAT
+ZSL/BET = amount
+ZSL/DAT = trans_date
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="RAB_ZUS" type="RAB_ZUSType" minOccurs="0">
+														<xs:annotation>
+															<xs:appinfo>
+GES = Sum of RAB/BET
+For each BILL_INVOICE_DETAIL [type_code = 5, subtype_code = -4, billing_level = 0]
+RAB/NAM = description_text DISCOUNT_DEFINITIONS.discount_id = discount_id 
+RAB/R_NAM = NAM 
+RAB/BET = discount
+RAB/VON = from_date
+RAB/BIS = to_date
+For each BILL_INVOICE_DETAIL [type_code = 6, billing_level = 0]
+RAB/NAM = description_text for UNIT_CR_DEFINITIONS.unit_cr_id = prorate_code 
+RAB/R_NAM = NAM 
+RAB/BET = discount
+RAB/VON = from_date
+RAB/BIS = to_date
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="KOR_PLA_ZUS" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>Currently not used by the print shop !</xs:documentation>
+														</xs:annotation>
+														<xs:complexType>
+															<xs:choice maxOccurs="unbounded">
+																<xs:element name="KOR_PLA" type="KOR_PLAType" maxOccurs="unbounded">
+																	<xs:annotation>
+																		<xs:appinfo>
+For all entries in CUSTOMER_CORRIDORS for the respective account_no and where  subscr_no = NULL
+NAM = display_value (CORRIDOR_PLAN_ID_VALUES) for CUSTOMER_CORRIDORS.corridor_plan_id
+URS = CUSTOMER_CORRIDORS.country_code_origin + CUSTOMER_CORRIDORS.point_origin
+ZIE = CUSTOMER_CORRIDORS.country_code_target + CUSTOMER_CORRIDORS.point_target
+VON = CUSTOMER_CORRIDORS.active_dt
+BIS = CUSTOMER_CORRIDORS.inactive_dt
+</xs:appinfo>
+																	</xs:annotation>
+																</xs:element>
+															</xs:choice>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="GES_KTO" type="Betrag4nachKomma">
+														<xs:annotation>
+															<xs:documentation>Total amount of all depts of the account : currently not printed </xs:documentation>
+															<xs:appinfo>Sum of KTO/*/GES</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GES_KTO_BRU" type="Betrag2nachKomma">
+														<xs:annotation>
+															<xs:documentation>Total amount of all depts of the account : currently not printed </xs:documentation>
+															<xs:appinfo>Sum of KTO/*/GES</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+												</xs:choice>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="KTO_NUM" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:appinfo>
+external_id (CUSTOMER_ID_ACCT_MAP) of type  DEFAULT_EXTERNAL_ID_TYPE for CMF.account_no
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="GES_KTO_N" type="Betrag2nachKomma">
+											<xs:annotation>
+												<xs:documentation>Total amount of all depts of the account : currently not printed</xs:documentation>
+												<xs:appinfo>Sum of KTO/GES_KTO</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="GES_KTO_BEL" type="Betrag4nachKomma">
+											<xs:annotation>
+												<xs:documentation>Total amount of all depts of the account : currently not printed</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="GES_KTO_BEL_BRU" type="Betrag2nachKomma">
+											<xs:annotation>
+												<xs:documentation>Total amount of all depts of the account : currently not printed</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="GES_KTO_BEL_N" type="Betrag4nachKomma" minOccurs="0"/>
+										<xs:element name="GES_KTO_BEL_B" type="Betrag4nachKomma" minOccurs="0"/>
+										<xs:element name="R_NUM" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>Invoice number</xs:documentation>
+												<xs:appinfo>
+BILL_INVOICE.bill_ref_no
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="R_NUM_RST" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>Invoice Number - comination of bill_ref_no and bill_ref_resets</xs:documentation>
+												<xs:appinfo>
+BILL_INVOICE.bill_ref_no
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="R_RST" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>bill_ref_resets</xs:documentation>
+												<xs:appinfo>
+BILL_INVOICE.bill_ref_no
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:choice>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="DW_BEL" minOccurs="0">
+								<xs:annotation>
+								<xs:documentation>"RAITT"</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:choice maxOccurs="unbounded">
+										<xs:element name="DW">
+											<xs:complexType>
+												<xs:choice maxOccurs="unbounded">
+													<xs:element name="EIN_ZAH" minOccurs="0">
+														<xs:complexType>
+															<xs:choice maxOccurs="unbounded">
+																<xs:element name="GES" type="Betrag4nachKomma">
+																	<xs:annotation>
+																		<xs:appinfo>
+Sum of BILL_INVOICE_DETAIL.amount [type_code = 1]
+</xs:appinfo>
+																	</xs:annotation>
+																</xs:element>
+																<xs:element name="ZAH" type="R_ZahType" maxOccurs="unbounded">
+																	<xs:annotation>
+																		<xs:appinfo>
+For each  BILL_INVOICE_DETAIL with type_code = 1 and BMF_TRANS_DESCR.bmf_trans_category != 6
+BET = amount
+NAM = description_text for BMF_TRANS_DESCR.bmf_trans_type = subtype_code
+R_NAM = NAM - DAT
+DAT = trans_date
+</xs:appinfo>
+																	</xs:annotation>
+																</xs:element>
+															</xs:choice>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="KOR_ZUS" type="KOR_ZUSType" minOccurs="0">
+														<xs:annotation>
+															<xs:appinfo>
+VOR_GUN/GES = Sum of  VOR_GUN/KOR/BET
+AKT_GUN/GES = Sum of AKT_GUN/KOR/BET
+For each BILL_INVOICE_DETAIL [type_code = 4, billing_category = 2, ADJ_TRANS_DESCR.is_displayed_onbill = 1 and billing_level = 0]
+VOR_GUN/KOR/NAM = description_text for ADJ_TRANS_DESCR.adj_trans_type = subtype_code
+VOR_GUN/KOR/R_NAM = NAM - DAT
+VOR_GUN/KOR/BET = amount
+VOR_GUN/KOR/DAT = trans_date
+For each BILL_INVOICE_DETAIL [type_code = 4, billing_category = 1, ADJ_TRANS_DESCR.is_displayed_onbill = 1 und billing_level = 0]
+AKT_GUN/KOR/NAM = description_text for ADJ_TRANS_DESCR.adj_trans_type = subtype_code
+AKT_GUN/KOR/R_NAM = NAM - DAT
+AKT_GUN/KOR/BET = amount
+AKT_GUN/KOR/DAT = trans_date
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GGB_ZUS" type="GGB_ZUSType" minOccurs="0">
+														<xs:annotation>
+															<xs:appinfo>
+GES = Sum of GGB/BET
+RAB_BET = Sum of GGB/RAB_BET
+For each BILL_INVOICE_DETAIL [type_code = 2, billing_level = 0]
+GGB/NAM = display_value (COMPONENT_DEFINITION_VALUES) for component_id or description_text for PRODUCT_ELEMENT.element_id = subtype_code 
+GGB/R_NAM = NAM ( VON - BIS )
+GGB/BET = amount
+GGB/VON = from_date
+GGB/BIS = to_date
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="ZSL_ZUS" type="ZSL_ZUSType" minOccurs="0">
+														<xs:annotation>
+															<xs:appinfo>
+GES = Sum of ZSL/BET
+RAB_BET = Sum of ZSL/RAB_BET
+For each BILL_INVOICE_DETAIL [type_code = 3, billing_level = 0]
+ZSL/NAM = description_text for NRC_TRANS_DESCR.nrc_trans_type = subtype_code 
+ZSL/R_NAM = NAM - DAT
+ZSL/BET = amount
+ZSL/DAT = trans_date
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="RAB_ZUS" type="RAB_ZUSType" minOccurs="0">
+														<xs:annotation>
+															<xs:appinfo>
+GES = Sum of RAB/BET
+For each BILL_INVOICE_DETAIL [type_code = 5, subtype_code = -4, billing_level = 0]
+RAB/NAM = description_text DISCOUNT_DEFINITIONS.discount_id = discount_id 
+RAB/R_NAM = NAM 
+RAB/BET = discount
+RAB/VON = from_date
+RAB/BIS = to_date
+For each BILL_INVOICE_DETAIL [type_code = 6, billing_level = 0]
+RAB/NAM = description_text for UNIT_CR_DEFINITIONS.unit_cr_id = prorate_code 
+RAB/R_NAM = NAM 
+RAB/BET = discount
+RAB/VON = from_date
+RAB/BIS = to_date
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="KOR_PLA_ZUS" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>Currently not used by the print shop !</xs:documentation>
+														</xs:annotation>
+														<xs:complexType>
+															<xs:choice maxOccurs="unbounded">
+																<xs:element name="KOR_PLA" type="KOR_PLAType" maxOccurs="unbounded">
+																	<xs:annotation>
+																		<xs:appinfo>
+For all entries in CUSTOMER_CORRIDORS for the respective account_no and where  subscr_no = NULL
+NAM = display_value (CORRIDOR_PLAN_ID_VALUES) for CUSTOMER_CORRIDORS.corridor_plan_id
+URS = CUSTOMER_CORRIDORS.country_code_origin + CUSTOMER_CORRIDORS.point_origin
+ZIE = CUSTOMER_CORRIDORS.country_code_target + CUSTOMER_CORRIDORS.point_target
+VON = CUSTOMER_CORRIDORS.active_dt
+BIS = CUSTOMER_CORRIDORS.inactive_dt
+</xs:appinfo>
+																	</xs:annotation>
+																</xs:element>
+															</xs:choice>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="GES_DW" type="Betrag4nachKomma">
+														<xs:annotation>
+															<xs:documentation>Total amount of all depts of the account : currently not printed </xs:documentation>
+															<xs:appinfo>Sum of DW/*/GES</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GES_DW_BRU" type="Betrag2nachKomma">
+														<xs:annotation>
+															<xs:documentation>Total amount of all depts of the account : currently not printed </xs:documentation>
+															<xs:appinfo>Sum of DW/*/GES</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+												</xs:choice>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="KTO_NUM" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:appinfo>
+external_id (CUSTOMER_ID_ACCT_MAP) of type  DEFAULT_EXTERNAL_ID_TYPE for CMF.account_no
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="GES_DW_N" type="Betrag2nachKomma">
+											<xs:annotation>
+												<xs:documentation>Total amount of all depts of the account : currently not printed</xs:documentation>
+												<xs:appinfo>Sum of DW/GES_KTO</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="GES_DW_BEL" type="Betrag4nachKomma">
+											<xs:annotation>
+												<xs:documentation>Total amount of all depts of the account : currently not printed</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="GES_DW_BEL_BRU" type="Betrag2nachKomma">
+											<xs:annotation>
+												<xs:documentation>Total amount of all depts of the account : currently not printed</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="GES_DW_BEL_N" type="Betrag4nachKomma" minOccurs="0"/>
+										<xs:element name="GES_DW_BEL_B" type="Betrag4nachKomma" minOccurs="0"/>
+										<xs:element name="R_NUM" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>Invoice number</xs:documentation>
+												<xs:appinfo>
+BILL_INVOICE.bill_ref_no
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="R_NUM_RST" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>Invoice Number - comination of bill_ref_no and bill_ref_resets</xs:documentation>
+												<xs:appinfo>
+BILL_INVOICE.bill_ref_no
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="R_RST" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>bill_ref_resets</xs:documentation>
+												<xs:appinfo>
+BILL_INVOICE.bill_ref_no
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:choice>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="SI_BEL">
+								<xs:complexType>
+									<xs:choice maxOccurs="unbounded">
+										<xs:element name="SI" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>In the file they are ordered by the SI level additional info (Kundenzusatz) K_ZST</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:choice maxOccurs="unbounded">
+													<xs:element name="NAM" type="xs:string">
+														<xs:annotation>
+															<xs:documentation>Type of Service Instance. e.g. .:'Mobile Number'</xs:documentation>
+															<xs:appinfo>display_value (EMF_CONFIG_ID_VALUES) for EMF.emf_config_id</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="M_NUM" type="xs:string">
+														<xs:annotation>
+															<xs:documentation>Identification of SI</xs:documentation>
+															<xs:appinfo>
+external_id (CUSTOMER_ID_EQUIP_MAP) of type DEFAULT_EXTERNAL_ID_TYPE for EMF.subscr_no
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="G_NUM" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>Genion Number</xs:documentation>
+															<xs:appinfo>
+external_id (CUSTOMER_ID_EQUIP_MAP) of type GENION_EXTERNAL_ID_TYPE for EMF.subscr_no
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="S_NUM" type="INFOType">
+														<xs:annotation>
+															<xs:documentation>Service number : complete string without name e.g.: 017912345678 / O2Genion 08912345668 (RV 1234567890)</xs:documentation>
+															<xs:appinfo>
+String composed of M_NUM, G_NUM, KTO/KUN_ZUN/RV_NUM with the template from SYSTEM_PARAMETERS.parameter_name in SI_HEADING_FORMAT_MS,SI_HEADING_FORMAT_FLN,SI_HEADING_FORMAT_FCN 
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="VON" type="DatumType">
+														<xs:annotation>
+															<xs:appinfo>
+max of EMF.service_start und RECHNUNG/REC_ZUS/VON
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="BIS" type="DatumType">
+														<xs:annotation>
+															<xs:appinfo>
+min of EMF.service_end und RECHNUNG/REC_ZUS/BIS
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="K_ZST" type="INFOType" minOccurs="0" maxOccurs="2">
+														<xs:annotation>
+															<xs:documentation>Additional information to customer : free text </xs:documentation>
+															<xs:appinfo>
+For ID = 1 - Only if the field is populated 
+EMF_JOIN.free_data1
+For ID = 2 - Only if the field is populated 
+EMF_JOIN.free_data2
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="ADR_ZUS" minOccurs="0">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="CD_ADR" type="P_AdrType" minOccurs="0"/>
+																<xs:element name="E_ADR" type="E_ADRType" minOccurs="0"/>
+																<xs:element name="X400_ADR" type="X400_ADRType" minOccurs="0"/>
+																<xs:element name="XRECH_ADR" type="XRECH_ADRType" minOccurs="0"/>
+																<xs:element name="SMS_ADR" type="SMS_AdrType" minOccurs="0"/>
+																<xs:choice minOccurs="0">
+																	<xs:element name="P_ADR">
+																		<xs:annotation>
+																			<xs:appinfo>Paper invoice address for this SI and dispatch control 
+Attributes:
+For ID = 1 - Address from EMF ( If populated)
+A1,A2A,A2B 	: always set to 0
+A3 		: set to 1 if CMF_JOIN.paper_evn_code in ( 3,4 ) and bill_disp_meth != 20
+EVN 		: set to1 if CMF_JOIN.paper_evn_code = 4 and bill_disp_meth != 20
+Sub-Elements:
+
+FIR = EMF.service_company
+ANR = EMF.service_name_pre
+V_NAM = EMF.service_fname
+M_NAM = EMF.service_minit
+N_NAM = EMF.service_lname
+G_NAM = EMF.service_name_generation
+ADR_1 = EMF.service_address1
+ADR_2 = EMF.service_address2
+ADR_3 = EMF.service_address3
+STA = EMF.service_city
+PLZ = EMF.service_zip
+LAN = display_value (COUNTRY_CODE_VALUES)  of EMF.service_country_code
+</xs:appinfo>
+																		</xs:annotation>
+																		<xs:complexType>
+																			<xs:complexContent>
+																				<xs:extension base="P_AdrType"/>
+																			</xs:complexContent>
+																		</xs:complexType>
+																	</xs:element>
+																	<xs:element name="P_ADR_REF" type="P_AdrType"/>
+																</xs:choice>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="KOR_ZUS" type="KOR_ZUSType" minOccurs="0">
+														<xs:annotation>
+															<xs:appinfo>
+VOR_GUN/GES = Sum of VOR_GUN/KOR/BET
+AKT_GUN/GES = Sum of  AKT_GUN/KOR/BET
+For each BILL_INVOICE_DETAIL [type_code = 4, billing_category = 2, billing_level = 1, ADJ_TRANS_DESCR.is_displayed_onbill = 1 and subscr_no/subscr_no_resets = EMF.subscr_no/subscr_no_resets ]
+VOR_GUN/KOR/NAM = description_text for ADJ_TRANS_DESCR.adj_trans_type = subtype_code
+VOR_GUN/KOR/R_NAM = NAM - DAT - SI.NAM SI.S.NUM
+VOR_GUN/KOR/BET = amount
+VOR_GUN/KOR/DAT = trans_date
+For each BILL_INVOICE_DETAIL [type_code = 4, billing_category = 1, billing_level = 1, ADJ_TRANS_DESCR.is_displayed_onbill = 1 and subscr_no/subscr_no_resets = EMF.subscr_no/subscr_no_resets]
+AKT_GUN/KOR/NAM = description_text for ADJ_TRANS_DESCR.adj_trans_type = subtype_code
+AKT_GUN/KOR/R_NAM = NAM - DAT - SI.NAM SI.S_NUM
+AKT_GUN/KOR/BET = amount
+AKT_GUN/KOR/DAT = trans_date
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GGB_ZUS" type="GGB_ZUSType" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>RC's</xs:documentation>
+															<xs:appinfo>
+GES = Sum of GGB/BET
+RAB_BET = Sum of  GGB/RAB_BET
+For each BILL_INVOICE_DETAIL [type_code = 2, billing_level = 1, subscr_no/subscr_no_resets = EMF.subscr_no/subscr_no_resets]
+GGB/NAM = display_value (COMPONENT_DEFINITION_VALUES) for component_id or description_text for PRODUCT_ELEMENT.element_id = subtype_code 
+GGB/R_NAM = NAM ( VON - BIS )
+GGB/BET = amount
+GGB/VON = from_date
+GGB/BIS = to_date
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="ZSL_ZUS" type="ZSL_ZUSType" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>NRC's</xs:documentation>
+															<xs:appinfo>
+GES = Sum of  ZSL/BET
+RAB_BET = Sum of ZSL/RAB_BET
+For each BILL_INVOICE_DETAIL [type_code = 3, billing_level = 1, subscr_no/subscr_no_resets = EMF.subscr_no/subscr_no_resets]
+ZSL/NAM = description_text for NRC_TRANS_DESCR.nrc_trans_type = subtype_code 
+ZSL/R_NAM = NAM - DAT
+ZSL/BET = amount
+ZSL/DAT = trans_date
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="VER_ZUS" type="VER_ZUSType" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>Usage</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="ENT_ZUS" type="ENT_ZUSType" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>Entertainment Usage</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="RAB_ZUS" type="RAB_ZUSType" minOccurs="0">
+														<xs:annotation>
+															<xs:appinfo>
+GES = Sum RAB/BET
+For each BILL_INVOICE_DETAIL [type_code = 5, subtype_code = -4, billing_level = 1, subscr_no/subscr_no_resets = EMF.subscr_no/subscr_no_resets]
+RAB/NAM = description_text DISCOUNT_DEFINITIONS.discount_id = discount_id 
+RAB/R_NAM = NAM 
+RAB/BET = discount
+RAB/VON = from_date
+RAB/BIS = to_date
+For each BILL_INVOICE_DETAIL [type_code = 6, billing_level = 1, subscr_no/subscr_no_resets = EMF.subscr_no/subscr_no_resets]
+RAB/NAM = description_text for UNIT_CR_DEFINITIONS.unit_cr_id = prorate_code 
+RAB/R_NAM = NAM 
+RAB/BET = discount
+RAB/VON = from_date
+RAB/BIS = to_date
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="KOR_PLA_ZUS" minOccurs="0">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="KOR_PLA" type="KOR_PLAType" maxOccurs="unbounded">
+																	<xs:annotation>
+																		<xs:appinfo>
+For each entry in CUSTOMER_CORRIDORS for the respective account where subscr_no/subscr_no_resets = EMF.subscr_no/subscr_no_resets
+NAM = display_value (CORRIDOR_PLAN_ID_VALUES) für CUSTOMER_CORRIDORS.corridor_plan_id
+URS = CUSTOMER_CORRIDORS.country_code_origin + CUSTOMER_CORRIDORS.point_origin
+ZIE = CUSTOMER_CORRIDORS.country_code_target + CUSTOMER_CORRIDORS.point_target
+VON = CUSTOMER_CORRIDORS.active_dt
+BIS = CUSTOMER_CORRIDORS.inactive_dt
+</xs:appinfo>
+																	</xs:annotation>
+																</xs:element>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="GES_SI" type="Betrag4nachKomma">
+														<xs:annotation>
+															<xs:documentation>Total amount for this SI without past adjustments</xs:documentation>
+															<xs:appinfo>Sum SI/*/GES</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GES_SI_BRU" type="Betrag2nachKomma">
+														<xs:annotation>
+															<xs:documentation>Total amount for this SI without past adjustments</xs:documentation>
+															<xs:appinfo>Sum SI/*/GES</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GES_SI_TPC_BRU" type="Betrag2nachKomma">
+														<xs:annotation>
+															<xs:documentation>Total amount for this SI without past adjustments</xs:documentation>
+															<xs:appinfo>Sum SI/*/GES_SI_TPC_BRU</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GES_SI_INKL_TPC" type="Betrag2nachKomma">
+														<xs:annotation>
+															<xs:documentation>Total amount for this SI without past adjustments including TPC charges</xs:documentation>
+															<xs:appinfo>Sum SI/*/GES_SI_INKL_TPC</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GES_SI_MIT_VOR_GUN" type="fw:FOXType">
+														<xs:annotation>
+															<xs:documentation>Total amount for this SI with  past adjustments</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GES_SI_N" type="Betrag4nachKomma">
+														<xs:annotation>
+															<xs:documentation>Total amount for this SI without past adjustments and with discouts ucps </xs:documentation>
+															<xs:appinfo>Sum SI/*/GES</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="ABBR_EVN">
+														<xs:annotation>
+															<xs:documentation>EVN Abbreviations</xs:documentation>
+														</xs:annotation>
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="ABBR_NAM">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="INFOREF" type="INFOType" maxOccurs="unbounded">
+																				<xs:annotation>
+																					<xs:appinfo>ID for INFO value from FORMAT/ABBR_EVN/ABBR/NAM</xs:appinfo>
+																				</xs:annotation>
+																			</xs:element>
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="TPSP_EVN">
+														<xs:annotation>
+															<xs:documentation>3 rd Party Contacts Information dynamic</xs:documentation>
+														</xs:annotation>
+														<xs:complexType>
+															<xs:sequence maxOccurs="unbounded">
+																<xs:element name="TPSP_NAM"/>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="S_NAM" type="xs:string">
+														<xs:annotation>
+															<xs:documentation>External-id</xs:documentation>
+															<xs:appinfo>
+String composed of M_NUM, G_NUM, KTO/KUN_ZUN/RV_NUM with the template from SYSTEM_PARAMETERS.parameter_name in SI_HEADING_FORMAT_MS,SI_HEADING_FORMAT_FLN,SI_HEADING_FORMAT_FCN 
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="T_NAM" type="fw:FOXType">
+														<xs:annotation>
+															<xs:documentation>Tariff name</xs:documentation>
+															<xs:appinfo>
+String composed of M_NUM, G_NUM, KTO/KUN_ZUN/RV_NUM with the template from SYSTEM_PARAMETERS.parameter_name in SI_HEADING_FORMAT_MS,SI_HEADING_FORMAT_FLN,SI_HEADING_FORMAT_FCN 
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GES_KTO_RAB_BET" type="Betrag4nachKomma">
+														<xs:annotation>
+															<xs:documentation>discounts amount from farme contract </xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="R_NUM" type="xs:string">
+														<xs:annotation>
+															<xs:documentation>Invoice number</xs:documentation>
+															<xs:appinfo>
+BILL_INVOICE.bill_ref_no
+</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GES_RAB_BET" type="Betrag4nachKomma">
+														<xs:annotation>
+															<xs:documentation>Total Discount amout</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GES_SI_B" type="Betrag4nachKomma">
+														<xs:annotation>
+															<xs:documentation>Total amount for this SI with past adjustments and without discouts/ucps </xs:documentation>
+															<xs:appinfo>Sum SI/*/GES</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GES_SI_MIT_KTO_RAB" type="Betrag4nachKomma">
+														<xs:annotation>
+															<xs:documentation>Total SI Level amounts after account level discount</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GES_SI_MIT_KTO_RAB_VOR_GUN" type="Betrag4nachKomma"/>
+													<xs:element name="NAM_EVN" type="xs:string"/>
+													<xs:element name="R_NAM" type="fw:FOXType"/>
+													<xs:element name="GES_INKL_RAB_BET" type="Betrag4nachKomma"/>
+													<xs:element name="CONT_ID" type="xs:string" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>
+													Contract ID in case of Connect Tariff from the external type 30, 35 or 40
+													</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="NAM_UD" type="xs:string" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>
+													Header Name for the unlimited device box, based on the external_id_type External_id_type (30) - o2 connect. external_id_type (35) - UDO option
+													</xs:documentation>
+															<xs:appinfo>
+													display_value (EMF_CONFIG_ID_VALUES) for EMF.emf_config_id
+													</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="S_NUM_EVN" type="INFOType">
+														<xs:annotation>
+															<xs:documentation>
+													Service number : complete string without name e.g.: 017912345678 
+													</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+												</xs:choice>
+												<xs:attribute name="NO_SUMMARY" type="xs:int" use="optional">
+													<xs:annotation>
+														<xs:documentation>When NO_SUMMARY = 1 Corresponded  SI node will be suppressed from the section 2 on the bill layout, was implemented for DSL external ids in order to able IBEG to create sub-si_s to different voip numbers and to show them on the EVN section.</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="NO_EVN" type="xs:int"/>
+												<xs:attribute name="SIMTYPE" type="xs:string">
+													<xs:annotation>
+														<xs:documentation>
+												Will define which type of Sim Card it is, currently defined are: 
+												- "Connect Master" 
+												- "UDO Master" 
+												- "Datacard"
+												- "DSL"
+												- "Mobile" 
+												</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="KTO_NUM" type="fw:FOXType">
+											<xs:annotation>
+												<xs:documentation>Account Number this SI belongs to</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="GES_SI_N">
+											<xs:annotation>
+												<xs:documentation>Total amount of SI charges after all discounts</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="GES_SI_BEL" type="Betrag4nachKomma">
+											<xs:annotation>
+												<xs:documentation>Total amount of SI charges, currently not printed</xs:documentation>
+												<xs:appinfo>Sum SI/GES_SI</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="GES_SI_CON_BEL" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Total amount of SI charges, that are belong to the connect tariff </xs:documentation>
+												<xs:appinfo>amount for O2 connect</xs:appinfo>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:attribute name="CONT_ID" type="xs:string" use="required"/>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="GES_SI_CON_BEL_TPC_BRU" type="Betrag2nachKomma">
+														<xs:annotation>
+															<xs:documentation>Total amount for this SI without past adjustments including GES_TPC for Connect master</xs:documentation>
+															<xs:appinfo>Sum SI/*/GES</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+										<xs:element name="GES_SI_CON_BEL_BRU" type="Betrag4nachKomma">
+														<xs:annotation>
+															<xs:documentation>Total amount for this SI without past adjustments including GES_TPC for Connect master</xs:documentation>
+															<xs:appinfo>Sum SI/*/GES</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+										<xs:element name="VER_GES_N" type="Betrag4nachKomma">
+											<xs:annotation>
+												<xs:documentation>Total usage amount for SI level</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="ZSL_GES_N" type="Betrag4nachKomma">
+											<xs:annotation>
+												<xs:documentation>Total NRC amount for SI Level</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="GGB_GES_N" type="Betrag4nachKomma">
+											<xs:annotation>
+												<xs:documentation>Total RC amount for SI level</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="K_ZUO" type="K_ZUO" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>total amounts group by cost center</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="GES_SI_TPC">
+											<xs:annotation>
+												<xs:documentation>Total of Third Party Gross Charges for all SIs</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="GES_SI_BEL_B" type="Betrag4nachKomma">
+											<xs:annotation>
+												<xs:appinfo>Sum SI/GES_SI</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="GES_SI_BEL_N" type="Betrag4nachKomma">
+											<xs:annotation>
+												<xs:appinfo>Sum SI/GES_SI</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="R_NUM" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>Invoice number</xs:documentation>
+												<xs:appinfo>
+BILL_INVOICE.bill_ref_no
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="R_NUM_RST" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>Invoice Number - comination of bill_ref_no and bill_ref_resets</xs:documentation>
+												<xs:appinfo>
+BILL_INVOICE.bill_ref_no
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="R_RST" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>bill_ref_resets</xs:documentation>
+												<xs:appinfo>
+BILL_INVOICE.bill_ref_no
+</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="CONT_BEL" minOccurs="0">
+											<xs:annotation>
+												<xs:appinfo>Travo-Contract data and Contract pack data</xs:appinfo>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:choice maxOccurs="unbounded">
+													<xs:element name="CONT_DATA" minOccurs="0" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:choice>
+																<xs:element name="TRAV" maxOccurs="unbounded">
+																	<xs:complexType>
+																		<xs:simpleContent>
+																			<xs:extension base="xs:string">
+																				<xs:attribute name="ID" type="xs:int" use="required"/>
+																			</xs:extension>
+																		</xs:simpleContent>
+																	</xs:complexType>
+																</xs:element>
+															</xs:choice>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="CONT_PAK_DAT" minOccurs="0" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:choice>
+																<xs:element name="TRAV" maxOccurs="unbounded">
+																	<xs:complexType>
+																		<xs:simpleContent>
+																			<xs:extension base="xs:string">
+																				<xs:attribute name="ID" type="xs:int" use="required"/>
+																			</xs:extension>
+																		</xs:simpleContent>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="PAK_DET" maxOccurs="unbounded">
+																	<xs:complexType>
+																		<xs:choice maxOccurs="unbounded">
+																			<xs:element name="TRAV">
+																				<xs:complexType>
+																					<xs:simpleContent>
+																						<xs:extension base="xs:string">
+																							<xs:attribute name="ID" type="xs:int" use="required"/>
+																						</xs:extension>
+																					</xs:simpleContent>
+																				</xs:complexType>
+																			</xs:element>
+																		</xs:choice>
+																	</xs:complexType>
+																</xs:element>
+															</xs:choice>
+														</xs:complexType>
+													</xs:element>
+												</xs:choice>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="PROD_GRP" minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:choice>
+													<xs:element name="NAM">
+														<xs:annotation>
+															<xs:documentation>Used to identify the name of the product based on 
+															ID and corresponding FORMAT Node PSI/FORMAT/SI_BEL/PROD_GRP/NAM
+															</xs:documentation>
+														</xs:annotation>
+														<xs:complexType>
+															<xs:simpleContent>
+																<xs:extension base="xs:string">
+																	<xs:attribute name="ID" type="xs:int" use="required"/>
+																</xs:extension>
+															</xs:simpleContent>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="ANZ">
+														<xs:annotation>
+															<xs:documentation>A counter of all SI's for each product type</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GGB_BET" type="Betrag4nachKomma">
+														<xs:annotation>
+															<xs:documentation>Total RC amount for all SIs group by product</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GGB_BET_BRU" type="Betrag2nachKomma">
+														<xs:annotation>
+															<xs:documentation>Total RC amount for all SIs group by product</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="ZSL_BET" type="Betrag4nachKomma">
+														<xs:annotation>
+															<xs:documentation>Total NRC amount for all SIs group by product</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="ZSL_BET_BRU" type="Betrag2nachKomma">
+														<xs:annotation>
+															<xs:documentation>Total NRC amount for all SIs group by product</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="VER_BET" type="Betrag4nachKomma">
+														<xs:annotation>
+															<xs:documentation>Total Usage amount for all SIs group by product</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="VER_BET_BRU" type="Betrag2nachKomma">
+														<xs:annotation>
+															<xs:documentation>Total Usage amount for all SIs group by product</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="ENT_BET" type="Betrag4nachKomma">
+														<xs:annotation>
+															<xs:documentation>Total Entertainment usage amount for all SIs group by product</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="ENT_BET_BRU" type="Betrag2nachKomma">
+														<xs:annotation>
+															<xs:documentation>Total Entertainment usage amount for all SIs group by product</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="RAB_BET" type="Betrag4nachKomma">
+														<xs:annotation>
+															<xs:documentation>Total discounts amount for all SIs groupt by product</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="RAB_BET_BRU" type="Betrag2nachKomma">
+														<xs:annotation>
+															<xs:documentation>Total discounts amount for all SIs groupt by product</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="GES_TPC" type="Betrag2nachKomma">
+														<xs:annotation>
+															<xs:documentation>
+																Heading
+																for
+																Third
+																Party
+																Gross
+																Charges
+																in
+																section
+																2
+															</xs:documentation>
+															<xs:appinfo>
+																Sum
+																SI/*/GES
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+												</xs:choice>
+											</xs:complexType>
+										</xs:element>
+									</xs:choice>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="MWS_ZUS">
+								<xs:complexType>
+									<xs:choice maxOccurs="unbounded">
+										<xs:element name="VORMONAT" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:choice maxOccurs="unbounded">
+													<xs:element name="MWS" type="MWSType"/>
+												</xs:choice>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="AKTUELL" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="MWS">
+														<xs:complexType>
+															<xs:complexContent>
+																<xs:extension base="MWSType"/>
+															</xs:complexContent>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:choice>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+						<xs:attribute name="ID" type="xs:int">
+							<xs:annotation>
+								<xs:appinfo>ID of the file</xs:appinfo>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="ANZ_SI" type="xs:int">
+							<xs:annotation>
+								<xs:appinfo>Number of SI in the file</xs:appinfo>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="ANZ_SMS" type="xs:int">
+							<xs:annotation>
+								<xs:appinfo>sum of active SMS addresses with notify value 1</xs:appinfo>
+							</xs:annotation>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="CHECKSUM">
+					<xs:complexType>
+						<xs:attribute name="ANZ_REC" type="xs:int" use="optional">
+							<xs:annotation>
+								<xs:appinfo>Number of invoices in the file (number of elements "RECHNUNG")</xs:appinfo>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="ANZ_PAP" type="xs:int" use="optional">
+							<xs:annotation>
+								<xs:appinfo>Number of Section 1 on paper (RECHNUNG/ADR_ZUS/P_ADR with A1 = 1)</xs:appinfo>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="ANZ_CD" type="xs:int" use="optional">
+							<xs:annotation>
+								<xs:appinfo>Number of CD-ROM in file (RECHNUNG/ADR_ZUS/CD_ADR with A1 = 1)
+i.e 1 unit per CD_ADR element - for each invoice this can 0,1 or 2</xs:appinfo>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="ANZ_X400" type="xs:int" use="optional">
+							<xs:annotation>
+								<xs:appinfo>Number of CD-ROM addresses in file (RECHNUNG/ADR_ZUS/X400_ADR with REC = 1)</xs:appinfo>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="ANZ_XRECH" type="xs:int" use="optional">
+							<xs:annotation>
+								<xs:appinfo>Number of XRECH addresses in file (RECHNUNG/ADR_ZUS/XRECH_ADR)</xs:appinfo>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="ANZ_EMAIL" type="xs:int" use="optional">
+							<xs:annotation>
+								<xs:appinfo>Number of E-Mail addresses in file (RECHNUNG/ADR_ZUS/E_ADR with NOTIFY = 1)</xs:appinfo>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="ANZ_PAP_EVN" type="xs:int" use="optional">
+							<xs:annotation>
+								<xs:appinfo>Number of Paper EVNs in the file (RECHNUNG/ADR_ZUS/P_ADR with EVN = 1)</xs:appinfo>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="ANZ_CD_EVN" type="xs:int" use="optional">
+							<xs:annotation>
+								<xs:appinfo>Number of EVNs on CD-ROM in the file (RECHNUNG/ADR_ZUS/CD_ADR with EVN = 1)</xs:appinfo>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="ANZ_X400_EVN" type="xs:int" use="optional">
+							<xs:annotation>
+								<xs:appinfo>Number of EVNs on Edifact format in file (RECHNUNG/ADR_ZUS/X400_ADR with EVN = 1)</xs:appinfo>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="ANZ_BM" type="xs:int" use="optional"/>
+						<xs:attribute name="ANZ_EV" type="xs:int" use="optional">
+							<xs:annotation>
+								<xs:appinfo>Number of invoices in the file (number of elements "RECHNUNG")</xs:appinfo>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="ANZ_SI" type="xs:int" use="optional">
+							<xs:annotation>
+								<xs:appinfo>Number of invoices in the file (number of elements "RECHNUNG")</xs:appinfo>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="ANZ_SMS" type="xs:int" use="optional">
+							<xs:annotation>
+								<xs:appinfo>sum of active SMS addresses (RECHNUNG/ADR_ZUS/SMS_ADR  with NOTIFY=1)</xs:appinfo>
+							</xs:annotation>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="DATE" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:appinfo>Production date of file</xs:appinfo>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="DEST" use="required">
+				<xs:annotation>
+					<xs:appinfo>Version number of PSI file (for further processed at printshop currently MAGIC is the only valid value)</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="SPCHILD"/>
+						<xs:enumeration value="BCS"/>
+						<xs:enumeration value="RETAIL"/>
+						<xs:enumeration value="MAGIC"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="VERSION" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="K_ZUO">
+		<xs:annotation>
+			<xs:documentation>Section 2b data</xs:documentation>
+		</xs:annotation>
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="GES_N" type="Betrag4nachKomma">
+				<xs:annotation>
+					<xs:documentation>Total amount Cost center</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VER_GES_N" type="Betrag4nachKomma">
+				<xs:annotation>
+					<xs:documentation>Total amount Usage cost senter</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ZSL_GES_N" type="Betrag4nachKomma">
+				<xs:annotation>
+					<xs:documentation>Total amount non-recurring charge </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GGB_GES_N" type="Betrag4nachKomma">
+				<xs:annotation>
+					<xs:documentation>Total amount recurring amount</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SI_ZUS" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Section 2b line item</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:choice maxOccurs="unbounded">
+						<xs:element name="GES_N" type="Betrag4nachKomma">
+							<xs:annotation>
+								<xs:documentation>total amount </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="VER_GES_N" type="Betrag4nachKomma">
+							<xs:annotation>
+								<xs:documentation>usage total amount </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="ZSL_GES_N" type="Betrag4nachKomma">
+							<xs:annotation>
+								<xs:documentation>Non-recurring charge total amount</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="GES_TPC" type="Betrag4nachKomma"/>
+						<xs:element name="GGB_GES_N" type="Betrag4nachKomma">
+							<xs:annotation>
+								<xs:documentation>Recurring charge amount</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:choice>
+					<xs:attribute name="ID" type="xs:string" use="required"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GES_TPC" type="Betrag4nachKomma"/>
+		</xs:choice>
+		<xs:attribute name="ID" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="P_AdrType">
+		<xs:all minOccurs="0">
+			<xs:element name="ANR" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Salutation</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="4"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="TIT" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="40"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="V_NAM" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="28"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="M_NAM" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>middle initial</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="30"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="N_NAM" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="56"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="G_NAM" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>generation name  (e.g. Junior)</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="4"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="NIE" type="xs:string" minOccurs="0"/>
+			<xs:element name="ABT" type="xs:string" minOccurs="0"/>
+			<xs:element name="ADR_1" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="75"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ADR_2" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="75"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ADR_3" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="75"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="STA" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="35"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="PLZ" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="LAN" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="80"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="DIREKT" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>DIREKT=1 IF CMF_JOIN.electronic_postal_format_code =1 else 0</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FIR" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="A1" type="xs:int" use="optional" default="0">
+			<xs:annotation>
+				<xs:documentation>A1	section 1	0-not produced, 1-produce, 2-produced as a copy (for future use)
+</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="A2A" type="xs:int" use="optional" default="0">
+			<xs:annotation>
+				<xs:documentation>A2A	section 2a	0-not produced, 1-produce, 2-copy 
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="A2B" type="xs:int" use="optional" default="0">
+			<xs:annotation>
+				<xs:documentation>A2B	section 2b	0-not produced, 1-produce, 2-copy 
+</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="A2C" type="xs:int" use="optional" default="0"/>
+		<xs:attribute name="A2D" type="xs:int" use="optional" default="0"/>
+		<xs:attribute name="A3" type="xs:int" use="optional" default="0">
+			<xs:annotation>
+				<xs:documentation>A3	section 3	0-not produced, 1-produce, 2-copy 
+</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="A3A" type="xs:int" use="optional" default="0"/>
+		<xs:attribute name="A3B" type="xs:int" use="optional" default="0"/>
+		<xs:attribute name="EVN" type="xs:int" use="optional" default="0">
+			<xs:annotation>
+				<xs:documentation>EVN	call detail section 	0-not produced, 1-produce, 2-copy 
+</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="ZVOR" type="xs:int" use="optional" default="0">
+			<xs:annotation>
+				<xs:documentation>ZVOR	payment form	0-not produced, 1-produce
+</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="BEILAGEN" type="xs:string" use="optional" default="0">
+			<xs:annotation>
+				<xs:documentation>Future use!!
+</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="ID" type="xs:int" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="X400_ADRType">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="LAN">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ADMD">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="N_NAM">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="40"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="V_NAM">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ORG">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ORG_E1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ORG_E2">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ORG_E3">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ORG_E4">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="A_NAM">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="L_NAM">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="OU">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attribute name="REC" type="xs:int" use="optional" default="0"/>
+		<xs:attribute name="EVN" type="xs:int" use="optional" default="0"/>
+		<xs:attribute name="ID" type="xs:int" use="required"/>
+		<xs:attribute name="FORMAT" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="XRECH_ADRType">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="X_LEITWEG">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="X_EMAIL">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="X_AUFTRAGNR">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="X_LIEFERANT">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="X_VERSAND">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attribute name="ID" type="xs:int" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="SMS_AdrType">
+		<xs:sequence>
+			<xs:element name="MSISDN">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="ID" type="xs:int" use="optional" default="1"/>
+		<xs:attribute name="NOTIFY" type="xs:boolean" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>NOTIFY True: Send SMS notification, false: don't send it
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="E_ADRType">
+		<xs:sequence>
+			<xs:element name="ADR">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="80"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="ID" type="xs:int" use="required"/>
+		<xs:attribute name="A1" type="xs:int" use="optional" default="0">
+			<xs:annotation>
+				<xs:documentation>A1	section 1	0-not produced, 1-produce, 2-copy
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="A2A" type="xs:int" use="optional" default="0">
+			<xs:annotation>
+				<xs:documentation>A2A	section 2a	0-not produced, 1-produce, 2-copy
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="A2B" type="xs:int" use="optional" default="0">
+			<xs:annotation>
+				<xs:documentation>A2B	section 2b	0-not produced, 1-produce, 2-copy
+</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="A2C" type="xs:int" use="optional" default="0"/>
+		<xs:attribute name="A3" type="xs:int" use="optional" default="0">
+			<xs:annotation>
+				<xs:documentation>A3	section 3	0-not produced, 1-produce, 2-copy
+</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="EVN" type="xs:int" use="optional" default="0">
+			<xs:annotation>
+				<xs:documentation>EVN	acll detail section 	0-not produced, 1-produce, 2-copy
+</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NOTIFY" type="xs:boolean" use="optional">
+			<xs:annotation>
+				<xs:documentation>True: Send E-Mail notification, false: don't send it</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="GGB_ZUSType">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="GES" type="Betrag4nachKomma">
+				<xs:annotation>
+					<xs:documentation>Total RC un-discounted amouts after inclusiv discounts</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GES_BRU" type="Betrag2nachKomma">
+				<xs:annotation>
+					<xs:documentation>Total RC un-discounted amouts after inclusiv discounts</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GES_UDP" type="Betrag4nachKomma">
+				<xs:annotation>
+					<xs:documentation>Total RC un-discounted amouts after inclusiv discounts for O2 Connect or UDP (for master service : includes sum from datacards)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GES_UDP_BRU" type="Betrag2nachKomma">
+				<xs:annotation>
+					<xs:documentation>Total RC un-discounted amouts after inclusiv discounts for O2 Connect or UDP (for master service : includes sum from datacards)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RAB_BET" type="Betrag4nachKomma" minOccurs="0"/>
+			<xs:element name="GGB" type="R_BelType" maxOccurs="unbounded"/>
+			<xs:element name="INKL_RAB_BET" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Total amount of all inclusive RC discounts</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="KTO_RAB_BET" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Total discount through account level discounts</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GES_N" type="Betrag4nachKomma">
+				<xs:annotation>
+					<xs:documentation>Total RC discounted anounts</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GES_B" type="Betrag4nachKomma">
+				<xs:annotation>
+					<xs:documentation>Total RC un-disciunted amounts</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ZSL_ZUSType">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="GES" type="Betrag4nachKomma"/>
+			<xs:element name="GES_BRU" type="Betrag2nachKomma"/>
+			<xs:element name="GES_UDP" type="Betrag4nachKomma">
+				<xs:annotation>
+					<xs:documentation>Total RC un-discounted amouts after inclusiv discounts for O2 Connect or UDP (for master service : includes sum from datacards)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GES_UDP_BRU" type="Betrag2nachKomma">
+				<xs:annotation>
+					<xs:documentation>Total RC un-discounted amouts after inclusiv discounts for O2 Connect or UDP (for master service : includes sum from datacards)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RAB_BET" type="Betrag4nachKomma" minOccurs="0"/>
+			<xs:element name="ZSL" type="R_BelType" maxOccurs="unbounded"/>
+			<xs:element name="INKL_RAB_BET" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Total amount of all inclusive NRC discounts</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="KTO_RAB_BET" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Total discount through account level discounts</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GES_N" type ="Betrag4nachKomma"/>
+			<xs:element name="GES_B"  type ="Betrag4nachKomma"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="BELType">
+		<xs:all>
+			<xs:element name="BET" type="Betrag4nachKomma">
+				<xs:annotation>
+					<xs:documentation>un-discounted net amount</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RAB_BET" type="Betrag4nachKomma" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Discount amount</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MWS" minOccurs="0"/>
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="RAB_ZUSType">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="GES" type="Betrag4nachKomma"/>
+			<xs:element name="GES_BRU" type="Betrag2nachKomma"/>
+			<xs:element name="GES_UDP" type="Betrag4nachKomma">
+				<xs:annotation>
+					<xs:documentation>Total RC un-discounted amouts after inclusiv discounts for O2 Connect or UDP (for master service : includes sum from datacards)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GES_UDP_BRU" type="Betrag2nachKomma">
+				<xs:annotation>
+					<xs:documentation>Total RC un-discounted amouts after inclusiv discounts for O2 Connect or UDP (for master service : includes sum from datacards)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RAB" type="R_BelType" maxOccurs="unbounded"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="R_BelType">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="NAM" type="INFOType">
+				<xs:annotation>
+					<xs:documentation>Name of the charge</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="R_NAM" type="INFOType">
+				<xs:annotation>
+					<xs:documentation>Name of charge with additional information e.g. billing period</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LIN" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Product Linie - printed only for recurung charges (GGB)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BET" type="Betrag4nachKomma">
+				<xs:annotation>
+					<xs:documentation>un-discounted net amount</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BET_BRU" type="Betrag2nachKomma">
+				<xs:annotation>
+					<xs:documentation>un-discounted gross amount</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RAB_BET" type="Betrag4nachKomma" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>discount amount</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RES" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Remaining amount of a credit (which can be still used in the next period)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VON" type="DatumType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Begin of billing period for recurring charges</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BIS" type="DatumType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>End of billing period for recurring charges</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DAT" type="DatumType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Date of the Non-recurring charges</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PER" type= "xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Discount percentage ( Only if parent is RAB ) - Only applicatble to ICB discounts</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ID" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>Numeric id from Arbor/BP to identify this item ( type_id_nrc, element_id, discount_id )</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BET_N" type="Betrag4nachKomma">
+				<xs:annotation>
+					<xs:documentation>Total RC discounted anounts</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BET_B" type="Betrag4nachKomma">
+				<xs:annotation>
+					<xs:documentation>Total RC un-disciunted amounts</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="R_NAMB" type="INFOType" minOccurs="0"/>
+			<xs:element name="COUNT" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>Number of RC's from the same type that where aggregated together</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="KTO_RAB_BET" type="xs:float">
+				<xs:annotation>
+					<xs:documentation>Account level Discounts</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MWS_SAT" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Tax % of the correcponding charge item (e.g. RC, NRC)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attribute name="HAUPT" type="xs:boolean" use="optional"/>
+		<xs:attribute name="TYPE" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="KOR_PLAType">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="NAM" type="INFOType"/>
+			<xs:element name="URS" type="xs:string"/>
+			<xs:element name="ZIE" type="xs:string"/>
+			<xs:element name="VON" type="DatumType"/>
+			<xs:element name="BIS" type="DatumType" minOccurs="0"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="GESType" mixed="true">
+		<xs:sequence>
+			<xs:element name="FELDREF" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:attribute name="NAME" type="xs:string" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="ABSCHNITT" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="INFOType" mixed="true">
+		<xs:complexContent mixed="true">
+			<xs:extension base="fw:FOXType">
+				<xs:attribute name="ID" type="xs:int" use="optional"/>
+				<xs:attribute name="POS" type="xs:int" use="optional"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="Betrag2nachKomma">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="-{0,1}\d{1,3}(\.\d\d\d){0,3},\d\d"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Betrag4nachKomma">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="-{0,1}\d{1,3}(\.\d\d\d){0,3},\d\d\d\d"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="K_ZSTType">
+		<xs:annotation>
+			<xs:documentation>Aggregation of all amounts for the different items base on cost center</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="NAM" type="xs:Name">
+				<xs:annotation>
+					<xs:documentation>Cost center description</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GES" type="Betrag4nachKomma">
+				<xs:annotation>
+					<xs:documentation>Total amount for cost center </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RAB_GES" type="Betrag4nachKomma">
+				<xs:annotation>
+					<xs:documentation>Total discount amount for cost center </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GES_N" type="Betrag4nachKomma">
+				<xs:annotation>
+					<xs:documentation>Total discounted amount for cost center </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="BELTypeBesch">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="BET" type="fw:FOXType"/>
+			<xs:element name="RAB_BET" type="fw:FOXType"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="R_ZahType">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="BET" type="Betrag2nachKomma"/>
+			<xs:element name="NAM" type="xs:string"/>
+			<xs:element name="R_NAM" type="INFOType"/>
+			<xs:element name="DAT" type="DatumType"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:simpleType name="DatumType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="\d{2,2}\.\d{2,2}\.\d{2,4}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="VER_ZUSType">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="GES">
+				<xs:annotation>
+					<xs:appinfo> Sum GRPREF/GES</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="Betrag4nachKomma">
+							<xs:attribute name="MWS_SAT" type="xs:string" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GES_BRU" type="Betrag2nachKomma">
+				<xs:annotation>
+					<xs:documentation>Total RC un-discounted amouts after inclusiv discounts for O2 Connect or UDP (for master service : includes sum from datacards)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GES_UDP" type="Betrag4nachKomma">
+				<xs:annotation>
+					<xs:documentation>Total RC un-discounted amouts after inclusiv discounts for O2 Connect or UDP (for master service : includes sum from datacards)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GES_UDP_BRU" type="Betrag2nachKomma">
+				<xs:annotation>
+					<xs:documentation>Total RC un-discounted amouts after inclusiv discounts for O2 Connect or UDP (for master service : includes sum from datacards)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RAB_BET" type="Betrag4nachKomma" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+Sum GRPREF/RAB_BET
+</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GRPREF" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:choice maxOccurs="unbounded">
+						<xs:element name="SEK" type="xs:int">
+							<xs:annotation>
+								<xs:appinfo>Sektions id : Unique ID for the section on invoice.
+ IBEG_EVN_SECTIONS.section_id for the respective group.</xs:appinfo>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="GES" type="Betrag4nachKomma">
+							<xs:annotation>
+								<xs:appinfo>
+Sum BILL_EQUIP_DETAIL.amount for the call detail records
+</xs:appinfo>
+							</xs:annotation>
+						</xs:element>
+							<xs:element name="GES_BRU" type="Betrag2nachKomma">
+							<xs:annotation>
+								<xs:appinfo>
+Sum BILL_EQUIP_DETAIL.amount for the call detail records
+</xs:appinfo>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="RAB_BET" type="Betrag4nachKomma" minOccurs="0">
+							<xs:annotation>
+								<xs:appinfo>
+Sum BILL_EQUIP_DETAIL.discount (+ amount_credited ? )  for the call detail records
+</xs:appinfo>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="NAM" type="INFOType">
+							<xs:annotation>
+								<xs:appinfo>
+IBEG_EVN_SECTIONS.format_display
+</xs:appinfo>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="EV" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="SPA" maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:appinfo>
+BILL_EQUIP_DETAIL fields or values derived by methods from IBEGTemplates.pm according to configuration in ibeg_template_headers.xml
+</xs:appinfo>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:complexContent>
+												<xs:extension base="fw:FOXType">
+													<xs:attribute name="ID" type="xs:int"/>
+												</xs:extension>
+											</xs:complexContent>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute name="SORT" type="xs:integer" use="optional"/>
+								<xs:attribute name="SUPPRESS" type="xs:boolean"/>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="GES_N">
+							<xs:annotation>
+								<xs:documentation>Section total discounted amount </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="GES_B">
+							<xs:annotation>
+								<xs:documentation>SI total discounted amount</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="GES_BP">
+							<xs:annotation>
+								<xs:documentation>SI total discounted amount not including SUPPRESSed CDRs</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="TYPE">
+							<xs:annotation>
+								<xs:documentation>STANDARD or THIRD_PARTY_GROSS_CHARGE</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:choice>
+					<xs:attribute name="ID" type="xs:int" use="required"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="INFOREF" type="INFOType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="INKL_RAB_BET">
+				<xs:annotation>
+					<xs:documentation>Total amount of all inclusive Usage discounts</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="KTO_RAB_BET" type="Betrag4nachKomma" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Total discount through account level discounts</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GES_ZUS" minOccurs="0">
+				<xs:complexType>
+					<xs:choice maxOccurs="unbounded">
+						<xs:element name="GES" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:choice>
+									<xs:element name="BET"/>
+									<xs:element name="NAM" type="INFOType">
+										<xs:annotation>
+											<xs:appinfo/>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="SAT" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Vat Rate</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:choice>
+							</xs:complexType>
+						</xs:element>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GES_N">
+				<xs:annotation>
+					<xs:documentation>SI total discounted amount</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GES_B">
+				<xs:annotation>
+					<xs:documentation>SI total discounted amount</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GES_BP">
+				<xs:annotation>
+					<xs:documentation>SI total discounted amount not including SUPPRESSed CDRs</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GES_TPC" type="Betrag2nachKomma" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>SI total for Third Party Gross Charges</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GES_UDP_TPC" type="Betrag2nachKomma" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Connect Master total for Third Party Gross Charges</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GES_EVN" type="Betrag4nachKomma"/>
+			<xs:element name="GES_TPC_B" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>SI total for Third Party Gross Charges</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GES_TPC_N" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>SI total for Third Party net Charges</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ENT_ZUSType">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="GES">
+					<xs:annotation>
+						<xs:appinfo> Sum GRPREF/GES</xs:appinfo>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="Betrag4nachKomma">
+								<xs:attribute name="MWS_SAT" type="xs:string" use="optional"/>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+			<xs:element name="GES_BRU" type="Betrag2nachKomma">
+				<xs:annotation>
+					<xs:documentation>Total Entertainment un-discounted amouts after inclusiv discounts)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GES_UDP" type="Betrag4nachKomma">
+				<xs:annotation>
+					<xs:documentation>Total Entertainment un-discounted amouts after inclusiv discounts for O2 Connect or UDP (for master service : includes sum from datacards)</xs:documentation>
+				</xs:annotation>
+			</xs:element>	
+			<xs:element name="GES_UDP_BRU" type="Betrag2nachKomma">
+					<xs:annotation>
+						<xs:documentation>Total Entertainment un-discounted amouts after inclusiv discounts for O2 Connect or UDP (for master service : includes sum from datacards)</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="MWSType">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="BET" type="Betrag2nachKomma"/>
+			<xs:element name="SAT" type="xs:float">
+				<xs:annotation>
+					<xs:documentation>Mwst Satz</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BET_N"  type="xs:decimal"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="MWS_ZUSType">
+		<xs:sequence>
+			<xs:element name="GES" type="Betrag4nachKomma"/>
+			<xs:element name="MWS" type="MWSType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZUSType">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="GES" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="INFOType">
+							<xs:attribute name="ABSCHNITT" type="xs:string" use="optional"/>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="KOPF" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="fw:FOXType">
+							<xs:attribute name="ABSCHNITT" type="xs:int" use="optional"/>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="KTO_RAB_BET" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Description for the total discount from the account level</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GES_N" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="INFOType">
+							<xs:attribute name="ABSCHNITT" type="xs:string" use="optional"/>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GES_B" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="INFOType">
+							<xs:attribute name="ABSCHNITT" type="xs:string" use="optional"/>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="UEB_Z" type="fw:FOXType" minOccurs="0"/>
+			<xs:element name="GES_TPC" type="fw:FOXType" minOccurs="0"/>
+			<xs:element name="GRP" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence maxOccurs="unbounded">
+						<xs:element name="SPA">
+							<xs:complexType>
+								<xs:simpleContent>
+									<xs:extension base="xs:string">
+										<xs:attribute name="TYP"/>
+										<xs:attribute name="ID"/>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="ID"/>
+					<xs:attribute name="TYPE"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ABSCHNITT" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:choice maxOccurs="unbounded">
+						<xs:element name="KOPF" type="INFOType" minOccurs="0">
+							<xs:annotation>
+								<xs:appinfo>header line for each section PSI/FORMAT/SI_BEL/SI/VER_ZUS/ABSCHNITT[@ID="xx"]/KOPF for all IBEG_XML.id Attributes :ID =  IBEG_XML.id</xs:appinfo>
+							</xs:annotation>
+						</xs:element>
+					</xs:choice>
+					<xs:attribute name="ID" type="xs:string" use="optional"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="KOR_ZUSType">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="GES" type="Betrag4nachKomma"/>
+			<xs:element name="GES_BRU" type="Betrag2nachKomma"/>
+			<xs:element name="VOR_GUN" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="GES" type="Betrag4nachKomma"/>
+						<xs:element name="GES_BRU" type="Betrag2nachKomma"/>
+						<xs:element name="KOR" type="R_BelType" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="AKT_GUN" minOccurs="0">
+				<xs:complexType>
+					<xs:choice maxOccurs="unbounded">
+						<xs:element name="GES" type="Betrag4nachKomma"/>
+						<xs:element name="GES_BRU" type="Betrag2nachKomma"/>
+						<xs:element name="KOR" type="R_BelType"/>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="BELTextType">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="BET" type="fw:FOXType"/>
+			<xs:element name="RAB_BET" type="fw:FOXType"/>
+			<xs:element name="MWS" type="fw:FOXType"/>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

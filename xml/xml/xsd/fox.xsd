@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<!-- edited with XMLSPY v5 rel. 4 U (http://www.xmlspy.com) by o2 (O2 Germany GmbH & Co. OHG) -->
+<!-- edited with XML Spy v4.4 U (http://www.xmlspy.com) by Christian Lammel (FORMWARE GmbH) -->
+<xs:schema targetNamespace="http://www.formware.de/fox" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.formware.de/fox" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="FOX" type="FOXType">
+		<xs:annotation>
+			<xs:documentation>Root element (Wurzel-Element bei Stand-Alone-Übergabe z.B. in der DOR)</xs:documentation>
+		</xs:annotation>
+		<!-- xs:element name="SPAN"/ -->
+	</xs:element>
+	<xs:element name="TEXTFRAME">
+		<xs:annotation>
+			<xs:documentation>graphical text frames are replaced by the FOX root element if DST is used (grafischer Textrahmen, ersetzt das FOX-Wurzel-Element bei Verwendung in der DST)</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:complexContent mixed="true">
+				<xs:extension base="FOXType">
+					<xs:attribute name="ID" type="xs:string" use="optional"/>
+					<xs:attribute name="X" type="xs:int" use="required"/>
+					<xs:attribute name="Y" type="xs:int" use="required"/>
+					<xs:attribute name="WIDTH" type="xs:int" use="required"/>
+					<xs:attribute name="HEIGHT" type="xs:int" use="prohibited"/>
+					<xs:attribute name="HORZALIGN" use="optional" default="left">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="left"/>
+								<xs:enumeration value="right"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+					<xs:attribute name="VERTALIGN" use="optional" default="top">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="top"/>
+								<xs:enumeration value="base"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+					<xs:attribute name="POSTUPDATE" type="xs:boolean" use="optional" default="0"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+		<!-- xs:element name="SPAN"/ -->
+	</xs:element>
+	<xs:attributeGroup name="charStyles">
+		<xs:annotation>
+			<xs:documentation>style attributes related to character set (zeichenbezogene Style-Attribute)</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="FONTNAME" type="xs:token" use="optional"/>
+		<xs:attribute name="FONTSIZE" use="optional"/>
+		<xs:attribute name="WEIGHT" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="normal"/>
+					<xs:enumeration value="bold"/>
+					<xs:enumeration value="400"/>
+					<xs:enumeration value="700"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="ITALIC" type="xs:boolean" use="optional">
+			<xs:annotation>
+				<xs:documentation>italics (Kursivstellung)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="FIELDNAME" type="xs:token" use="optional">
+			<xs:annotation>
+				<xs:documentation>If specified the SPAN content is generated in run time in this frame. Existing content is thus deleted.  (bei Angabe wird der SPAN-Inhalt zur Laufzeit aus diesem Feldnamen generiert. ein vorgegebener Inhalt wird damit gelöscht).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="VERTOFFSET" use="optional"/>
+		<xs:attribute name="SPACING" use="optional"/>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="parStyles">
+		<xs:annotation>
+			<xs:documentation>paragraph related style attribute (absatzbezogene Style-Attribute)</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="ALIGNMENT" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="left"/>
+					<xs:enumeration value="right"/>
+					<xs:enumeration value="center"/>
+					<xs:enumeration value="block"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="HORZRULE" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="wrap"/>
+					<xs:enumeration value="fit"/>
+					<xs:enumeration value="none"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="MINFONTSIZE" use="optional"/>
+		<xs:attribute name="HORZCLIP" type="xs:boolean" use="optional"/>
+		<xs:attribute name="LINESPACE" use="optional"/>
+	</xs:attributeGroup>
+	<xs:element name="P">
+		<xs:annotation>
+			<xs:documentation>paragraph(Absatz)</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:complexContent mixed="true">
+				<xs:extension base="FOXType">
+					<xs:attributeGroup ref="charStyles"/>
+					<xs:attributeGroup ref="parStyles"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SPAN">
+		<xs:annotation>
+			<xs:documentation>logical piece of text (logischer Textabschnitt)</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:complexContent mixed="true">
+				<xs:extension base="FOXType">
+					<xs:attributeGroup ref="charStyles"/>
+					<xs:attributeGroup ref="parStyles"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="BR">
+		<xs:annotation>
+			<xs:documentation>explicite line break (no "new paragraph"), like the Shift-Return in MS Worde (xplizite Zeilenschaltung (kein "Absatzwechsel"), entspricht dem Shift-Return im Word)</xs:documentation>
+		</xs:annotation>
+		<xs:complexType/>
+	</xs:element>
+	<xs:element name="B" type="FOXType">
+		<xs:annotation>
+			<xs:documentation>Paragraph in bold face (Fetter Textabschnitt)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="I" type="FOXType">
+		<xs:annotation>
+			<xs:documentation>Paragraph in italics (Kursiver Textabschnitt)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="SUB" type="FOXType">
+		<xs:annotation>
+			<xs:documentation>Subscript (tiefgestellter Textabschnitt)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="SUP" type="FOXType">
+		<xs:annotation>
+			<xs:documentation>Superscript (hochgestellter Textabschnitt)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="FOXType" mixed="true">
+		<xs:annotation>
+			<xs:documentation>Content type "FOX Format (Inhalts-Typ "FOX-Format")</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element ref="SPAN" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="P" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="BR" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="B" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="I" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="SUB" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="SUP" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

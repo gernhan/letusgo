@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		   elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xs:element name="Invoices" type="Invoices" />
+
+	<xs:simpleType name="DateType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="\d{2}\.\d{2}\.\d{4}">
+			</xs:pattern>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="TimeType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="\d{2}\:\d{2}\:\d{2}">
+			</xs:pattern>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="TaxRateType">
+		<xs:annotation>
+			<xs:documentation>
+				Tax rate in percent with percentage sign (e.g. 19% or 7,7%)
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9,]{1,3}\%">
+			</xs:pattern>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="Invoices">
+		<xs:sequence>
+			<xs:element type="BrandInvoiceTextsType"
+						name="BrandInvoiceTexts" maxOccurs="unbounded" minOccurs="1" />
+			<xs:element name="Invoice" type="Invoice" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="InvoiceTextsType">
+		<xs:attribute name="InvoiceTitle" type="xs:string"></xs:attribute>
+		<xs:attribute name="InvoiceNumber" type="xs:string"></xs:attribute>
+		<xs:attribute name="InvoiceDate" type="xs:string"></xs:attribute>
+		<xs:attribute name="InvoiceNetAmount" type="xs:string"></xs:attribute>
+		<xs:attribute name="InvoiceAmount" type="xs:string"></xs:attribute>
+		<xs:attribute name="TaxAmount" type="xs:string"></xs:attribute>
+		<xs:attribute name="InvoicePeriod" type="xs:string"></xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="CustomerTextsType">
+		<xs:attribute name="AccountNumber" type="xs:string"></xs:attribute>
+		<xs:attribute name="CustomerNumber" type="xs:string"></xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="Invoice">
+		<xs:sequence>
+			<xs:element name="Customer" type="CustomerType" minOccurs="1" maxOccurs="1" />
+			<xs:element name="TaxedAmounts" type="TaxedAmounts" minOccurs="1" maxOccurs="1" />
+			<xs:element name="Subscriptions" type="Subscriptions" minOccurs="0" maxOccurs="1" />
+			<xs:element name="ThirdParties" type="ThirdParties" minOccurs="0" maxOccurs="1" />
+			<xs:element type="InvoiceItemsType" name="InvoiceItems" minOccurs="0" />
+			<xs:element type="TextsType" name="Texts" minOccurs="0" />
+		</xs:sequence>
+
+		<xs:attribute name="InvoiceNumber" type="xs:string"></xs:attribute>
+		<xs:attribute name="InvoiceDate" type="DateType"></xs:attribute>
+		<xs:attribute name="StartDate" type="DateType"></xs:attribute>
+		<xs:attribute name="EndDate" type="DateType"></xs:attribute>
+		<xs:attribute name="InvoiceAmount" type="GermanDecimal"></xs:attribute>
+		<xs:attribute name="InvoiceNetAmount" type="GermanDecimal"></xs:attribute>
+		<xs:attribute name="TaxAmount" type="GermanDecimal"></xs:attribute>
+		<xs:attribute name="Header" type="xs:string"></xs:attribute>
+		<xs:attribute name="InvoiceTitle" type="xs:string"></xs:attribute>
+		<xs:attribute name="Layout" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="ImmediateBill" />
+					<xs:enumeration value="PrepaidBill" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+
+		<xs:attribute name="IsOriginal">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="true"></xs:enumeration>
+					<xs:enumeration value="false"></xs:enumeration>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="BrandId" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>
+					SPID(BrandId) of the customers brand (e.g. SP907) to resolve the brand-specific template
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Medium">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Online"></xs:enumeration>
+					<xs:enumeration value="Paper"></xs:enumeration>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="TaxedAmounts">
+		<xs:sequence>
+			<xs:element name="TaxedAmount" type="TaxedAmount" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="SumNetAmount" type="GermanDecimal" />
+		<xs:attribute name="SumTaxAmount" type="GermanDecimal" />
+		<xs:attribute name="SumGrossAmount" type="GermanDecimal" />
+	</xs:complexType>
+
+	<xs:complexType name="TaxedAmount">
+		<xs:annotation>
+			<xs:documentation>
+				Overview of the tax rates and sums of net, gross and tax amounts in this invoice
+			</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="TaxRate" type="TaxRateType" />
+		<xs:attribute name="NetAmount" type="GermanDecimal" />
+		<xs:attribute name="TaxAmount" type="GermanDecimal" />
+		<xs:attribute name="GrossAmount" type="GermanDecimal" />
+	</xs:complexType>
+
+	<xs:complexType name="Subscriptions">
+		<xs:sequence>
+			<xs:element name="Subscription" type="Subscription" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Subscription">
+		<xs:sequence>
+			<xs:element name="LineItems" type="LineItems" />
+			<xs:element name="ItemizedBill" type="ItemizedBill" />
+		</xs:sequence>
+		<xs:attribute name="Msisdn">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="\d+">
+					</xs:pattern>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="SumGrossAmount" type="GermanDecimal" />
+		<xs:attribute name="Product" type="xs:string" />
+	</xs:complexType>
+
+	<xs:complexType name="LineItems">
+		<xs:annotation>
+			<xs:documentation>
+				Aggregated line items to be displayed in the invoice section.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Item" type="Item" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Item">
+		<xs:attribute name="Description" type="xs:string" />
+		<xs:attribute name="NetAmount" type="GermanDecimal" />
+		<xs:attribute name="TaxRate" type="TaxRateType" />
+		<xs:attribute name="GrossAmount" type="GermanDecimal" />
+		<xs:attribute name="GrossOnly" type="xs:boolean" />
+	</xs:complexType>
+
+	<xs:complexType name="ItemizedBill">
+		<xs:annotation>
+			<xs:documentation>
+				Itemized bill (EVN / EGN)
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Line" type="Line" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Line">
+		<xs:all>
+			<xs:element name="Date" type="DateType" />
+			<xs:element name="Time" type="TimeType" />
+			<xs:element name="Duration" type="TimeType" />
+			<xs:element name="Type" type="xs:string" />
+			<xs:element name="BNum" type="xs:string" />
+			<xs:element name="Amount" type="GermanDecimal" />
+			<xs:element name="Comment" type="xs:string" />
+		</xs:all>
+	</xs:complexType>
+
+	<xs:complexType name="ThirdParties">
+		<xs:sequence>
+			<xs:element name="ThirdParty" type="ThirdParty" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ThirdParty">
+		<xs:sequence>
+			<xs:element name="ThirdPartyService" type="ThirdPartyService" maxOccurs="unbounded" minOccurs="1" />
+		</xs:sequence>
+
+		<xs:attribute name="Name" type="xs:string" />
+		<xs:attribute name="Detail" type="xs:string" />
+		<xs:attribute name="TotalGrossAmount" type="GermanDecimal" />
+		<xs:attribute name="ContactData" type="xs:string" />
+	</xs:complexType>
+
+	<xs:complexType name="ThirdPartyService">
+		<xs:attribute name="Name" type="xs:string" />
+		<xs:attribute name="Detail" type="xs:string" />
+		<xs:attribute name="NetAmount" type="GermanDecimal" />
+		<xs:attribute name="TaxRate" type="GermanDecimal" />
+		<xs:attribute name="TaxAmount" type="GermanDecimal" />
+		<xs:attribute name="GrossAmount" type="GermanDecimal" />
+	</xs:complexType>
+	<xs:complexType name="BrandInvoiceTextsType">
+		<xs:sequence>
+			<xs:element type="EmailType" name="Email" />
+			<xs:element type="MarkupTextType" name="Sender"
+						minOccurs="1" maxOccurs="1" />
+			<xs:element name="Footer" minOccurs="1" maxOccurs="1"
+						type="MarkupTextType" />
+			<xs:element type="GenericTextsType" name="GenericTexts" />
+			<xs:element type="InvoiceTextsType" name="Invoice" />
+			<xs:element type="CustomerTextsType" name="Customer" />
+			<xs:element type="xs:string" name="ContractAddress" />
+			<xs:element type="xs:string" name="DeliveryAddress" />
+			<xs:element type="InvoiceItemsColumnType" name="InvoiceItems" />
+			<xs:element type="MarkupTextType" name="TaxedAmount"
+						minOccurs="1" maxOccurs="1" />
+			<xs:element type="SubscriptionsTextType" name="Subscriptions" minOccurs="0" />
+			<xs:element type="ThirdPartiesTextType" name="ThirdParties" />
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="BrandId"
+					  use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="ThirdPartiesTextType">
+		<xs:sequence>
+			<xs:element name="Header" type="xs:string" />
+			<xs:element name="Text" type="xs:string" />
+			<xs:element name="ThirdParty" type="ThirdPartyTextType" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ThirdPartyTextType">
+		<xs:sequence>
+			<xs:element name="ThirdPartyAmountInvoice" type="xs:string" />
+			<xs:element name="ThirdPartyAmountEVN" type="xs:string" />
+			<xs:element name="Service" type="xs:string" />
+			<xs:element name="Detail" type="xs:string" />
+			<xs:element name="Amount" type="xs:string" />
+			<xs:element name="Footnote" type="xs:string" />
+			<xs:element name="ThirdPartyDetails" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+
+
+	<xs:complexType name="SubscriptionsTextType">
+		<xs:sequence>
+			<xs:element name="Subscription" type="SubscriptionTextType" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="SubscriptionTextType">
+		<xs:sequence>
+			<xs:element name="ItemizedBill" type="ItemizedBillTextType" />
+		</xs:sequence>
+		<xs:attribute name="Msisdn" type="xs:string" />
+		<xs:attribute name="SumGrossAmount" type="xs:string" />
+		<xs:attribute name="Product" type="xs:string" />
+	</xs:complexType>
+
+	<xs:complexType name="ItemizedBillTextType">
+		<xs:sequence>
+			<xs:element name="Line" type="LineTextType" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="LineTextType">
+		<xs:sequence>
+			<xs:element name="Date" type="xs:string" />
+			<xs:element name="Time" type="xs:string" />
+			<xs:element name="Type" type="xs:string" />
+			<xs:element name="BNum" type="xs:string" />
+			<xs:element name="Duration" type="xs:string" />
+			<xs:element name="Amount" type="xs:string" />
+			<xs:element name="Comment" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="GenericTextsType">
+		<xs:sequence>
+			<xs:element type="TextType" name="Text"
+						maxOccurs="unbounded" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Dieser Text würde verwendet werden, falls keine
+						BrandId-Spezifische Texte vorhanden sind
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MarkupTextType" mixed="true">
+		<xs:sequence>
+			<xs:any processContents="lax" minOccurs="0"
+					maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EmailType">
+		<xs:sequence>
+			<xs:element type="xs:string"
+						name="From" minOccurs="0" />
+			<xs:element type="xs:string"
+						name="ReplyTo" minOccurs="0" />
+			<xs:element type="xs:string"
+						name="Subject" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CustomerType">
+		<xs:sequence>
+			<xs:element type="InvoiceAddressType"
+						name="InvoiceAddress" minOccurs="1" maxOccurs="1" />
+			<xs:element type="ShippingAddressType"
+						name="ShippingAddress" minOccurs="0" maxOccurs="1" />
+			<xs:element type="EmailToAddressType"
+						name="EmailToAddress" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="AccountNumber"
+					  use="required" />
+		<xs:attribute type="xs:string" name="CustomerNumber"
+					  use="required" />
+		<xs:attribute type="xs:string" name="IBAN" use="optional" />
+		<xs:attribute type="xs:string" name="SEPAMandateId"
+					  use="optional" />
+	</xs:complexType>
+	<xs:complexType name="InvoiceAddressType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute type="xs:string" name="Salutation"
+							  use="optional" />
+				<xs:attribute type="xs:string" name="Firstname"
+							  use="optional" />
+				<xs:attribute type="xs:string" name="Lastname"
+							  use="optional" />
+				<xs:attribute type="xs:string" name="Street"
+							  use="optional" />
+				<xs:attribute type="xs:string" name="StreetNumber"
+							  use="optional" />
+				<xs:attribute type="xs:string" name="AddressAddition"
+							  use="optional" />
+				<xs:attribute type="xs:string" name="PostalCode"
+							  use="optional" />
+				<xs:attribute type="xs:string" name="City"
+							  use="optional" />
+				<xs:attribute type="xs:string" name="Country"
+							  use="optional" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="ShippingAddressType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute type="xs:string" name="Salutation"
+							  use="optional" />
+				<xs:attribute type="xs:string" name="Firstname"
+							  use="optional" />
+				<xs:attribute type="xs:string" name="Lastname"
+							  use="optional" />
+				<xs:attribute type="xs:string" name="Street"
+							  use="optional" />
+				<xs:attribute type="xs:string" name="StreetNumber"
+							  use="optional" />
+				<xs:attribute type="xs:string" name="AddressAddition"
+							  use="optional" />
+				<xs:attribute type="xs:string" name="PostalCode"
+							  use="optional" />
+				<xs:attribute type="xs:string" name="City"
+							  use="optional" />
+				<xs:attribute type="xs:string" name="Country"
+							  use="optional" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="EmailToAddressType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute type="xs:string" name="NotificationEmail"
+							  use="optional" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="TextType" mixed="true">
+		<xs:sequence>
+			<xs:any processContents="lax" minOccurs="0"
+					maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="ID" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Advert" />
+					<xs:enumeration value="Legal" />
+					<xs:enumeration value="PaymentDebit" />
+					<xs:enumeration value="PaymentCredit" />
+					<xs:enumeration value="PaymentCreditCard" />
+					<xs:enumeration value="Klarna" />
+					<xs:enumeration value="Paypal" />
+					<xs:enumeration value="HotlineNormal" />
+					<xs:enumeration value="Brieftext" />
+					<xs:enumeration value="HotlineVIP" />
+					<xs:enumeration value="HotlineFootnote" />
+					<xs:enumeration value="HotlineVIPFootnote" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="Pos" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Brieftext" />
+					<xs:enumeration value="Hotline" />
+					<xs:enumeration value="after" />
+					<xs:enumeration value="HotlineFootnote" />
+					<xs:enumeration value="HotlineFootnote" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute type="xs:string" name="Ref" use="optional" />
+
+	</xs:complexType>
+	<xs:simpleType name="GermanDecimal">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="\-?\d+(,\d+)?" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="InvoiceItemsType">
+		<xs:sequence>
+			<xs:element type="InvoiceItemType" name="InvoiceItem"
+						minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="InvoiceItemType">
+		<xs:sequence>
+			<xs:element type="xs:string" name="Product" minOccurs="1" maxOccurs="1" />
+			<xs:element name="ProductDetails" type="MarkupTextType" minOccurs="0" maxOccurs="1" />
+			<xs:element type="GermanDecimal" name="NetAmount"
+						minOccurs="0" />
+			<xs:element type="GermanDecimal" name="TaxRate" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="TextsType">
+		<xs:sequence>
+			<xs:element type="TextType" name="Text"
+						maxOccurs="unbounded" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Texte können hier direkt angegeben oder aus den
+						globalen Texten referenziert werden
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="InvoiceItemsColumnType">
+		<xs:sequence>
+			<xs:element type="xs:string"
+						name="Header" maxOccurs="1" minOccurs="1" />
+			<xs:element type="xs:string" name="Amount"
+						maxOccurs="1" minOccurs="1" />
+			<xs:element type="xs:string" name="TaxRate"
+						maxOccurs="1" minOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+
+</xs:schema>

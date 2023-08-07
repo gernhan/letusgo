@@ -1,0 +1,16 @@
+### xml
+POST http://localhost:8080/api/xml
+Content-Type: application/json
+
+//{
+//  "billRunId": 1100000008,
+//  "batchInvoices": 100,
+//  "batchFiles": 100
+//}
+{
+  "billRunId": 11000000011,
+  "dbConnections": 10,
+  "batchInvoices": 100,
+  "batchFiles": 100
+}
+
