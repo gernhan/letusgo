@@ -32,7 +32,7 @@ func NewScheduler(maxWorkers int) *Scheduler {
 }
 
 func Init() {
-	systemScheduler = NewScheduler(200)
+	systemScheduler = NewScheduler(500)
 }
 
 func Schedule(task func() (interface{}, error), delay time.Duration) *concurrent.Future {

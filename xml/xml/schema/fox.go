@@ -1,8 +1,6 @@
 package schema
 
-import (
-	"encoding/xml"
-)
+import "encoding/xml"
 
 // FOX is Root element (Wurzel-Element bei Stand-Alone-Übergabe z.B. in der DOR)
 type FOX *FOXType
@@ -22,7 +20,6 @@ type TEXTFRAME struct {
 
 // CharStyles is If specified the SPAN content is generated in run time in this frame. Existing content is thus deleted.  (bei Angabe wird der SPAN-Inhalt zur Laufzeit aus diesem Feldnamen generiert. ein vorgegebener Inhalt wird damit gelöscht).
 type CharStyles struct {
-	XMLName        xml.Name    `xml:"charStyles"`
 	FONTNAMEAttr   string      `xml:"FONTNAME,attr,omitempty"`
 	FONTSIZEAttr   interface{} `xml:"FONTSIZE,attr,omitempty"`
 	WEIGHTAttr     string      `xml:"WEIGHT,attr,omitempty"`
@@ -34,7 +31,6 @@ type CharStyles struct {
 
 // ParStyles is paragraph related style attribute (absatzbezogene Style-Attribute)
 type ParStyles struct {
-	XMLName         xml.Name    `xml:"parStyles"`
 	ALIGNMENTAttr   string      `xml:"ALIGNMENT,attr,omitempty"`
 	HORZRULEAttr    string      `xml:"HORZRULE,attr,omitempty"`
 	MINFONTSIZEAttr interface{} `xml:"MINFONTSIZE,attr,omitempty"`
@@ -44,42 +40,70 @@ type ParStyles struct {
 
 // P ...
 type P struct {
-	CharStyles *CharStyles
-	ParStyles  *ParStyles
+	*CharStyles
+	*ParStyles
 	*FOXType
+	InnerText string `xml:",chardata"`
 }
 
 // SPAN ...
 type SPAN struct {
-	CharStyles *CharStyles
-	ParStyles  *ParStyles
+	*CharStyles
+	*ParStyles
 	*FOXType
+	InnerText string `xml:",chardata"`
 }
 
 // BR ...
-type BR struct {
-}
+type BR struct{}
 
 // B is Paragraph in bold face (Fetter Textabschnitt)
-type B *FOXType
+type B struct {
+	*CharStyles
+	*ParStyles
+	*FOXType
+	InnerText string `xml:",chardata"`
+}
 
 // I is Paragraph in italics (Kursiver Textabschnitt)
-type I *FOXType
+type I struct {
+	*CharStyles
+	*ParStyles
+	*FOXType
+	InnerText string `xml:",chardata"`
+}
 
 // SUB is Subscript (tiefgestellter Textabschnitt)
-type SUB *FOXType
+type SUB struct {
+	*CharStyles
+	*ParStyles
+	*FOXType
+	InnerText string `xml:",chardata"`
+}
 
 // SUP is Superscript (hochgestellter Textabschnitt)
-type SUP *FOXType
+type SUP struct {
+	*CharStyles
+	*ParStyles
+	*FOXType
+	InnerText string `xml:",chardata"`
+}
 
 // FOXType is Content type "FOX Format (Inhalts-Typ "FOX-Format")
 type FOXType struct {
-	SPAN []*SPAN    `xml:"SPAN"`
-	P    []*P       `xml:"P"`
-	BR   []*BR      `xml:"BR"`
-	B    []*FOXType `xml:"B"`
-	I    []*FOXType `xml:"I"`
-	SUB  []*FOXType `xml:"SUB"`
-	SUP  []*FOXType `xml:"SUP"`
+	SPAN      []*SPAN `xml:"SPAN"`
+	P         []*P    `xml:"P"`
+	BR        []*BR   `xml:"BR"`
+	B         []*B    `xml:"B"`
+	I         []*I    `xml:"I"`
+	SUB       []*SUB  `xml:"SUB"`
+	SUP       []*SUP  `xml:"SUP"`
+	InnerText string  `xml:",chardata"`
+	Choices   []XMLChoice
+	*XMLChoices
 }
 
+type XMLChoice struct {
+	XMLName xml.Name
+	Value   interface{} `xml:",innerxml"`
+}

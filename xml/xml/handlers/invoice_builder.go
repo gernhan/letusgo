@@ -27,7 +27,7 @@ const (
 
 // BillMedia represents the enumeration-like behavior for BillMedia
 type BillMedia struct {
-	ID    int
+	ID    int64
 	Value string
 }
 

@@ -10,11 +10,11 @@ import (
 	"github.com/jackc/pgx/v4/pgxpool"
 )
 
-func FindByBillRunV3(pool *pgxpool.Pool, billRunID, minID, maxID int64) (<-chan views.VExportingBillsV3, <-chan error) {
+func FindByBillRunV3(pool *pgxpool.Pool, billRunID, minID, maxID int64, status int) (<-chan views.VExportingBillsV3, <-chan error) {
 	query := `SELECT * FROM v_exporting_bills_v3
-		WHERE bill_run_id = $1 AND id <= $2 AND id >= $3`
+		WHERE bill_run_id = $1 AND id <= $2 AND id >= $3 AND status = $4`
 
-	rows, err := pool.Query(context.Background(), query, billRunID, maxID, minID)
+	rows, err := pool.Query(context.Background(), query, billRunID, maxID, minID, status)
 	if err != nil {
 		errCh := make(chan error, 1)
 		errCh <- err
@@ -36,7 +36,7 @@ func FindByBillRunV3(pool *pgxpool.Pool, billRunID, minID, maxID int64) (<-chan 
 		for rows.Next() {
 			var bill views.VExportingBillsV3
 			if err := rows.Scan(
-				&bill.ID, &bill.BillRunID, &bill.BillNumber, &bill.InvoiceDate, &bill.BillPeriodFrom, &bill.BillPeriodTo,
+				&bill.ID, &bill.BillRunID, &bill.BillNumber, &bill.PdfStatus, &bill.InvoiceDate, &bill.BillPeriodFrom, &bill.BillPeriodTo,
 				&bill.AccountID, &bill.Amount, &bill.AmountNet, &bill.AccountBrand, &bill.BillMedia, &bill.CustomerID,
 				&bill.CustomerNumber, &bill.CustomerClient, &bill.CustomerLanguage, &bill.InvoiceReference,
 				&bill.SalutationString, &bill.FirstName, &bill.LastName, &bill.Street, &bill.HouseNumber, &bill.FreeText,

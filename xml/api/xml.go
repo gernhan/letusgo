@@ -3,14 +3,15 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/gernhan/xml/concurrent/atomics"
-	"github.com/gernhan/xml/models"
 	"log"
 	"net/http"
 	"strconv"
 	"strings"
-	"sync"
 	"time"
+
+	"github.com/gernhan/xml/concurrent/atomics"
+	"github.com/gernhan/xml/models"
+	"github.com/gorilla/mux"
 
 	"github.com/gernhan/xml/entities/views"
 	processor "github.com/gernhan/xml/processors"
@@ -24,8 +25,6 @@ import (
 	"github.com/gernhan/xml/repositories"
 )
 
-var mu sync.Mutex
-
 type XmlGenerationRequest struct {
 	BillRunId     int64 `json:"billRunId"`
 	DbConnections int64 `json:"dbConnections"`
@@ -34,10 +33,8 @@ type XmlGenerationRequest struct {
 }
 
 func XmlHandler(w http.ResponseWriter, r *http.Request) {
-	var requestBody XmlGenerationRequest
-	decoder := json.NewDecoder(r.Body)
-	if err := decoder.Decode(&requestBody); err != nil {
-		http.Error(w, "Invalid JSON format", http.StatusBadRequest)
+	requestBody, hasError := createXmlGenerationRequest(r, w)
+	if hasError {
 		return
 	}
 
@@ -54,8 +51,38 @@ func XmlHandler(w http.ResponseWriter, r *http.Request) {
 	_, _ = fmt.Fprintf(w, "Finished")
 }
 
+func createXmlGenerationRequest(r *http.Request, w http.ResponseWriter) (XmlGenerationRequest, bool) {
+	var requestBody XmlGenerationRequest
+	decoder := json.NewDecoder(r.Body)
+	if err := decoder.Decode(&requestBody); err != nil {
+		http.Error(w, "Invalid JSON format", http.StatusBadRequest)
+		return XmlGenerationRequest{}, false
+	}
+
+	vars := mux.Vars(r)
+	num, err := strconv.ParseInt(vars["billRunId"], 10, 64)
+	if err != nil {
+		http.Error(w, "Invalid bill run id format", http.StatusBadRequest)
+		return XmlGenerationRequest{}, false
+	}
+	requestBody.BillRunId = num
+
+	if requestBody.DbConnections <= 0 {
+		requestBody.DbConnections = 10
+	}
+
+	if requestBody.BatchInvoices <= 0 {
+		requestBody.BatchInvoices = 100
+	}
+
+	if requestBody.BatchFiles <= 0 {
+		requestBody.BatchFiles = 100
+	}
+	return requestBody, true
+}
+
 func concurrentProcessing(requestBody XmlGenerationRequest) error {
-	minMax, err := repositories.FindMinMaxBillId(requestBody.BillRunId)
+	minMax, err := repositories.FindMinMaxBillId(requestBody.BillRunId, 0)
 	if err != nil {
 		return fmt.Errorf("cannot query range of bill run id, body %v", requestBody)
 	}
@@ -132,7 +159,7 @@ func processDBOnly(config *models.XmlGenerationConfiguration) error {
 	)
 	p := db.GetPool()
 
-	billCh, errCh := repositories.FindByBillRunV3(p, config.GlobalConfig.BillRunId, config.MinID, config.MaxID)
+	billCh, errCh := repositories.FindByBillRunV3(p, config.GlobalConfig.BillRunId, config.MinID, config.MaxID, 0)
 	go func() {
 		if err := <-errCh; err != nil {
 			log.Printf("Caught error %v", err)
@@ -154,7 +181,7 @@ func process(config *models.XmlGenerationConfiguration) error {
 	uploadBatchProcessor, billsToXml := createProcessors(config)
 	p := db.GetPool()
 
-	billCh, errCh := repositories.FindByBillRunV3(p, config.GlobalConfig.BillRunId, config.MinID, config.MaxID)
+	billCh, errCh := repositories.FindByBillRunV3(p, config.GlobalConfig.BillRunId, config.MinID, config.MaxID, 0)
 	go func() {
 		if err := <-errCh; err != nil {
 			log.Printf("Caught error %v", err)

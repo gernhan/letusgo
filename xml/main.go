@@ -33,10 +33,11 @@ func main() {
 	router := mux.NewRouter()
 
 	// Register apis
-	router.HandleFunc("/api/xml", api.XmlHandler).Methods("POST")
 	router.HandleFunc("/invoice-interface/actuator/health/liveness", api.HealCheck).Methods("GET")
 	router.HandleFunc("/invoice-interface/actuator/health/readiness", api.HealCheck).Methods("GET")
 
+	router.HandleFunc("/invoice-interface/xml/{billRunId}/gen", api.XmlHandler).Methods("POST")
+	router.HandleFunc("/invoice-interface/test/xml/update-bill-statuses", api.ResetStatusesHandler).Methods("POST")
 	server := &http.Server{
 		Addr:         ":8080",
 		Handler:      router,

@@ -4,18 +4,43 @@ import (
 	"encoding/xml"
 )
 
-// O2BANK ...
-type O2BANK struct {
-	XMLName  xml.Name `xml:"O2_BANK"`
-	O2BLZ    []string `xml:"O2_BLZ"`
-	O2BNAM   []string `xml:"O2_B_NAM"`
-	O2BKTO   []string `xml:"O2_B_KTO"`
-	O2BLZSP  []string `xml:"O2_BLZ_SP"`
-	O2BNAMSP []string `xml:"O2_B_NAM_SP"`
-	O2BKTOSP []string `xml:"O2_B_KTO_SP"`
-	O2CREDID []string `xml:"O2_CRED_ID"`
-	O2IBAN   []string `xml:"O2_IBAN"`
-	O2BIC    []string `xml:"O2_BIC"`
+// Betrag2nachKomma ...
+type Betrag2nachKomma string
+
+// Betrag4nachKomma ...
+type Betrag4nachKomma string
+
+// KZSTType is Total discounted amount for cost center
+type KZSTType struct {
+	XMLName xml.Name `xml:"K_ZSTType"`
+	NAM     string   `xml:"NAM"`
+	GES     string   `xml:"GES"`
+	RABGES  string   `xml:"RAB_GES"`
+	GESN    string   `xml:"GES_N"`
+}
+
+// BELTypeBesch ...
+type BELTypeBesch struct {
+	BET    []*FOXType `xml:"BET"`
+	RABBET []*FOXType `xml:"RAB_BET"`
+}
+
+// RZahType ...
+type RZahType struct {
+	XMLName xml.Name    `xml:"R_ZahType"`
+	BET     []string    `xml:"BET"`
+	NAM     []string    `xml:"NAM"`
+	RNAM    []*INFOType `xml:"R_NAM"`
+	DAT     []string    `xml:"DAT"`
+}
+
+// DatumType ...
+type DatumType string
+
+// GES ...
+type GES struct {
+	*INFOType
+	*XMLChoices
 }
 
 // SPA ...
@@ -24,13 +49,180 @@ type SPA struct {
 	*FOXType
 }
 
+// EV ...
+type EV struct {
+	SORTAttr     int    `xml:"SORT,attr,omitempty"`
+	SUPPRESSAttr bool   `xml:"SUPPRESS,attr,omitempty"`
+	SPA          []*SPA `xml:"SPA"`
+}
+
+// GRPREF ...
+type GRPREF struct {
+	IDAttr int         `xml:"ID,attr"`
+	SEK    []int       `xml:"SEK"`
+	GES    []string    `xml:"GES"`
+	GESBRU []string    `xml:"GES_BRU"`
+	RABBET []string    `xml:"RAB_BET"`
+	NAM    []*INFOType `xml:"NAM"`
+	EV     []*EV       `xml:"EV"`
+	GESN   []*GESN     `xml:"GES_N"`
+	GESB   []*GESB     `xml:"GES_B"`
+	//GESBP  []*GESBP    `xml:"GES_BP"`
+	//TYPE   []*TYPE     `xml:"TYPE"`
+	GESBP []string `xml:"GES_BP"`
+	TYPE  []string `xml:"TYPE"`
+}
+
+// GESZUS ...
+type GESZUS struct {
+	XMLName xml.Name `xml:"GES_ZUS"`
+	GES     []*GES   `xml:"GES"`
+}
+
+// VERZUSType ...
+type VERZUSType struct {
+	XMLName   xml.Name    `xml:"VER_ZUSType"`
+	GES       []*GES      `xml:"GES"`
+	GESBRU    []string    `xml:"GES_BRU"`
+	GESUDP    []string    `xml:"GES_UDP"`
+	GESUDPBRU []string    `xml:"GES_UDP_BRU"`
+	RABBET    []string    `xml:"RAB_BET"`
+	GRPREF    []*GRPREF   `xml:"GRPREF"`
+	INFOREF   []*INFOType `xml:"INFOREF"`
+	//INKLRABBET []*INKLRABBET `xml:"INKL_RAB_BET"`
+	INKLRABBET []string  `xml:"INKL_RAB_BET"`
+	KTORABBET  []string  `xml:"KTO_RAB_BET"`
+	GESZUS     []*GESZUS `xml:"GES_ZUS"`
+	GESN       []*GESN   `xml:"GES_N"`
+	GESB       []*GESB   `xml:"GES_B"`
+	//GESBP      []*GESBP      `xml:"GES_BP"`
+	GESBP     []string `xml:"GES_BP"`
+	GESTPC    []string `xml:"GES_TPC"`
+	GESUDPTPC []string `xml:"GES_UDP_TPC"`
+	GESEVN    []string `xml:"GES_EVN"`
+	//GESTPCB    []*GESTPCB    `xml:"GES_TPC_B"`
+	//GESTPCN    []*GESTPCN    `xml:"GES_TPC_N"`
+	GESTPCB []string `xml:"GES_TPC_B"`
+	GESTPCN []string `xml:"GES_TPC_N"`
+}
+
+// ENTZUSType ...
+type ENTZUSType struct {
+	XMLName   xml.Name `xml:"ENT_ZUSType"`
+	GES       []*GES   `xml:"GES"`
+	GESBRU    []string `xml:"GES_BRU"`
+	GESUDP    []string `xml:"GES_UDP"`
+	GESUDPBRU []string `xml:"GES_UDP_BRU"`
+}
+
+// MWSType ...
+type MWSType struct {
+	BET  []string  `xml:"BET"`
+	SAT  []float32 `xml:"SAT"`
+	BETN []float64 `xml:"BET_N"`
+}
+
+// MWSZUSType ...
+type MWSZUSType struct {
+	XMLName xml.Name   `xml:"MWS_ZUSType"`
+	GES     string     `xml:"GES"`
+	MWS     []*MWSType `xml:"MWS"`
+}
+
+// KOPF ...
+type KOPF struct {
+	ABSCHNITTAttr int `xml:"ABSCHNITT,attr,omitempty"`
+	*INFOType
+}
+
+// GESN ...
+type GESN struct {
+	XMLName       xml.Name `xml:"GES_N"`
+	ABSCHNITTAttr string   `xml:"ABSCHNITT,attr,omitempty"`
+	*INFOType
+}
+
+// GESB ...
+type GESB struct {
+	XMLName       xml.Name `xml:"GES_B"`
+	ABSCHNITTAttr string   `xml:"ABSCHNITT,attr,omitempty"`
+	*INFOType
+}
+
+// GRP ...
+type GRP struct {
+	IDAttr   interface{} `xml:"ID,attr,omitempty"`
+	TYPEAttr interface{} `xml:"TYPE,attr,omitempty"`
+	SPA      []*SPA      `xml:"SPA"`
+}
+
 // ABSCHNITT ...
 type ABSCHNITT struct {
 	IDAttr string      `xml:"ID,attr,omitempty"`
 	KOPF   []*INFOType `xml:"KOPF"`
-	SPA    []*SPA      `xml:"SPA"`
-	FUSS   []*INFOType `xml:"FUSS"`
-	TPC    []string    `xml:"TPC"`
+}
+
+// ZUSType ...
+type ZUSType struct {
+	GES  []*GES  `xml:"GES"`
+	KOPF []*KOPF `xml:"KOPF"`
+	//KTORABBET []*KTORABBET `xml:"KTO_RAB_BET"`
+	KTORABBET []string     `xml:"KTO_RAB_BET"`
+	GESN      []*GESN      `xml:"GES_N"`
+	GESB      []*GESB      `xml:"GES_B"`
+	UEBZ      []*FOXType   `xml:"UEB_Z"`
+	GESTPC    []*FOXType   `xml:"GES_TPC"`
+	GRP       []*GRP       `xml:"GRP"`
+	ABSCHNITT []*ABSCHNITT `xml:"ABSCHNITT"`
+}
+
+// VORGUN ...
+type VORGUN struct {
+	XMLName xml.Name    `xml:"VOR_GUN"`
+	GES     []string    `xml:"GES"`
+	GESBRU  []string    `xml:"GES_BRU"`
+	KOR     []*RBelType `xml:"KOR"`
+}
+
+// AKTGUN ...
+type AKTGUN struct {
+	XMLName xml.Name    `xml:"AKT_GUN"`
+	GES     []string    `xml:"GES"`
+	GESBRU  []string    `xml:"GES_BRU"`
+	KOR     []*RBelType `xml:"KOR"`
+}
+
+// KORZUSType ...
+type KORZUSType struct {
+	XMLName xml.Name  `xml:"KOR_ZUSType"`
+	GES     []string  `xml:"GES"`
+	GESBRU  []string  `xml:"GES_BRU"`
+	VORGUN  []*VORGUN `xml:"VOR_GUN"`
+	AKTGUN  []*AKTGUN `xml:"AKT_GUN"`
+}
+
+// BELTextType ...
+type BELTextType struct {
+	BET    []*FOXType `xml:"BET"`
+	RABBET []*FOXType `xml:"RAB_BET"`
+	MWS    []*FOXType `xml:"MWS"`
+}
+
+// O2BANK ...
+type O2BANK struct {
+	XMLName xml.Name `xml:"O2_BANK"`
+	O2BLZ   []string `xml:"O2_BLZ"`
+	O2BNAM  []string `xml:"O2_B_NAM"`
+	O2BKTO  []string `xml:"O2_B_KTO"`
+	//O2BLZSP  []*O2BLZSP  `xml:"O2_BLZ_SP"`
+	//O2BNAMSP []*O2BNAMSP `xml:"O2_B_NAM_SP"`
+	//O2BKTOSP []*O2BKTOSP `xml:"O2_B_KTO_SP"`
+	O2BLZSP  []string `xml:"O2_BLZ_SP"`
+	O2BNAMSP []string `xml:"O2_B_NAM_SP"`
+	O2BKTOSP []string `xml:"O2_B_KTO_SP"`
+	O2CREDID []string `xml:"O2_CRED_ID"`
+	O2IBAN   []string `xml:"O2_IBAN"`
+	O2BIC    []string `xml:"O2_BIC"`
 }
 
 // KZST ...
@@ -52,24 +244,15 @@ type KUNZUS struct {
 	RVNUM   []string `xml:"RV_NUM"`
 	USTNUM  []string `xml:"UST_NUM"`
 	SUBNUM  []string `xml:"SUB_NUM"`
+	Choices []XMLChoice
+	//SUBNUM  []*SUBNUM `xml:"SUB_NUM"`
 }
 
 // ZAHZUS ...
 type ZAHZUS struct {
 	XMLName xml.Name `xml:"ZAH_ZUS"`
 	ZIEDAT  []string `xml:"ZIE_DAT"`
-}
-
-// KOPF ...
-type KOPF struct {
-	ABSCHNITTAttr int `xml:"ABSCHNITT,attr"`
-	*INFOType
-}
-
-// GES ...
-type GES struct {
-	ABSCHNITTAttr int `xml:"ABSCHNITT,attr"`
-	*INFOType
+	Choices []XMLChoice
 }
 
 // GUT ...
@@ -104,6 +287,7 @@ type AKTUELL struct {
 	AKTGESB   []*FOXType      `xml:"AKT_GES_B"`
 	AKTRAB    []*BELTextType  `xml:"AKT_RAB"`
 	AKTGESTPC []*FOXType      `xml:"AKT_GES_TPC"`
+	Choices   []XMLChoice
 }
 
 // RECZUS ...
@@ -119,8 +303,10 @@ type RECZUS struct {
 	AKTUELL  []*AKTUELL  `xml:"AKTUELL"`
 	RGES     []*INFOType `xml:"R_GES"`
 	RGUT     []*INFOType `xml:"R_GUT"`
-	RUEB     []string    `xml:"R_UEB"`
-	GTAX     []string    `xml:"G_TAX"`
+	//RUEB     []*RUEB     `xml:"R_UEB"`
+	RUEB    []string `xml:"R_UEB"`
+	GTAX    []string `xml:"G_TAX"`
+	Choices []XMLChoice
 }
 
 // KORZUS ...
@@ -144,6 +330,7 @@ type KTO struct {
 	BET       []*FOXType `xml:"BET"`
 	BETBRU    []*FOXType `xml:"BET_BRU"`
 	RABBET    []*FOXType `xml:"RAB_BET"`
+	Choices   []XMLChoice
 }
 
 // KTOBEL ...
@@ -168,6 +355,7 @@ type DW struct {
 	BET      []*FOXType `xml:"BET"`
 	BETBRU   []*FOXType `xml:"BET_BRU"`
 	RABBET   []*FOXType `xml:"RAB_BET"`
+	Choices  []XMLChoice
 }
 
 // DWBEL ...
@@ -176,6 +364,7 @@ type DWBEL struct {
 	DW          []*DW      `xml:"DW"`
 	GESDWBEL    []*FOXType `xml:"GES_DW_BEL"`
 	GESDWBELBRU []*FOXType `xml:"GES_DW_BEL_BRU"`
+	Choices     []XMLChoice
 }
 
 // TPCZUS ...
@@ -215,9 +404,10 @@ type SI struct {
 	TPC            []string   `xml:"TPC"`
 	TPSPEVN        []*FOXType `xml:"TPSP_EVN"`
 	TPCZUS         []*TPCZUS  `xml:"TPC_ZUS"`
-	GESKTORABBET   []string   `xml:"GES_KTO_RAB_BET"`
-	GESSIMITKTORAB []*FOXType `xml:"GES_SI_MIT_KTO_RAB"`
-	ABBREVN        []*ABBREVN `xml:"ABBR_EVN"`
+	//GESKTORABBET   []*AnySimpleType `xml:"GES_KTO_RAB_BET"`
+	GESKTORABBET   []interface{} `xml:"GES_KTO_RAB_BET"`
+	GESSIMITKTORAB []*FOXType    `xml:"GES_SI_MIT_KTO_RAB"`
+	ABBREVN        []*ABBREVN    `xml:"ABBR_EVN"`
 }
 
 // TRAV ...
@@ -240,12 +430,6 @@ type CONTPAKDAT struct {
 	TRAV    []*TRAV  `xml:"TRAV"`
 }
 
-// NAM ...
-type NAM struct {
-	IDAttr int    `xml:"ID,attr"`
-	Value  string `xml:",chardata"`
-}
-
 // PRODGRP ...
 type PRODGRP struct {
 	XMLName xml.Name `xml:"PROD_GRP"`
@@ -260,20 +444,32 @@ type SIBEL struct {
 	CONTDATBEL []*CONTDATBEL `xml:"CONT_DAT_BEL"`
 	CONTPAKDAT []*CONTPAKDAT `xml:"CONT_PAK_DAT"`
 	PRODGRP    []*PRODGRP    `xml:"PROD_GRP"`
+	Choices    []XMLChoice
 }
 
 // MWSZUS ...
 type MWSZUS struct {
-	XMLName xml.Name    `xml:"MWS_ZUS"`
-	NAM     []*INFOType `xml:"NAM"`
-	KOPF    []*KOPF     `xml:"KOPF"`
+	XMLName xml.Name `xml:"MWS_ZUS"`
+	NAM     NAM      `xml:"NAM"`
+	KOPF    []*KOPF  `xml:"KOPF"`
+	//NAM     []*INFOType `xml:"NAM"`
+}
+
+type NAM struct {
+	XMLName xml.Name `xml:"NAM"`
+	*XMLChoices
+}
+
+type XMLChoices struct {
+	XMLChoices []interface{}
 }
 
 // ADRZUS ...
 type ADRZUS struct {
-	XMLName xml.Name `xml:"ADR_ZUS"`
-	VADR    []string `xml:"V_ADR"`
-	CORRADR []string `xml:"CORR_ADR"`
+	XMLName           xml.Name `xml:"ADR_ZUS"`
+	VADR              []string `xml:"V_ADR"`
+	CORRADR           []string `xml:"CORR_ADR"`
+	VADROrRADROrCDADR []interface{}
 }
 
 // FORMAT ...
@@ -344,6 +540,11 @@ type SMSADR struct {
 type X400ADR struct {
 	XMLName xml.Name `xml:"X400_ADR"`
 	*X400ADRType
+	EvnAttr    int      `xml:"POS,attr,omitempty"`
+	IDAttr     int      `xml:"ID,attr,omitempty"`
+	RecAttr    int      `xml:"REC,attr,omitempty"`
+	FormatAttr string   `xml:"FORMAT,attr,omitempty"`
+	OU         []string `xml:"OU,omitempty"`
 }
 
 // XRECHADR ...
@@ -364,14 +565,19 @@ type CONTENTPROVIDER struct {
 	TARGETDESC []string `xml:"TARGET_DESC"`
 	ANNOTATION []string `xml:"ANNOTATION"`
 	AMT        []string `xml:"AMT"`
+	//TARGETDESC []*TARGETDESC `xml:"TARGET_DESC"`
+	//ANNOTATION []*ANNOTATION `xml:"ANNOTATION"`
+	//AMT        []*AMT        `xml:"AMT"`
 }
 
 // RINFOTPC ...
 type RINFOTPC struct {
 	XMLName         xml.Name           `xml:"R_INFO_TPC"`
+	CONTENTPROVIDER []*CONTENTPROVIDER `xml:"CONTENT_PROVIDER"`
 	PROVIDERCONTACT []string           `xml:"PROVIDER_CONTACT"`
 	PROVIDERAMOUNT  []string           `xml:"PROVIDER_AMOUNT"`
-	CONTENTPROVIDER []*CONTENTPROVIDER `xml:"CONTENT_PROVIDER"`
+	//PROVIDERCONTACT []*PROVIDERCONTACT `xml:"PROVIDER_CONTACT"`
+	//PROVIDERAMOUNT  []*PROVIDERAMOUNT  `xml:"PROVIDER_AMOUNT"`
 }
 
 // INFOREF ...
@@ -403,6 +609,7 @@ type PADR struct {
 type TPSPEVN struct {
 	XMLName xml.Name `xml:"TPSP_EVN"`
 	TPSPNAM []string `xml:"TPSP_NAM"`
+	//TPSPNAM []*TPSPNAM `xml:"TPSP_NAM"`
 }
 
 // GESSICONBEL ...
@@ -433,6 +640,7 @@ type CONTBEL struct {
 // MWS ...
 type MWS struct {
 	*MWSType
+	Choices []XMLChoice
 }
 
 // RECHNUNG ...
@@ -452,6 +660,7 @@ type RECHNUNG struct {
 	DWBEL      []*DWBEL    `xml:"DW_BEL"`
 	SIBEL      []*SIBEL    `xml:"SI_BEL"`
 	MWSZUS     []*MWSZUS   `xml:"MWS_ZUS"`
+	Value      []interface{}
 }
 
 // CHECKSUM ...
@@ -539,6 +748,7 @@ type PAdrType struct {
 	LAN          string   `xml:"LAN"`
 	DIREKT       string   `xml:"DIREKT"`
 	FIR          string   `xml:"FIR"`
+	//DIREKT       *DIREKT  `xml:"DIREKT"`
 }
 
 // X400ADRType ...
@@ -621,6 +831,9 @@ type GGBZUSType struct {
 	KTORABBET  []string    `xml:"KTO_RAB_BET"`
 	GESN       []string    `xml:"GES_N"`
 	GESB       []string    `xml:"GES_B"`
+	Choices    []XMLChoice
+	//INKLRABBET []*INKLRABBET `xml:"INKL_RAB_BET"`
+	//KTORABBET  []*KTORABBET  `xml:"KTO_RAB_BET"`
 }
 
 // ZSLZUSType ...
@@ -636,6 +849,9 @@ type ZSLZUSType struct {
 	KTORABBET  []string    `xml:"KTO_RAB_BET"`
 	GESN       []string    `xml:"GES_N"`
 	GESB       []string    `xml:"GES_B"`
+	Choices    []XMLChoice
+	//INKLRABBET []*INKLRABBET `xml:"INKL_RAB_BET"`
+	//KTORABBET  []*KTORABBET  `xml:"KTO_RAB_BET"`
 }
 
 // BELType ...
@@ -653,6 +869,7 @@ type RABZUSType struct {
 	GESUDP    []string    `xml:"GES_UDP"`
 	GESUDPBRU []string    `xml:"GES_UDP_BRU"`
 	RAB       []*RBelType `xml:"RAB"`
+	Choices   []XMLChoice
 }
 
 // RBelType ...
@@ -678,6 +895,8 @@ type RBelType struct {
 	COUNT     []int       `xml:"COUNT"`
 	KTORABBET []float32   `xml:"KTO_RAB_BET"`
 	MWSSAT    []string    `xml:"MWS_SAT"`
+	Choices   []XMLChoice
+	//MWSSAT    []*MWSSAT   `xml:"MWS_SAT"`
 }
 
 // KORPLAType ...
@@ -706,168 +925,5 @@ type INFOType struct {
 	IDAttr  int `xml:"ID,attr,omitempty"`
 	POSAttr int `xml:"POS,attr,omitempty"`
 	*FOXType
-}
-
-// KZSTType ...
-type KZSTType struct {
-	XMLName xml.Name `xml:"K_ZSTType"`
-	NAM     string   `xml:"NAM"`
-	GES     string   `xml:"GES"`
-	RABGES  string   `xml:"RAB_GES"`
-	GESN    string   `xml:"GES_N"`
-}
-
-// BELTypeBesch ...
-type BELTypeBesch struct {
-	BET    []*FOXType `xml:"BET"`
-	RABBET []*FOXType `xml:"RAB_BET"`
-}
-
-// RZahType ...
-type RZahType struct {
-	XMLName xml.Name    `xml:"R_ZahType"`
-	BET     []string    `xml:"BET"`
-	NAM     []string    `xml:"NAM"`
-	RNAM    []*INFOType `xml:"R_NAM"`
-	DAT     []string    `xml:"DAT"`
-}
-
-// EV ...
-type EV struct {
-	SORTAttr     int    `xml:"SORT,attr,omitempty"`
-	SUPPRESSAttr bool   `xml:"SUPPRESS,attr,omitempty"`
-	SPA          []*SPA `xml:"SPA"`
-}
-
-// GRPREF ...
-type GRPREF struct {
-	IDAttr int         `xml:"ID,attr"`
-	SEK    []int       `xml:"SEK"`
-	GES    []string    `xml:"GES"`
-	GESBRU []string    `xml:"GES_BRU"`
-	RABBET []string    `xml:"RAB_BET"`
-	NAM    []*INFOType `xml:"NAM"`
-	EV     []*EV       `xml:"EV"`
-	GESN   []*GESN     `xml:"GES_N"`
-	GESB   []*GESB     `xml:"GES_B"`
-	GESBP  []string    `xml:"GES_BP"`
-	TYPE   []string    `xml:"TYPE"`
-}
-
-// GESZUS ...
-type GESZUS struct {
-	XMLName xml.Name `xml:"GES_ZUS"`
-	GES     []*GES   `xml:"GES"`
-}
-
-// VERZUSType ...
-type VERZUSType struct {
-	XMLName    xml.Name    `xml:"VER_ZUSType"`
-	GES        []*GES      `xml:"GES"`
-	GESBRU     []string    `xml:"GES_BRU"`
-	GESUDP     []string    `xml:"GES_UDP"`
-	GESUDPBRU  []string    `xml:"GES_UDP_BRU"`
-	RABBET     []string    `xml:"RAB_BET"`
-	GRPREF     []*GRPREF   `xml:"GRPREF"`
-	INFOREF    []*INFOType `xml:"INFOREF"`
-	INKLRABBET []string    `xml:"INKL_RAB_BET"`
-	KTORABBET  []string    `xml:"KTO_RAB_BET"`
-	GESZUS     []*GESZUS   `xml:"GES_ZUS"`
-	GESN       []*GESN     `xml:"GES_N"`
-	GESB       []*GESB     `xml:"GES_B"`
-	GESBP      []string    `xml:"GES_BP"`
-	GESTPC     []string    `xml:"GES_TPC"`
-	GESUDPTPC  []string    `xml:"GES_UDP_TPC"`
-	GESEVN     []string    `xml:"GES_EVN"`
-	GESTPCB    []string    `xml:"GES_TPC_B"`
-	GESTPCN    []string    `xml:"GES_TPC_N"`
-}
-
-// ENTZUSType ...
-type ENTZUSType struct {
-	XMLName   xml.Name `xml:"ENT_ZUSType"`
-	GES       []*GES   `xml:"GES"`
-	GESBRU    []string `xml:"GES_BRU"`
-	GESUDP    []string `xml:"GES_UDP"`
-	GESUDPBRU []string `xml:"GES_UDP_BRU"`
-}
-
-// MWSType ...
-type MWSType struct {
-	BET  []string  `xml:"BET"`
-	SAT  []float32 `xml:"SAT"`
-	BETN []float64 `xml:"BET_N"`
-}
-
-// MWSZUSType ...
-type MWSZUSType struct {
-	XMLName xml.Name   `xml:"MWS_ZUSType"`
-	GES     string     `xml:"GES"`
-	MWS     []*MWSType `xml:"MWS"`
-}
-
-// GESN ...
-type GESN struct {
-	XMLName       xml.Name `xml:"GES_N"`
-	ABSCHNITTAttr string   `xml:"ABSCHNITT,attr,omitempty"`
-	*INFOType
-}
-
-// GESB ...
-type GESB struct {
-	XMLName       xml.Name `xml:"GES_B"`
-	ABSCHNITTAttr string   `xml:"ABSCHNITT,attr,omitempty"`
-	*INFOType
-}
-
-// GRP ...
-type GRP struct {
-	IDAttr   interface{} `xml:"ID,attr,omitempty"`
-	TYPEAttr interface{} `xml:"TYPE,attr,omitempty"`
-	SPA      []*SPA      `xml:"SPA"`
-}
-
-// ZUSType ...
-type ZUSType struct {
-	GES       []*GES       `xml:"GES"`
-	KOPF      []*KOPF      `xml:"KOPF"`
-	KTORABBET []string     `xml:"KTO_RAB_BET"`
-	GESN      []*GESN      `xml:"GES_N"`
-	GESB      []*GESB      `xml:"GES_B"`
-	UEBZ      []*FOXType   `xml:"UEB_Z"`
-	GESTPC    []*FOXType   `xml:"GES_TPC"`
-	GRP       []*GRP       `xml:"GRP"`
-	ABSCHNITT []*ABSCHNITT `xml:"ABSCHNITT"`
-}
-
-// VORGUN ...
-type VORGUN struct {
-	XMLName xml.Name    `xml:"VOR_GUN"`
-	GES     []string    `xml:"GES"`
-	GESBRU  []string    `xml:"GES_BRU"`
-	KOR     []*RBelType `xml:"KOR"`
-}
-
-// AKTGUN ...
-type AKTGUN struct {
-	XMLName xml.Name    `xml:"AKT_GUN"`
-	GES     []string    `xml:"GES"`
-	GESBRU  []string    `xml:"GES_BRU"`
-	KOR     []*RBelType `xml:"KOR"`
-}
-
-// KORZUSType ...
-type KORZUSType struct {
-	XMLName xml.Name  `xml:"KOR_ZUSType"`
-	GES     []string  `xml:"GES"`
-	GESBRU  []string  `xml:"GES_BRU"`
-	VORGUN  []*VORGUN `xml:"VOR_GUN"`
-	AKTGUN  []*AKTGUN `xml:"AKT_GUN"`
-}
-
-// BELTextType ...
-type BELTextType struct {
-	BET    []*FOXType `xml:"BET"`
-	RABBET []*FOXType `xml:"RAB_BET"`
-	MWS    []*FOXType `xml:"MWS"`
+	Choices []XMLChoice
 }

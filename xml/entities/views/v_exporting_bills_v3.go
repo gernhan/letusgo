@@ -12,6 +12,7 @@ type VExportingBillsV3 struct {
 	ID                int64           `db:"id" json:"id"`
 	BillRunID         int64           `db:"bill_run_id" json:"billRunId"`
 	BillNumber        string          `db:"bill_number" json:"billNumber"`
+	PdfStatus         int             `db:"pdf_status" json:"pdfStatus"`
 	InvoiceDate       time.Time       `db:"invoice_date" json:"invoiceDate"`
 	BillPeriodFrom    time.Time       `db:"bill_period_from" json:"billPeriodFrom"`
 	BillPeriodTo      time.Time       `db:"bill_period_to" json:"billPeriodTo"`
@@ -43,7 +44,7 @@ type VExportingBillsV3 struct {
 	HistoricBill      int             `db:"historic_bill" json:"historicBill"`
 	BillFrequency     int64           `db:"bill_frequency" json:"billFrequency"`
 	BrandID           int64           `db:"brand_id" json:"brandId"`
-	Billmanager       int64           `db:"billmanager" json:"billmanager"`
+	Billmanager       int             `db:"billmanager" json:"billmanager"`
 	HasEVN            int64           `db:"has_evn" json:"hasEvn"`
 	VatIDNumber       string          `db:"vat_id_number" json:"vatIdNumber"`
 	OtherData         string          `db:"other_data" json:"otherData"`

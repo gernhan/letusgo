@@ -2,12 +2,13 @@ package repositories
 
 import (
 	"context"
+
 	"github.com/gernhan/xml/entities/views"
 
 	"github.com/gernhan/xml/db"
 )
 
-func FindMinMaxBillId(billRunID int64) (views.MinMaxProjection, error) {
+func FindMinMaxBillId(billRunID int64, status int) (views.MinMaxProjection, error) {
 	pool := db.GetPool()
 	query := `
 		SELECT
@@ -19,10 +20,11 @@ func FindMinMaxBillId(billRunID int64) (views.MinMaxProjection, error) {
 		JOIN
 			d_bills db ON dbr.id = db.billrun
 		WHERE
-			dbr.id = $1`
+			dbr.id = $1
+			and db.pdf_status = $2`
 
 	var result views.MinMaxProjection
-	err := pool.QueryRow(context.Background(), query, billRunID).Scan(&result.Max, &result.Min, &result.Total)
+	err := pool.QueryRow(context.Background(), query, billRunID, status).Scan(&result.Max, &result.Min, &result.Total)
 	if err != nil {
 		return views.MinMaxProjection{}, err
 	}

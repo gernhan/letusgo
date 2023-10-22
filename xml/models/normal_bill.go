@@ -62,7 +62,7 @@ type NormalInvoiceOtherDataHeader struct {
 	// in bill
 	// as customer number
 	CustomerID  string
-	Billmanager int64
+	Billmanager int
 	HasEvn      int64
 	VatIDNumber string
 	IBAN        string
