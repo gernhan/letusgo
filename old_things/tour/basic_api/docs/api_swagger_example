@@ -1,0 +1,763 @@
+package docs
+
+// BadRequestApiResponse
+//
+// BadRequestApiResponse represents the response for invalid format request case
+//
+// swagger:model
+type BadRequestApiResponse struct {
+	// response code
+	//
+	// required: true
+	// example: 252001
+	Code string `json:"code"`
+	// response message
+	//
+	// required: true
+	// example: Invalid format
+	Message string `json:"message"`
+}
+
+// BadRequestApiResponseWithDetail
+//
+// BadRequestApiResponseWithDetail represents the response for bad request case
+//
+// swagger:model
+type BadRequestApiResponseWithDetail struct {
+	// response code
+	//
+	// required: true
+	// example: 252001(Invalid format) or 252002(Invalid input) or 252004(Gl Update Failure) or 252022(Xu To Cash Not Exchangeable case due to award type) or 252023(Insufficient xu)
+	Code string `json:"code"`
+	// response message
+	//
+	// required: true
+	// example: Invalid format or Invalid input or Gl Update Failure or Xu To Cash Not Exchangeable case due to award type or Insufficient xu
+	Message string `json:"message"`
+}
+
+// InternalServerErrorApiResponse
+//
+// InternalServerErrorApiResponse represents the response for internal server error
+//
+// swagger:model
+type InternalServerErrorApiResponse struct {
+	// response code
+	//
+	// required: true
+	// example: 252000
+	Code string `json:"code"`
+	// response message
+	//
+	// required: true
+	// example: Internal server error
+	Message string `json:"message"`
+}
+
+// EmptyResponse
+//
+// EmptyResponse
+//
+// swagger:model
+type EmptyResponse struct {
+}
+
+// swagger:route POST /b/v1/ixu/general-transaction/search wanda general_transaction_search
+// "Search general transaction"
+// "Search general transaction"
+// responses:
+//   200: GeneralTransactionSearchResponse
+//   400: BadRequestApiResponse
+//   500: InternalServerErrorApiResponse
+
+// Successful
+// swagger:response GeneralTransactionSearchResponse
+type GeneralTransactionSearchResponseWrapper struct {
+	// in:body
+	GeneralTransactionSearchResponse wanda.GetGeneralTransactionListResponse
+}
+
+// swagger:parameters general_transaction_search
+type GeneralTransactionSearchRequestWrapper struct {
+	// Bearer {token}
+	//
+	// in: header
+	// required: true
+	// name: Authentication
+	Authentication string `json:"Authentication"`
+	// in:body
+	// required: true
+	Request wanda.GetGeneralTransactionRequest
+}
+
+// swagger:route POST /b/v1/ixu/general-transaction/export wanda general_transaction_export
+// "Export general transaction"
+// "Export general transaction"
+// responses:
+//   200: GeneralTransactionExportResponse
+//   400: BadRequestApiResponse
+//   500: InternalServerErrorApiResponse
+
+// Successful
+// swagger:response GeneralTransactionExportResponse
+type GeneralTransactionExportResponseWrapper struct {
+	// in:body
+	GeneralTransactionExportResponse wanda.GetGeneralTransactionListResponse
+}
+
+// swagger:parameters general_transaction_export
+type GeneralTransactionExportRequestWrapper struct {
+	// Bearer {token}
+	//
+	// in: header
+	// required: true
+	// name: Authentication
+	Authentication string `json:"Authentication"`
+	// in:body
+	// required: true
+	Request wanda.GetGeneralTransactionRequest
+}
+
+// swagger:route GET /b/v1/ixu/general-transaction/{id}/detail wanda general_transaction_id_detail
+// "get ixu detail information by tcbsid in general ledger system"
+// "get ixu detail information by tcbsid in general ledger system"
+// responses:
+//   200: GeneralTransactionIdDetailResponse
+//   400: BadRequestApiResponse
+//   500: InternalServerErrorApiResponse
+
+// Successful
+// swagger:response GeneralTransactionIdDetailResponse
+type GeneralTransactionIdDetailResponseWrapper struct {
+	// in:body
+	GeneralTransactionIdDetailResponse wanda.DetailTxHistoryResponse
+}
+
+// swagger:parameters general_transaction_id_detail
+type GeneralTransactionIdDetailRequestWrapper struct {
+	// Bearer {token}
+	//
+	// in: header
+	// required: true
+	// name: Authentication
+	Authentication string `json:"Authentication"`
+	// in:path
+	// required: true
+	GeneralTxId int `json:"id"`
+}
+
+// swagger:route GET /e/v1/customer/{tcbsid}/transaction wanda customer_tcbsid_transaction
+//
+//
+// responses:
+//   200: CustomerTcbsIdTransactionResponse
+//   400: BadRequestApiResponse
+//   500: InternalServerErrorApiResponse
+
+// Successful
+// swagger:response CustomerTcbsIdTransactionResponse
+type CustomerTcbsIdTransactionResponseWrapper struct {
+	// in:body
+	CustomerTcbsIdTransactionResponse wanda.GetCustomerTransactionListResponse
+}
+
+// swagger:parameters customer_tcbsid_transaction
+type CustomerTcbsIdTransactionRequestWrapper struct {
+	// Bearer {token}
+	//
+	// in: header
+	// required: true
+	// name: Authentication
+	Authentication string `json:"Authentication"`
+	// in:body
+	// required: true
+	Request wanda.GetCustomerTransactionRequest
+	// in:path
+	// required: true
+	TcbsId string `json:"tcbsid"`
+}
+
+// swagger:route POST /b/v1/ixu/customer/search wanda customer_search
+// "Search ixu customer info"
+// "Search ixu customer info"
+// responses:
+//   200: CustomerSearchResponse
+//   400: BadRequestApiResponse
+//   500: InternalServerErrorApiResponse
+
+// Successful
+// swagger:response CustomerSearchResponse
+type CustomerSearchResponseWrapper struct {
+	// in:body
+	CustomerSearchResponse wanda.IxuClientListResponse
+}
+
+// swagger:parameters customer_search
+type CustomerSearchRequestWrapper struct {
+	// Bearer {token}
+	//
+	// in: header
+	// required: true
+	// name: Authentication
+	Authentication string `json:"Authentication"`
+	// in:body
+	// required: true
+	Request wanda.IxuClientInfoRequest
+}
+
+// swagger:route POST /b/v1/ixu/customer/export wanda customer_export
+// "Export ixu customer info"
+// "Export ixu customer info"
+// responses:
+//   200: CustomerExportResponse
+//   400: BadRequestApiResponse
+//   500: InternalServerErrorApiResponse
+
+// Successful
+// swagger:response CustomerExportResponse
+type CustomerExportResponseWrapper struct {
+	// in:body
+	// type: string
+	// format: binary
+	CustomerExportResponse runtime.File `json:"customer_export_response,omitempty"`
+}
+
+// swagger:parameters customer_export
+type CustomerExportRequestWrapper struct {
+	// Bearer {token}
+	//
+	// in: header
+	// required: true
+	// name: Authentication
+	Authentication string `json:"Authentication"`
+	// in:body
+	// required: true
+	Request wanda.IxuClientInfoRequest
+}
+
+// swagger:route GET /b/v1/ixu/customer/{tcbsid}/ixu/detail wanda customer_tcbsid_ixu_detail
+// "get ixu detail information by tcbsid in general ledger system"
+// "get ixu detail information by tcbsid in general ledger system"
+// responses:
+//   200: CustomerTcbsIdIxuDetailResponse
+//   400: BadRequestApiResponse
+//   500: InternalServerErrorApiResponse
+
+// Successful
+// swagger:response CustomerTcbsIdIxuDetailResponse
+type CustomerTcbsIdIxuDetailResponseWrapper struct {
+	// in:body
+	CustomerTcbsIdIxuDetailResponse wanda.GetFulInfoBodyResponse
+}
+
+// swagger:parameters customer_tcbsid_ixu_detail
+type CustomerTcbsIdIxuDetailRequestWrapper struct {
+	// Bearer {token}
+	//
+	// in: header
+	// required: true
+	// name: Authentication
+	Authentication string `json:"Authentication"`
+	// in:path
+	// required: true
+	TcbsId string `json:"tcbsid"`
+}
+
+// swagger:route POST /b/v1/ixu/retry-campaigns wanda retry_campaigns
+// "Retry campaign fail"
+// "Retry campaign fail"
+// responses:
+//   200: RetryCampaignsResponse
+//   400: BadRequestApiResponse
+//   500: InternalServerErrorApiResponse
+
+// Successful
+// swagger:response RetryCampaignsResponse
+type RetryCampaignsResponseWrapper struct {
+	// in:body
+	RetryCampaignsResponse wanda.TransactionResponse
+}
+
+// swagger:parameters retry_campaigns
+type RetryCampaignsRequestWrapper struct {
+	// Bearer {token}
+	//
+	// in: header
+	// required: true
+	// name: Authentication
+	Authentication string `json:"Authentication"`
+	// in:body
+	// required: true
+	Request wanda.RequestRetry
+}
+
+// swagger:route POST /b/v1/ixu/change-status-transactions wanda change_status_transactions
+// "Change status transaction in table general Transaction to Retry"
+// "Change status transaction in table general Transaction to Retry"
+// responses:
+//   200: ChangeStatusTransactionsResponse
+//   400: BadRequestApiResponse
+//   500: InternalServerErrorApiResponse
+
+// Successful
+// swagger:response ChangeStatusTransactionsResponse
+type ChangeStatusTransactionsResponseWrapper struct {
+	// in:body
+	ChangeStatusTransactionsResponse wanda.TransactionResponse
+}
+
+// swagger:parameters change_status_transactions
+type ChangeStatusTransactionsRequestWrapper struct {
+	// Bearer {token}
+	//
+	// in: header
+	// required: true
+	// name: Authentication
+	Authentication string `json:"Authentication"`
+	// in:body
+	// required: true
+	Request wanda.ChangeStatusTransactionRequest
+}
+
+// swagger:route POST /b/v1/ixu/cancel-transaction wanda cancel_transactions
+// "Cancel transaction and revert ixu for customer or update status process"
+// "Cancel transaction and revert ixu for customer or update status process"
+// responses:
+//   200: CancelTransactionsResponse
+//   400: BadRequestApiResponse
+//   500: InternalServerErrorApiResponse
+
+// Successful
+// swagger:response CancelTransactionsResponse
+type CancelTransactionsResponseWrapper struct {
+	// in:body
+	CancelTransactionsResponse wanda.TransactionResponse
+}
+
+// swagger:parameters cancel_transactions
+type CancelTransactionsRequestWrapper struct {
+	// Bearer {token}
+	//
+	// in: header
+	// required: true
+	// name: Authentication
+	Authentication string `json:"Authentication"`
+	// in:body
+	// required: true
+	Request wanda.CancelTransactionRequest
+}
+
+// swagger:route POST /i/v1/ixu/blacklist/add wanda blacklist_add
+// "Add new to blacklist"
+// "Add new to blacklist"
+// responses:
+//   200: BlacklistAddResponse
+//   400: BadRequestApiResponse
+//   500: InternalServerErrorApiResponse
+
+// Successful
+// swagger:response BlacklistAddResponse
+type BlacklistAddResponseWrapper struct {
+	// in:body
+	BlacklistAddResponse wanda.BlacklistQueryList
+}
+
+// swagger:parameters blacklist_add
+type BlacklistAddRequestWrapper struct {
+	// token
+	//
+	// in: header
+	// required: true
+	// name: SecretKey
+	SecretKey string `json:"secret_key"`
+	// token
+	//
+	// in: header
+	// required: true
+	// name: XApiKey
+	XApiKey string `json:"x-api-key"`
+	// in:body
+	// required: true
+	Request wanda.BlacklistQueryList
+}
+
+// swagger:route POST /i/v1/ixu/blacklist/delete wanda blacklist_delete
+// "Remove blacklist"
+// "Remove blacklist"
+// responses:
+//   200: BlacklistDeleteResponse
+//   400: BadRequestApiResponse
+//   500: InternalServerErrorApiResponse
+
+// Successful
+// swagger:response BlacklistDeleteResponse
+type BlacklistDeleteResponseWrapper struct {
+	// in:body
+	BlacklistDeleteResponse EmptyResponse
+}
+
+// swagger:parameters blacklist_delete
+type BlacklistDeleteRequestWrapper struct {
+	// token
+	//
+	// in: header
+	// required: true
+	// name: SecretKey
+	SecretKey string `json:"secret_key"`
+	// token
+	//
+	// in: header
+	// required: true
+	// name: XApiKey
+	XApiKey string `json:"x-api-key"`
+	// in:body
+	// required: true
+	Request wanda.BlacklistQueryList
+}
+
+// swagger:route GET /i/v1/ixu/blacklist/{campaignId}/get wanda blacklist_campaignId_get
+// "Get black list info"
+// "Get black list info"
+// responses:
+//   200: BlacklistGetByCampaignIdResponse
+//   400: BadRequestApiResponse
+//   500: InternalServerErrorApiResponse
+
+// Successful
+// swagger:response BlacklistGetByCampaignIdResponse
+type BlacklistGetByCampaignIdResponseWrapper struct {
+	// in:body
+	BlacklistGetByCampaignIdResponse wanda.BlacklistByCampaignResponse
+}
+
+// swagger:parameters blacklist_campaignId_get
+type BlacklistGetByCampaignIdRequestWrapper struct {
+	// token
+	//
+	// in: header
+	// required: true
+	// name: SecretKey
+	SecretKey string `json:"secret_key"`
+	// token
+	//
+	// in: header
+	// required: true
+	// name: XApiKey
+	XApiKey string `json:"x-api-key"`
+	// in:path
+	// required: true
+	CampaignId int `json:"campaignId"`
+	// in:query
+	// required: true
+	Id string `json:"id"`
+	// in:query
+	// required: true
+	Code string `json:"code"`
+}
+
+// swagger:route GET /i/v1/iber/update-list-info wanda iber_update_list_info
+// "Update new list IBER"
+// "Update new list IBER"
+// responses:
+//   200: IberUpdateListInfoResponse
+//   400: BadRequestApiResponse
+//   500: InternalServerErrorApiResponse
+
+// Successful
+// swagger:response IberUpdateListInfoResponse
+type IberUpdateListInfoResponseWrapper struct {
+	// in:body
+	IberUpdateListInfoResponse EmptyResponse
+}
+
+// swagger:parameters iber_update_list_info
+type IberUpdateListInfoRequestWrapper struct {
+	// token
+	//
+	// in: header
+	// required: true
+	// name: SecretKey
+	SecretKey string `json:"secret_key"`
+	// token
+	//
+	// in: header
+	// required: true
+	// name: XApiKey
+	XApiKey string `json:"x-api-key"`
+}
+
+// swagger:route POST /i/v1/iber/info wanda iber_info
+// "check is Iber or not"
+// "check is Iber or not"
+// responses:
+//   200: IberInfoResponse
+//   400: BadRequestApiResponse
+//   500: InternalServerErrorApiResponse
+
+// Successful
+// swagger:response IberInfoResponse
+type IberInfoResponseWrapper struct {
+	// in:body
+	IberInfoResponse wanda.IBerResponse
+}
+
+// swagger:parameters iber_info
+type IberInfoRequestWrapper struct {
+	// token
+	//
+	// in: header
+	// required: true
+	// name: SecretKey
+	SecretKey string `json:"secret_key"`
+	// token
+	//
+	// in: header
+	// required: true
+	// name: XApiKey
+	XApiKey string `json:"x-api-key"`
+	// in: body
+	// required: true
+	Request wanda.AfTypeRequest
+}
+
+// swagger:route POST /i/v1/ixu/audit/dynamic-margin wanda audit_dynamic_margin
+// "Get dynamic margin transaction by condition for auditing"
+// "Get dynamic margin transaction by condition for auditing"
+// responses:
+//   200: AuditDynamicMarginResponse
+//   400: BadRequestApiResponse
+//   500: InternalServerErrorApiResponse
+
+// Successful
+// swagger:response AuditDynamicMarginResponse
+type AuditDynamicMarginResponseWrapper struct {
+	// in:body
+	AuditDynamicMarginResponse wanda.DynamicMarginResponse
+}
+
+// swagger:parameters audit_dynamic_margin
+type AuditDynamicMarginRequestWrapper struct {
+	// token
+	//
+	// in: header
+	// required: true
+	// name: SecretKey
+	SecretKey string `json:"secret_key"`
+	// token
+	//
+	// in: header
+	// required: true
+	// name: XApiKey
+	XApiKey string `json:"x-api-key"`
+	// in: body
+	// required: true
+	Request wanda.DynamicMarginRequest
+}
+
+// swagger:route GET /i/v1/ixu/gl-transaction-history/detail wanda gl_transaction_history_detail
+//
+//
+// responses:
+//   200: GlTransactionHistoryDetailResponse
+//   400: BadRequestApiResponse
+//   500: InternalServerErrorApiResponse
+
+// Successful
+// swagger:response GlTransactionHistoryDetailResponse
+type GlTransactionHistoryDetailResponseWrapper struct {
+	// in:body
+	GlTransactionHistoryDetailResponse wanda.ReferenceIdListWrapper
+}
+
+// swagger:parameters gl_transaction_history_detail
+type GlTransactionHistoryDetailRequestWrapper struct {
+	// token
+	//
+	// in: header
+	// required: true
+	// name: SecretKey
+	SecretKey string `json:"secret_key"`
+	// token
+	//
+	// in: header
+	// required: true
+	// name: XApiKey
+	XApiKey string `json:"x-api-key"`
+	// in: query
+	// required: true
+	Action string `json:"action"`
+	// in: query
+	// required: true
+	Refid string `json:"refid"`
+	// in: query
+	// required: true
+	Reflocation string `json:"reflocation"`
+}
+
+// swagger:route POST /i/v1/ixu/enquiry-ixu/dynamic-margin wanda enquiry_ixu_dynamic_margin
+// "Get dynamic margin transaction by tcbsid and issue date"
+// "Get dynamic margin transaction by tcbsid and issue date"
+// responses:
+//   200: EnquiryIxuDynamicMarginResponse
+//   400: BadRequestApiResponse
+//   500: InternalServerErrorApiResponse
+
+// Successful
+// swagger:response EnquiryIxuDynamicMarginResponse
+type EnquiryIxuDynamicMarginResponseWrapper struct {
+	// in:body
+	EnquiryIxuDynamicMarginResponse []wanda.TotalIxuResponse
+}
+
+// swagger:parameters enquiry_ixu_dynamic_margin
+type EnquiryIxuDynamicMarginRequestWrapper struct {
+	// token
+	//
+	// in: header
+	// required: true
+	// name: SecretKey
+	SecretKey string `json:"secret_key"`
+	// token
+	//
+	// in: header
+	// required: true
+	// name: XApiKey
+	XApiKey string `json:"x-api-key"`
+	// in: body
+	// required: true
+	Request wanda.TotalIxuRequest
+}
+
+// swagger:route POST /i/v1/notifyNewDeployment wanda notifyNewDeployment
+// "Notify New Deployment"
+// "Notify New Deployment"
+// responses:
+//   200: NotifyNewDeploymentResponse
+//   400: BadRequestApiResponse
+//   500: InternalServerErrorApiResponse
+
+// Successful
+// swagger:response NotifyNewDeploymentResponse
+type NotifyNewDeploymentResponseWrapper struct {
+	// in:body
+	NotifyNewDeploymentResponse EmptyResponse
+}
+
+// swagger:parameters notifyNewDeployment
+type NotifyNewDeploymentRequestWrapper struct {
+	// token
+	//
+	// in: header
+	// required: true
+	// name: SecretKey
+	SecretKey string `json:"secret_key"`
+	// token
+	//
+	// in: header
+	// required: true
+	// name: XApiKey
+	XApiKey string `json:"x-api-key"`
+	// in: body
+	// required: true
+	Request odm.WebhookNotification
+}
+
+// swagger:route GET /i/v1/withdraw/reset wanda withdraw_reset
+// "Reset withdraw remain"
+// "Reset withdraw remain"
+// responses:
+//   200: WithdrawResetResponse
+//   400: BadRequestApiResponse
+//   500: InternalServerErrorApiResponse
+
+// Successful
+// swagger:response WithdrawResetResponse
+type WithdrawResetResponseWrapper struct {
+	// in:body
+	WithdrawResetResponse EmptyResponse
+}
+
+// swagger:parameters withdraw_reset
+type WithdrawResetRequestWrapper struct {
+	// token
+	//
+	// in: header
+	// required: true
+	// name: SecretKey
+	SecretKey string `json:"secret_key"`
+	// token
+	//
+	// in: header
+	// required: true
+	// name: XApiKey
+	XApiKey string `json:"x-api-key"`
+}
+
+// swagger:route POST /i/v1/withdraw/change wanda withdraw_change
+// "Change withdraw remain"
+// "Change withdraw remain"
+// responses:
+//   200: WithdrawChangeResponse
+//   400: BadRequestApiResponse
+//   500: InternalServerErrorApiResponse
+
+// Successful
+// swagger:response WithdrawChangeResponse
+type WithdrawChangeResponseWrapper struct {
+	// in:body
+	WithdrawChangeResponse EmptyResponse
+}
+
+// swagger:parameters withdraw_change
+type WithdrawChangeRequestWrapper struct {
+	// token
+	//
+	// in: header
+	// required: true
+	// name: SecretKey
+	SecretKey string `json:"secret_key"`
+	// token
+	//
+	// in: header
+	// required: true
+	// name: XApiKey
+	XApiKey string `json:"x-api-key"`
+	// in: body
+	// required: true
+	Request wanda.ChangeLimitRequest
+}
+
+// swagger:route POST /i/v1/vip/info wanda vip_info
+//
+//
+// responses:
+//   200: VipInfoResponse
+//   400: BadRequestApiResponse
+//   500: InternalServerErrorApiResponse
+
+// Successful
+// swagger:response VipInfoResponse
+type VipInfoResponseWrapper struct {
+	// in:body
+	VipInfoResponse wanda.VipResponse
+}
+
+// swagger:parameters vip_info
+type VipInfoRequestWrapper struct {
+	// token
+	//
+	// in: header
+	// required: true
+	// name: SecretKey
+	SecretKey string `json:"secret_key"`
+	// token
+	//
+	// in: header
+	// required: true
+	// name: XApiKey
+	XApiKey string `json:"x-api-key"`
+	// in: body
+	// required: true
+	Request wanda.AfTypeRequest
+}
+

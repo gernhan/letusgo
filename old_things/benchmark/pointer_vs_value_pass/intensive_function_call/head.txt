@@ -1,0 +1,15 @@
+goos: linux
+goarch: amd64
+pkg: go_tutorial/benchmark/pointer_vs_value_pass/intensive_function_call
+BenchmarkMemoryHeap-4   	    3678	    324086 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMemoryHeap-4   	    3900	    307572 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMemoryHeap-4   	    4036	    304382 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMemoryHeap-4   	    4082	    311828 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMemoryHeap-4   	    3841	    305616 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMemoryHeap-4   	    4002	    304902 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMemoryHeap-4   	    4089	    304355 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMemoryHeap-4   	    4028	    312537 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMemoryHeap-4   	    4063	    304632 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMemoryHeap-4   	    3398	    308462 ns/op	       0 B/op	       0 allocs/op
+PASS
+ok  	go_tutorial/benchmark/pointer_vs_value_pass/intensive_function_call	12.401s

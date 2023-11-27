@@ -1,0 +1,15 @@
+goos: linux
+goarch: amd64
+pkg: go_tutorial/benchmark/pointer_vs_value_pass
+BenchmarkMemoryHeap-4   	22114658	        55.2 ns/op	      96 B/op	       1 allocs/op
+BenchmarkMemoryHeap-4   	20057982	        55.2 ns/op	      96 B/op	       1 allocs/op
+BenchmarkMemoryHeap-4   	19843524	        55.0 ns/op	      96 B/op	       1 allocs/op
+BenchmarkMemoryHeap-4   	21716974	        65.6 ns/op	      96 B/op	       1 allocs/op
+BenchmarkMemoryHeap-4   	24361992	        51.0 ns/op	      96 B/op	       1 allocs/op
+BenchmarkMemoryHeap-4   	22112554	        50.5 ns/op	      96 B/op	       1 allocs/op
+BenchmarkMemoryHeap-4   	21566559	        52.9 ns/op	      96 B/op	       1 allocs/op
+BenchmarkMemoryHeap-4   	23010699	        53.5 ns/op	      96 B/op	       1 allocs/op
+BenchmarkMemoryHeap-4   	23092648	        53.3 ns/op	      96 B/op	       1 allocs/op
+BenchmarkMemoryHeap-4   	24591420	        50.6 ns/op	      96 B/op	       1 allocs/op
+PASS
+ok  	go_tutorial/benchmark/pointer_vs_value_pass	15.445s
