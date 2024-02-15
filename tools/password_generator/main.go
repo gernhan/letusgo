@@ -5,13 +5,12 @@ import (
 	"math/rand"
 	"os"
 	"strconv"
-	"time"
 )
 
 const (
-	upperChars  = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	lowerChars  = "abcdefghijklmnopqrstuvwxyz"
-	digitChars  = "0123456789"
+	upperChars   = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	lowerChars   = "abcdefghijklmnopqrstuvwxyz"
+	digitChars   = "0123456789"
 	specialChars = "!@#$%^&*()-_=+[]{}|;:'\",.<>/?"
 )
 
@@ -42,8 +41,6 @@ func parseInput(characters string) int {
 }
 
 func generatePassword(length int) string {
-	rand.Seed(time.Now().UnixNano())
-
 	allChars := upperChars + lowerChars + digitChars + specialChars
 	password := make([]byte, length)
 
